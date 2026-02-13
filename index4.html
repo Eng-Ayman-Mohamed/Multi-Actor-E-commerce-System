@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>index4</title>
+
+<script src="jquery-4.js"></script>
+
+<script>
+$(function () {
+
+    let isLooping = false;
+
+    function moveAround() {
+        if (!isLooping) return;
+
+        let containerWidth = $(".bigbox").width();
+        let containerHeight = $(".bigbox").height();
+        let boxWidth = $(".box").outerWidth();
+        let boxHeight = $(".box").outerHeight();
+
+        $(".box")
+            .animate({ left: containerWidth - boxWidth }, 900)
+            .animate({ top: containerHeight - boxHeight }, 900)
+            .animate({ left: 0 }, 900)
+            .animate({ top: 0 }, 900, moveAround);
+    }
+
+    
+    $(":input:eq(2)").click(function () {
+        $(".box").stop(true);
+        isLooping = true;
+        moveAround();
+    });
+
+    
+    $(":input:eq(1)").click(function () {
+        isLooping = false;
+        $(".box").stop(true);
+
+        let containerWidth = $(".bigbox").width();
+        let boxWidth = $(".box").outerWidth();
+        let currentLeft = $(".box").position().left;
+
+        let maxRight = containerWidth - boxWidth;
+
+        if (currentLeft < maxRight) {
+            $(".box").animate({
+                left: maxRight
+            }, 600);
+        }
+    });
+
+    
+    $(":input:eq(0)").click(function () {
+        isLooping = false;
+        $(".box").stop(true);
+
+        let currentLeft = $(".box").position().left;
+
+        if (currentLeft > 0) {
+            $(".box").animate({
+                left: 0
+            }, 600);
+        }
+    });
+
+});
+</script>
+
+<style>
+.bigbox{
+    width: 95vw;
+    height: 75vh;
+    position: relative;
+    border: 2px dashed #999;
+    overflow: hidden;
+}
+
+.box{
+    position: absolute;
+    width: 110px;
+    height: 60px;
+    background-color: orange;
+    top: 0;
+    left: 0;
+}
+
+input{
+    width: 150px;
+    height: 40px;
+    background-color: skyblue;
+    color: white;
+    border: 2px solid black;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.bdiv{
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bdiv">
+    <input type="button" value="Move Left">
+    <input type="button" value="Move Right">
+    <input type="button" value="Move Around">
+</div>
+
+<br>
+
+<div class="bigbox">
+    <div class="box"></div>
+</div>
+
+</body>
+</html>

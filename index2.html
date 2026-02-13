@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index2</title>
+    <script src="jquery-4.js"></script>
+</head>
+
+<style>
+    body{
+        display: block;
+    }
+    div{
+        display: inline-block;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .RedB{
+        width: 70px;
+        height: 90px;
+        background-color: red;
+        color: yellow;
+    }
+    .BlueB{
+        width: 50px;
+        height: 70px;
+        background-color: blue;
+        color: white;
+    }
+    .GreenB{
+        width: 70px;
+        height: 30px;
+        background-color: green;
+        color: black;
+    }
+    .BlackB{
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        color: red;
+    }
+
+    .BigP{
+        margin-top: 20px;
+        display: block;
+    }
+</style>
+
+<script>
+$(function(){
+
+    $("div").click(function(){
+
+        let pwidth   = $(this).css("width");
+        let pheight  = $(this).css("height");
+        let pcolor   = $(this).css("color");
+        let pbgcolor = $(this).css("background-color");
+        $(".pempty").html(`the clicked div has following style:`);
+        $(".pwidth").html(`width : ${pwidth}`);
+        $(".pheight").html(`height : ${pheight}`);
+        $(".pcolor").html(`color : ${pcolor}`);
+        $(".pbgcolor").html(`background color : ${pbgcolor}`);
+
+        
+    });
+
+});
+</script>
+
+<body>
+    <div class="BigP">
+        <p class="pempty"></p>
+        <p class="pwidth"></p>
+        <p class="pheight"></p>
+        <p class="pcolor"></p>
+        <p class="pbgcolor"></p>
+    </div>
+    
+    <div class="RedB">1</div>
+    <div class="BlueB">2</div>
+    <div class="GreenB">3</div>
+    <div class="BlackB">4</div>
+    
+    
+    
+</body>
+</html>

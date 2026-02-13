@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index1</title>
+    <script src="jquery-4.js"></script>
+</head>
+
+<style>
+    div{
+        display: inline-block;
+        cursor: pointer;
+    }
+    .RedB{
+        width: 70px;
+        height: 70px;
+        background-color: red;
+    }
+    .BlueB{
+        width: 70px;
+        height: 70px;
+        background-color: blue;
+    }
+    .GreenB{
+        width: 70px;
+        height: 70px;
+        background-color: green;
+    }
+    .BlackB{
+        width: 70px;
+        height: 70px;
+        background-color: black;
+    }
+    .BSpan{
+        position: relative;
+        bottom: 50px;
+        margin-left: 15px;
+        font-size: 18px;
+    }
+</style>
+
+<script>
+$(function(){
+
+    $("div").hover(
+
+        
+        function(){
+            let bgcolor = $(this).css("background-color");
+            $(".BSpan").html(
+                `that div is <span class="Span2" style="color:${bgcolor}">${bgcolor}</span>`
+            );
+        },
+
+       
+        function(){
+            $(".BSpan").html("");
+        }
+
+    );
+
+});
+</script>
+
+<body>
+    
+    <div class="RedB"></div>
+    <div class="BlueB"></div>
+    <div class="GreenB"></div>
+    <div class="BlackB"></div>
+    
+    <span class="BSpan"></span>
+    
+</body>
+</html>

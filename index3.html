@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index3</title>
+
+    <script src="jquery-4.js"></script>
+
+    <script>
+        $(function () {
+
+            let isAnimating = false;
+
+            function animateLoop() {
+                if (!isAnimating) return;
+
+                $("div")
+                    .animate({ width: "300px" }, 600)
+                    .animate({ height: "300px" }, 600)
+                    .animate({ width: "200px" }, 600)
+                    .animate({ height: "200px" }, 600, function () {
+                        
+                        animateLoop();
+                    });
+            }
+
+            
+            $(":input:eq(0)").click(function () {
+                if (!isAnimating) {
+                    isAnimating = true;
+                    animateLoop();
+                }
+            });
+
+            
+            $(":input:eq(1)").click(function () {
+                isAnimating = false;
+                $("div").stop(true);
+            });
+
+        });
+    </script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="button" value="Start Animate">
+    <input type="button" value="Stop Animate">
+
+    <br><br><br>
+
+    <div></div>
+
+</body>
+</html>
