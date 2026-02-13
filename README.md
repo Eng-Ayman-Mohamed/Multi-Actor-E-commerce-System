@@ -325,7 +325,7 @@ Since this is a front-end project:
 | Ahmed Yhya Younes Ramadan   | Project Coordinator |
 | Contributor 2               | UI/UX Designer      |
 | Contributor 3               | JavaScript Engineer |
-| Contributor 4               | Dashboard Architect |
+| Mohamed Tarek Abdelmonsef   | Dashboard Architect |
 | Ayman Mohamed Abotaha Kasim | Project Coordinator |
 
 > Replace placeholders with actual GitHub profiles.
