@@ -8,7 +8,7 @@ export function navbar() {
 
         <!-- Logo -->
         <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-          <div class="elog btn btn-primary rounded ">E</div>
+          <div class="fw-bold btn btn-primary rounded ">E</div>
           <span class="fw-bold">E-Shop</span>
         </a>
 
@@ -30,8 +30,8 @@ export function navbar() {
           <!-- Theme Toggle -->
           <button 
             id="themeToggle" 
-            class="btn btn-light rounded">
-            <i class="fa-solid fa-moon"></i>
+            class="btn btn-body rounded">
+            <i class="fa-regular fa-moon"></i>
           </button>
 
           <!-- Cart -->
@@ -64,7 +64,7 @@ export function initNavBar() {
   html.setAttribute("data-bs-theme", savedTheme);
 
   icon.className =
-    savedTheme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    savedTheme === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
 
   toggleBtn.addEventListener("click", () => {
     const current = html.getAttribute("data-bs-theme");
@@ -73,7 +73,8 @@ export function initNavBar() {
     html.setAttribute("data-bs-theme", next);
     localStorage.setItem("theme", next);
 
-    icon.className = next === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    icon.className =
+      next === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
   });
 
   /* ===== Cart Count ===== */
