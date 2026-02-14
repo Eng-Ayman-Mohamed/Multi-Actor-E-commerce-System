@@ -1,5 +1,8 @@
 import heroSection from "/components/user/heroSection.js";
+import { navbar, initNavBar } from "./components/user/navbar.js";
 
 $(function () {
-  $("#mainWrapper").append(heroSection);
+  console.log(navbar);
+  $("#mainWrapper").append(navbar).append(heroSection);
+  initNavBar();
 });

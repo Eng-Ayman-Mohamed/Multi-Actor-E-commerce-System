@@ -1,9 +1,8 @@
 // Multi-Actor-E-commerce-System/components/user/navbar.js
 
-export function renderNavbar(containerId) {
-  const container = document.getElementById(containerId);
-
-  container.innerHTML = `
+export function navbar() {
+  return `
+    <div id="navbar">
     <nav class="navbar navbar-expand-lg bg-body border-bottom px-4">
       <div class="container-fluid">
 
@@ -50,8 +49,34 @@ export function renderNavbar(containerId) {
         </div>
       </div>
     </nav>
+    </div>
   `;
 }
 
+export function initNavBar() {
+  /* ===== Theme Toggle (Bootstrap) ===== */
+  const html = document.documentElement;
+  const toggleBtn = document.getElementById("themeToggle");
+  console.log(toggleBtn);
+  const icon = toggleBtn.querySelector("i");
 
+  const savedTheme = localStorage.getItem("theme") || "light";
+  html.setAttribute("data-bs-theme", savedTheme);
 
+  icon.className =
+    savedTheme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+
+  toggleBtn.addEventListener("click", () => {
+    const current = html.getAttribute("data-bs-theme");
+    const next = current === "light" ? "dark" : "light";
+
+    html.setAttribute("data-bs-theme", next);
+    localStorage.setItem("theme", next);
+
+    icon.className = next === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  });
+
+  /* ===== Cart Count ===== */
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  $("#cartCount").text(cart.length);
+}
