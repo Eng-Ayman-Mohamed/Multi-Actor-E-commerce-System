@@ -8,7 +8,7 @@ export default function heroSection() {
             </p>
             <div class="d-flex flex-column flex-md-row my-4">
                 <button class=" bg-light border-1 border-secondary-subtle rounded-3 py-3 px-5 text-primary fw-bolder mx-3 my-3"
-                    id="shopNowButton ">Shop Now <i class="fa-solid fa-arrow-right"></i>
+                    id="shopNowButton">Shop Now <i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <button class="rounded-3 py-3 px-5 text-light bg-primary  fw-bolder mx-3 signUp-hover my-3"
                     id="SignUpButton">Sign Up foe Deals</button></div>
