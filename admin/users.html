@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+    <div class="card p-4 shadow-sm border-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="search-box w-50 position-relative">
+                <i class="fas fa-search position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                <input type="text" id="userSearch" class="form-control ps-5" placeholder="Search users...">
+            </div>
+            <div class="d-flex gap-2">
+                <select class="form-select w-auto"><option>All Roles</option></select>
+                <select class="form-select w-auto"><option>All Status</option></select>
+            </div>
+        </div>
+
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <tr>
+                    <td><strong>John Doe</strong></td>
+                    <td>john@example.com</td>
+                    <td><span class="badge bg-primary-subtle text-primary rounded-pill px-3">Customer</span></td>
+                    <td><span class="badge bg-success-subtle text-success rounded-pill px-3">Active</span></td>
+                    <td>2026-01-15</td>
+                    <td>
+                        <button class="btn btn-sm text-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm text-danger delete-btn"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+    // 1. خاصية البحث في الجدول (Search Filter)
+    $("#userSearch").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#userTableBody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+    // 2. حركة الـ Delete (تأكيد الحذف)
+    $(document).on('click', '.delete-btn', function() {
+        if(confirm("Are you sure you want to delete this user?")) {
+            $(this).closest('tr').fadeOut(400, function() { $(this).remove(); });
+        }
+    });
+
+    // 3. تغيير الـ Active State في الـ Sidebar
+    $('.nav-link').click(function() {
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+</script>
+</body>
+</html>
