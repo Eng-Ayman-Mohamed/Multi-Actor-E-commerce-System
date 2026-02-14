@@ -1,0 +1,31 @@
+/* Multi-Actor-E-commerce-System/components/user/css/navbar.css */
+
+.logo-circle {
+  width: 36px;
+  height: 36px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+.nav-link:hover{
+    color: #2563eb;
+}
+.elog{
+    font-size: 17px;
+    font-weight: bold;
+}
