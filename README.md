@@ -323,7 +323,7 @@ Since this is a front-end project:
 | Name                        | Role                |
 | --------------------------- | ------------------- |
 | Ahmed Yhya Younes Ramadan   | Project Coordinator |
-| Contributor 2               | UI/UX Designer      |
+| omar wael kamal eldeen ali  | UI/UX Designer      |
 | Mostafa Abd Elqawy Ahmed    | Project Coordinator |
 | Mohamed Tarek Abdelmonsef   | Dashboard Architect |
 | Ayman Mohamed Abotaha Kasim | Project Coordinator |
