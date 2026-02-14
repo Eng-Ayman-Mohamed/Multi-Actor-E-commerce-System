@@ -2,8 +2,8 @@
 
 export function navbar() {
   return `
-    <div id="navbar">
-    <nav class="navbar navbar-expand-lg bg-body border-bottom px-4">
+    <div id="navbar" class="w-100 position-fixed top-0 start-0 ">
+    <nav class="navbar navbar-expand-lg bg-body  border-bottom px-4">
       <div class="container-fluid">
 
         <!-- Logo -->
