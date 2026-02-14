@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <style>
+            .login-btn {
+                border: 1px solid #cfd4da;
+                background-color: #f8f9fa;
+                border-radius: 12px;
+                color: #333;
+            }
+
+            .login-btn:hover {
+                border: 1px solid #666;
+                background-color: #f8f9fa;
+                color: #333;
+            }
+
+            .login-btn.active {
+                border: 2px solid #2f5bea;
+                background-color: #eef2ff;
+                color: #2f5bea;
+            }
+
+            .input-group .form-control,
+            .input-group .input-group-text {
+                border-radius: 12px;
+            }
+
+            .form-control:focus {
+                box-shadow: none !important;
+                border-color: #2f5bea !important;
+            }
+
+            .input-group:focus-within .form-control {
+                box-shadow: 0 0 0 0.15rem rgba(47, 91, 234, 0.15);
+                border-color: #2f5bea;
+            }
+
+            .input-group:focus-within .input-group-text {
+                border-color: #2f5bea;
+            }
+        </style>
+    </head>
+
+    <body class="bg-body">
+        <div class="container min-vh-100 d-flex justify-content-center align-items-center" id="container">
+            <div class="w-100" style="max-width: 520px;">
+                <div class="text-center mb-4">
+                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3"
+                        style="width:70px; height:70px;">
+                        <i class="fa-regular fa-user fs-4"></i>
+                    </div>
+
+                    <h2 class="fw-bold">Welcome Back</h2>
+                    <p class="text-muted">Sign in to your account</p>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <form id="loginForm" method="post">
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Login As</label>
+                                <div class="d-flex gap-3">
+                                    <button type="button" class="btn login-btn active flex-fill">Customer</button>
+                                    <button type="button" class="btn login-btn flex-fill">Seller</button>
+                                    <button type="button" class="btn login-btn flex-fill">Admin</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="fa-regular fa-envelope text-muted"></i>
+                                    </span>
+                                    <input type="email" class="form-control border-start-0" placeholder="you@example.com" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="fa-solid fa-lock text-muted"></i>
+                                    </span>
+                                    <input type="password" class="form-control border-start-0 border-end-0" id="password" placeholder="........" name="password" required>
+                                    <button class="input-group-text bg-white border-start-0" type="button" onclick="togglePassword()">
+                                        <i class="fa-regular fa-eye text-muted"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember">
+                                    <label class="form-check-label">Remember me</label>
+                                </div>
+                                <a href="reset.html" class="small text-decoration-none">Forgot password?</a>
+                            </div>
+
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary py-2">Sign In</button>
+                            </div>
+
+                            <p class="text-center mt-3 small">
+                                Don’t have an account?
+                                <a href="regiter.html" class="text-decoration-none">Sign up</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="login.js" type="module">
+            
+        </script>
+    </body>
+</html>

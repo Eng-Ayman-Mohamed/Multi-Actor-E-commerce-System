@@ -41,7 +41,7 @@ export function navbar() {
           </a>
 
           <!-- Sign in -->
-          <a href="login.html" class="btn btn-primary rounded px-3">
+          <a href="user/auth/login.html" class="btn btn-primary rounded px-3">
             <i class="fa-solid fa-right-to-bracket me-1"></i>
             Sign In
           </a>
