@@ -1,0 +1,29 @@
+#heroSection {
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9)),
+    url(https://images.unsplash.com/photo-1758272423130-5bbccae36b11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080);
+  background-size: cover;
+  background-position: center;
+}
+
+.large-font {
+  font-size: 3rem;
+}
+
+.signUp-hover {
+  border: 2px solid white;
+  --bs-bg-opacity: 1;
+  background-color: rgba(
+    var(--bs-primary-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
+}
+.signUp-hover:hover {
+  --bs-bg-opacity: 0.5;
+}
+
+@media screen and (min-width: 1400px) {
+  .hero-header {
+    width: 50% !important;
+  }
+}
