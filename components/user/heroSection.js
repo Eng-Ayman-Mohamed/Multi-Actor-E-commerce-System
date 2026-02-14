@@ -1,6 +1,6 @@
 export default function heroSection() {
   return `
-         <div id="heroSection" class="py-5 px-2 px-lg-3 text-light">
+         <div id="heroSection" class="py-5 px-2 px-lg-3 text-light" style="margin-top:65px ;">
            <div class=" mx-lg-4 mx-xl-5">
             <p class="hero-header w-100 fw-bold large-font"> Shop the Latest Products at Unbeatable Prices</p>
             <p class="h4 fw-light">Discover amazing deals on electronics, fashion, and more. Free shipping on orders
