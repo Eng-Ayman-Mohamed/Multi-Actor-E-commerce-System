@@ -35,7 +35,7 @@ export function navbar() {
           </button>
 
           <!-- Cart -->
-          <a href="cart.html" class="position-relative btn btn-light rounded">
+          <a href="cart.html" class="position-relative btn btn-body rounded">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
           </a>
