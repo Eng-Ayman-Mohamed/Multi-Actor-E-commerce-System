@@ -8,8 +8,10 @@ export function navbar() {
 
         <!-- Logo (LEFT) -->
         <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-          <div class="fw-bold btn btn-primary rounded">E</div>
-          <span class="fw-bold">E-Shop</span>
+          <div class="rounded" >
+          <img style="height:2rem;" src="./assets/vendra.png"></div>
+          <span class="fw-bold" style=" font-family:'Fjalla One', 'Poppins', Arial, sans-serif;
+          letter-spacing:3px">Vendra</span>
         </a>
 
         <!-- Hamburger (RIGHT - Mobile only) -->
