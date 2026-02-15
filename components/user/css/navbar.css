@@ -29,3 +29,16 @@
     font-size: 17px;
     font-weight: bold;
 }
+/* ===== Footer ===== */
+.footer-bg {
+  background-color: #0f172a;
+}
+
+/* Footer links */
+.footer-bg a {
+  transition: color 0.2s ease;
+}
+
+.footer-bg a:hover {
+  color: #2563eb !important; /* نفس الأزرق اللي في الصورة */
+}
