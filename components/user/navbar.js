@@ -7,7 +7,7 @@ export function navbar() {
       <div class="container-fluid p-0">
 
         <!-- Logo (LEFT) -->
-        <a class="navbar-brand d-flex align-items-center gap-2" href="main.html">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
           <div class="fw-bold btn btn-primary rounded">E</div>
           <span class="fw-bold">E-Shop</span>
         </a>
@@ -21,14 +21,14 @@ export function navbar() {
 
         <!-- Desktop Menu -->
         <div class="d-none d-lg-flex align-items-center gap-4 ms-auto">
-          <a href="main.html" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Home</a>
           <a href="products.html" class="nav-link">Products</a>
 
           <button id="themeToggle" class="btn btn-body rounded">
             <i class="fa-regular fa-moon"></i>
           </button>
 
-          <a href="cart.html" class="position-relative btn btn-body rounded">
+          <a href="#" class="position-relative btn btn-body rounded">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
           </a>
@@ -51,7 +51,7 @@ export function navbar() {
                placeholder="Search products...">
 
         <!-- Menu items (LEFT aligned) -->
-        <a href="main.html" class="nav-link w-100">Home</a>
+        <a href="#" class="nav-link w-100">Home</a>
         <a href="products.html" class="nav-link w-100">Products</a>
 
         <button id="themeToggleMobile" class="btn btn-body w-100 text-start">
@@ -59,14 +59,14 @@ export function navbar() {
           Dark Mode
         </button>
 
-        <a href="cart.html" class="nav-link w-100">
+        <a href="#" class="nav-link w-100">
           <i class="fa-solid fa-cart-shopping me-2"></i>
           Cart (<span id="cartCountMobile">0</span>)
         </a>
 
         <!-- Sign In (CENTER + FULL WIDTH) -->
         <div class="text-center mt-3">
-          <a href="user/auth/login.html" class="btn btn-primary w-100">
+          <a href="./user/auth/login.html" class="btn btn-primary w-100">
             Sign In
           </a>
         </div>
@@ -91,9 +91,7 @@ export function initNavBar() {
 
     html.setAttribute("data-bs-theme", savedTheme);
     icon.className =
-      savedTheme === "dark"
-        ? "fa-regular fa-sun"
-        : "fa-regular fa-moon";
+      savedTheme === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
 
     btn.addEventListener("click", () => {
       const current = html.getAttribute("data-bs-theme");
@@ -103,9 +101,7 @@ export function initNavBar() {
       localStorage.setItem("theme", next);
 
       icon.className =
-        next === "dark"
-          ? "fa-regular fa-sun"
-          : "fa-regular fa-moon";
+        next === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
     });
   }
 
