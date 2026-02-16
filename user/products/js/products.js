@@ -11,14 +11,14 @@ function renderProducts(products) {
       <div class=" shadow-lg product-card">
 
         <div class="product-img">
-          <img src="${p.image}">
-          <button class="wishlist">
+          <img src="${p.image}" >
+          <button class="wishlist bg-body">
             <i class="bi bi-heart-fill"></i>
           </button>
         </div>
 
         <div class="product-body">
-          <h6 class="product-title">${p.title}</h6>
+          <h6 class="product-title fw-bold">${p.title}</h6>
 
           <div class="rating">
             ${renderStars(4)}
