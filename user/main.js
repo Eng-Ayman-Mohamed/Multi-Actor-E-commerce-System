@@ -14,13 +14,13 @@ $(function () {
 
   $("#mainWrapper")
     .append(navbar(basePath))
-    .append(heroSection)
+    .append(heroSection(basePath))
     .append(shopFeatures)
     .append(categories)
     .append(featuredProducts)
-    .append(footer);
+    .append(footer(basePath));
   initCategories();
   initNavBar();
   initFeaturedProducts();
-  initFooter();
+  initFooter(basePath);
 });
