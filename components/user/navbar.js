@@ -1,4 +1,4 @@
-export function navbar() {
+export function navbar(basePath) {
   return `
   <div id="navbar" class="w-100 sticky-top bg-body border-bottom z-3">
 
@@ -7,9 +7,9 @@ export function navbar() {
       <div class="container-fluid p-0">
 
         <!-- Logo (LEFT) -->
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/index.html">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="${basePath}/index.html">
           <div class="rounded" >
-          <img style="height:2rem;" src="/assets/vendra.png"></div>
+          <img style="height:2rem;" src="${basePath}/assets/vendra.png"></div>
           <span class="fw-bold" style=" font-family:'Fjalla One', 'Poppins', Arial, sans-serif;
           letter-spacing:3px">Vendra</span>
         </a>
@@ -23,8 +23,8 @@ export function navbar() {
 
         <!-- Desktop Menu -->
         <div class="d-none d-lg-flex align-items-center gap-4 ms-auto">
-          <a href="/index.html" class="nav-link">Home</a>
-          <a href="/user/products/index.html" class="nav-link">Products</a>
+          <a href="${basePath}/index.html" class="nav-link">Home</a>
+          <a href="${basePath}/user/products/index.html" class="nav-link">Products</a>
 
           <button id="themeToggle" class="btn btn-body rounded">
             <i class="fa-regular fa-moon"></i>
@@ -35,7 +35,7 @@ export function navbar() {
             <span class="cart-badge" id="cartCount">0</span>
           </a>
 
-          <a href="/user/auth/login.html" class="btn btn-primary rounded px-3">
+          <a href="${basePath}/user/auth/login.html" class="btn btn-primary rounded px-3">
             Sign In
           </a>
         </div>
@@ -53,8 +53,8 @@ export function navbar() {
                placeholder="Search products...">
 
         <!-- Menu items (LEFT aligned) -->
-        <a href="/index.html" class="nav-link w-100">Home</a>
-        <a href="/user/products/index.html" class="nav-link w-100">Products</a>
+        <a href="${basePath}/index.html" class="nav-link w-100">Home</a>
+        <a href="${basePath}/user/products/index.html" class="nav-link w-100">Products</a>
 
         <button id="themeToggleMobile" class="btn btn-body w-100 text-start">
           <i class="fa-regular fa-moon me-2"></i>
@@ -68,7 +68,7 @@ export function navbar() {
 
         <!-- Sign In (CENTER + FULL WIDTH) -->
         <div class="text-center mt-3">
-          <a href="/user/auth/login.html" class="btn btn-primary w-100">
+          <a href="${basePath}/user/auth/login.html" class="btn btn-primary w-100">
             Sign In
           </a>
         </div>
