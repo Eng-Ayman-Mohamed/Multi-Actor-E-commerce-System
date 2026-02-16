@@ -1,7 +1,6 @@
 function renderFilters(categories) {
   $("#filters").html(`
-    <div class="filter-box shadow-lg sticky-top">
-
+    <div class="filter-box shadow-lg sticky-top" style="top:70px !important;">
       <div class="filter-header">
         <h6>Filters</h6>
         <i class="bi bi-funnel"></i>
