@@ -1,13 +1,14 @@
 function renderProducts(products) {
-
   if (!products.length) {
     $("#products").html(`<p class="text-center">No products found</p>`);
     return;
   }
 
-  let html = products.map(p => `
+  let html = products
+    .map(
+      (p) => `
     <div class="col-lg-4 col-md-6">
-      <div class="product-card">
+      <div class=" shadow-lg product-card">
 
         <div class="product-img">
           <img src="${p.image}">
@@ -34,7 +35,9 @@ function renderProducts(products) {
 
       </div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   $("#products").html(html);
 }
