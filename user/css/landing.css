@@ -86,6 +86,13 @@
   color: red;
 }
 
+#featuredProducts .view-all:hover {
+  cursor: pointer;
+}
+#featuredProducts .view-all:hover i {
+  transition: 1s;
+  transform: translate(10px);
+}
 .cardContainer .card img:hover {
   transition: 1s ease;
   transform: scale(1.1);

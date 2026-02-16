@@ -1,12 +1,22 @@
+import { navbar, initNavBar } from "../../../components/user/navbar.js";
+
+// ===== Render Navbar =====
+document.getElementById("navbar-container").innerHTML = navbar();
+initNavBar();
 
 let allProducts = [];
+function getProducts() {
+  return $.ajax({
+    url: "https://fakestoreapi.com/products",
+    method: "GET",
+  });
+}
 
 $(document).ready(function () {
-
   getProducts().done(function (products) {
     allProducts = products;
 
-    let categories = [...new Set(products.map(p => p.category))];
+    let categories = [...new Set(products.map((p) => p.category))];
 
     renderFilters(categories);
     renderProducts(products);
@@ -38,18 +48,18 @@ $(document).ready(function () {
 
     renderProducts(sorted);
   });
-
 });
 
 function applyFilters() {
   let selectedCategories = $(".category-filter:checked")
     .map(function () {
       return this.value;
-    }).get();
+    })
+    .get();
 
   let maxPrice = $("#priceRange").val();
 
-  let filtered = allProducts.filter(p => {
+  let filtered = allProducts.filter((p) => {
     let catOK =
       selectedCategories.length === 0 ||
       selectedCategories.includes(p.category);
@@ -60,4 +70,13 @@ function applyFilters() {
   });
 
   renderProducts(filtered);
+}
+
+function renderPagination() {
+  $("#pagination").html(`
+    <button class="btn btn-outline-secondary btn-sm">Previous</button>
+    <button class="btn btn-primary btn-sm">1</button>
+    <button class="btn btn-outline-secondary btn-sm">2</button>
+    <button class="btn btn-outline-secondary btn-sm">Next</button>
+  `);
 }

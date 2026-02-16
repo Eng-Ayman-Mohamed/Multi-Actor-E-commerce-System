@@ -7,7 +7,7 @@ export function featuredProducts() {
                     <p class="h2 fw-bold">Featured Products</p>
                     <p>HandPicked deals just for you</p>
                 </div>
-                <div class="text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
+                <div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
                 </div>
             </div>
             <div id="featuredProductsContainer" class="row   justify-content-around">
