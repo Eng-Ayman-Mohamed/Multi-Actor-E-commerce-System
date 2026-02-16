@@ -2,7 +2,7 @@ import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
 
 // ===== Render Navbar =====
-document.getElementById("navbar-container").innerHTML = navbar(getBasePath());
+$("#mainWrapper").prepend(navbar(getBasePath()));
 initNavBar();
 
 let allProducts = [];

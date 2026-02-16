@@ -47,22 +47,18 @@ export function navbar(basePath) {
     <div id="mobileMenu" class="collapse d-lg-none border-top bg-body">
       <div class="container py-3 text-start">
 
-        <!-- Search -->
-        <input class="form-control rounded mb-3"
-               type="search"
-               placeholder="Search products...">
 
         <!-- Menu items (LEFT aligned) -->
-        <a href="${basePath}/index.html" class="nav-link w-100">Home</a>
-        <a href="${basePath}/user/products/index.html" class="nav-link w-100">Products</a>
+        <a href="${basePath}/index.html" class="nav-link w-100"> <i class="fa-solid fa-house me-3"></i>Home</a>
+        <a href="${basePath}/user/products/index.html" class="nav-link w-100"><i class="fa-solid fa-bag-shopping me-3"></i>Products</a>
 
-        <button id="themeToggleMobile" class="btn btn-body w-100 text-start">
-          <i class="fa-regular fa-moon me-2"></i>
+        <button id="themeToggleMobile" class="btn btn-body w-100 text-start p-0">
+          <i class="fa-regular fa-moon" style="margin-right:.8rem !important;"></i>
           Dark Mode
         </button>
 
         <a href="#" class="nav-link w-100">
-          <i class="fa-solid fa-cart-shopping me-2"></i>
+          <i class="fa-solid fa-cart-shopping me-3"></i>
           Cart (<span id="cartCountMobile">0</span>)
         </a>
 

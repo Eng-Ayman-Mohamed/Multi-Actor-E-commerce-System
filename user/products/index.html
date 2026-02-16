@@ -10,20 +10,29 @@
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-  <div>
-    <div id="navbar-container"></div>
+  <div id="mainWrapper">
 
     <div class="container-fluid py-4">
-      <div class="products-header shadow-lg mb-4">
-        <h5 class="mb-1">All Products</h5>
-        <p class="mb-0 text-muted">
-          Showing <span id="productsCount">1-20</span> of 30 products
-        </p>
+
+      <div class="products-header shadow-lg mb-4 d-flex justify-content-between flex-column flex-lg-row">
+        <div>
+          <h5 class="mb-1">All Products</h5>
+          <p class="mb-0 text-muted">
+            Showing <span id="productsCount">1-20</span> of 30 products
+          </p>
+        </div>
+        <!-- Search -->
+        <input class="form-control rounded w-75 align-self-center  my-3" type="search" placeholder="Search products...">
+
       </div>
 
       <div class="row">
