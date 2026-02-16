@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,87 +9,134 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css"> </head>
     <style>
-        :root { 
+        :root {
             --sidebar-width: 240px;
-            --sidebar-bg: #111827; 
-            --accent-red: #e61e2a; 
+            --sidebar-bg: #111827;
+            --accent-red: #e61e2a;
             --bg-light: #f8f9fa;
             --header-gray: #f1f3f5;
         }
-        
-        body { background-color: var(--bg-light);
-             overflow-x: hidden; 
-             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-        .sidebar { background-color: var(--sidebar-bg);
-             width: var(--sidebar-width); 
-             height: 100vh; 
-             position: fixed; 
-             left: 0; 
-             top: 0; color: white;
-              z-index: 1000; }
-        .nav-link { color: #9ca3af; 
-            padding: 10px 15px; 
-            border-radius: 8px; 
-            margin: 4px 10px; 
-            transition: 0.2s; 
-            cursor: pointer; 
-            text-decoration: none; 
-            display: block; }
-        .nav-link.active { background-color: var(--accent-red); 
-            color: white; }
-        .nav-link:hover:not(.active) { background-color: #1f2937; 
-            color: white; }
+        body {
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        .main-content { margin-left: var(--sidebar-width);
-             width: calc(100% - var(--sidebar-width)); 
-             min-height: 100vh; }
-        .top-header { background-color: var(--header-gray);
-             border-bottom: 1px solid #dee2e6;
-              padding: 15px 30px; 
-              margin-bottom: 25px; }
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            z-index: 1000;
+        }
 
-        .container-fluid-limit { max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 0 25px; }
-        .stat-card { border: none; 
-            border-radius: 12px; 
-            padding: 20px; 
-            background: white; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03); 
+        .nav-link {
+            color: #9ca3af;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 4px 10px;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-link.active {
+            background-color: var(--accent-red);
+            color: white;
+        }
+
+        .nav-link:hover:not(.active) {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+
+        .top-header {
+            background-color: var(--header-gray);
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 30px;
+            margin-bottom: 25px;
+        }
+
+        .container-fluid-limit {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
             height: 100%;
-             transition: 0.2s; }
-        .stat-card:hover { transform: translateY(-5px); }
-        .card-container { background: white;
-             border-radius: 12px; 
-             padding: 20px; 
-             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-              margin-bottom: 20px; }
-        .stat-icon { width: 45px; 
-            height: 45px; 
-            border-radius: 10px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 20px; }
+            transition: 0.2s;
+        }
 
-        .btn-action { width: 32px; 
-            height: 32px; 
-            border-radius: 8px; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid #eee; 
-            transition: 0.2s; 
-            background: white; }
-        .btn-action:hover { background-color: #f8f9fa; }
-        
-        canvas { max-width: 100% !important;
-             height: 300px !important; }
-        .page-section { display: none; }
-        .page-section.active-section { display: block; }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+            transition: 0.2s;
+            background: white;
+        }
+
+        .btn-action:hover {
+            background-color: #f8f9fa;
+        }
+
+        canvas {
+            max-width: 100% !important;
+            height: 300px !important;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-section {
+            display: block;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="sidebar d-flex flex-column p-2">
@@ -100,7 +148,8 @@
             </div>
         </div>
         <ul class="nav flex-column mb-auto" id="sideNav">
-            <li><a class="nav-link active" data-target="overview-page"><i class="fas fa-th-large me-2"></i> Overview</a></li>
+            <li><a class="nav-link active" data-target="overview-page"><i class="fas fa-th-large me-2"></i> Overview</a>
+            </li>
             <li><a class="nav-link" data-target="users-page"><i class="fas fa-users me-2"></i> Users</a></li>
             <li><a class="nav-link" data-target="products-page"><i class="fas fa-box me-2"></i> Products</a></li>
             <li><a class="nav-link" data-target="orders-page"><i class="fas fa-shopping-cart me-2"></i> Orders</a></li>
@@ -113,113 +162,50 @@
                 <h4 class="fw-bold mb-0 text-dark" id="dynamicTitle">Dashboard Overview</h4>
                 <div class="d-flex align-items-center">
                     <div class="text-end me-3">
-                        <small class="d-block text-muted fw-semibold" style="font-size: 11px; text-transform: uppercase;">Logged in as</small>
+                        <small class="d-block text-muted fw-semibold"
+                            style="font-size: 11px; text-transform: uppercase;">Logged in as</small>
                         <span class="fw-bold text-dark">System Administrator</span>
                     </div>
-                    <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width:40px; height:40px; border: 2px solid #fff;">A</div>
+                    <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                        style="width:40px; height:40px; border: 2px solid #fff;">A</div>
                 </div>
             </div>
         </header>
 
-        <div class="container-fluid-limit">
-            
-            <div id="overview-page" class="page-section active-section">
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <div class="stat-card d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Total Users</p><h4 class="fw-bold mb-1">12,845</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> 15.3%</small></div>
-                            <div class="stat-icon bg-primary bg-opacity-10 text-primary"><i class="fas fa-user-friends"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Active Sellers</p><h4 class="fw-bold mb-1">1632</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> + 10% this month</small></div>
-                            <div class="stat-icon bg-success bg-opacity-10 text-success"><i class="fa-solid fa-bag-shopping"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Revenue</p><h4 class="fw-bold mb-1">$363.2K</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> 22.4%</small></div>
-                            <div class="stat-icon bg-success bg-opacity-10 text-success"><i class="fas fa-dollar-sign"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="container-fluid-limit" id="wrapper">
 
-                <div class="row g-3 mb-4">
-                    <div class="col-lg-8"><div class="card-container"><h6 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2 text-muted"></i>Platform Revenue (Monthly)</h6><canvas id="revenueBarChart"></canvas></div></div>
-                    <div class="col-lg-4"><div class="card-container"><h6 class="fw-bold mb-3"><i class="fas fa-chart-pie me-2 text-muted"></i>Sales by Category</h6><canvas id="categoryChart"></canvas></div></div>
-                </div>
 
-                <div class="card-container">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="fw-bold mb-0">Pending Product Approvals</h6>
-                        <span id="pending-count" class="badge bg-danger rounded-pill">2 Pending</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0" style="font-size: 14px;">
-                            <thead class="table-light">
-                                <tr><th>Product Name</th><th>Seller</th><th>Category</th><th>Price</th><th class="text-center">Actions</th></tr>
-                            </thead>
-                            <tbody id="pending-products-list">
-                                <tr>
-                                    <td>iPhone 15 Pro Max</td>
-                                    <td>Apple Store</td>
-                                    <td>Electronics</td>
-                                    <td>$1,199.00</td>
-                                    <td class="text-center">
-                                        <button class="btn-action border-success text-success"><i class="fas fa-check"></i></button>
-                                        <button class="btn-action border-danger text-danger"><i class="fas fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>Sony Official</td>
-                                    <td>Audio</td>
-                                    <td>$349.00</td>
-                                    <td class="text-center">
-                                        <button class="btn-action border-success text-success"><i class="fas fa-check"></i></button>
-                                        <button class="btn-action border-danger text-danger"><i class="fas fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>Sony Official</td>
-                                    <td>Audio</td>
-                                    <td>$349.00</td>
-                                    <td class="text-center">
-                                        <button class="btn-action border-success text-success"><i class="fas fa-check"></i></button>
-                                        <button class="btn-action border-danger text-danger"><i class="fas fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>Sony Official</td>
-                                    <td>Audio</td>
-                                    <td>$349.00</td>
-                                    <td class="text-center">
-                                        <button class="btn-action border-success text-success"><i class="fas fa-check"></i></button>
-                                        <button class="btn-action border-danger text-danger"><i class="fas fa-times"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-                <!-- from here the users page starts -->
+            <!-- from here the users page starts -->
             <div id="users-page" class="page-section">
                 <div class="card-container">
                     <h5 class="fw-bold mb-4">Platform Users List</h5>
                     <table class="table align-middle">
-                        <thead class="table-light"><tr><th>Name</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>Ahmed Ali</td><td>Admin</td><td><span class="badge bg-success">Active</span></td><td>Jan 2024</td></tr>
-                            <tr><td>John Smith</td><td>Seller</td><td><span class="badge bg-warning">Pending</span></td><td>Feb 2024</td></tr>
+                            <tr>
+                                <td>Ahmed Ali</td>
+                                <td>Admin</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>Jan 2024</td>
+                            </tr>
+                            <tr>
+                                <td>John Smith</td>
+                                <td>Seller</td>
+                                <td><span class="badge bg-warning">Pending</span></td>
+                                <td>Feb 2024</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-                <!-- from here the products page starts -->
+            <!-- from here the products page starts -->
             <div id="products-page" class="page-section">
     <div class="row g-3">
         <div class="col-12">
@@ -268,27 +254,63 @@
                 <div class="card-container">
                     <h5 class="fw-bold mb-4">Latest Orders</h5>
                     <table class="table">
-                        <thead class="table-light"><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>#ORD-5542</td><td>Kareem Mohamed</td><td><span class="badge bg-info text-dark">Shipped</span></td><td>$1,200</td></tr>
+                            <tr>
+                                <td>#ORD-5542</td>
+                                <td>Kareem Mohamed</td>
+                                <td><span class="badge bg-info text-dark">Shipped</span></td>
+                                <td>$1,200</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="card-container">
                     <h5 class="fw-bold mb-4">Latest Orders</h5>
                     <table class="table">
-                        <thead class="table-light"><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>#ORD-5542</td><td>Kareem Mohamed</td><td><span class="badge bg-info text-dark">Shipped</span></td><td>$1,200</td></tr>
+                            <tr>
+                                <td>#ORD-5542</td>
+                                <td>Kareem Mohamed</td>
+                                <td><span class="badge bg-info text-dark">Shipped</span></td>
+                                <td>$1,200</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="card-container">
                     <h5 class="fw-bold mb-4">Latest Orders</h5>
                     <table class="table">
-                        <thead class="table-light"><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>#ORD-5542</td><td>Kareem Mohamed</td><td><span class="badge bg-info text-dark">Shipped</span></td><td>$1,200</td></tr>
+                            <tr>
+                                <td>#ORD-5542</td>
+                                <td>Kareem Mohamed</td>
+                                <td><span class="badge bg-info text-dark">Shipped</span></td>
+                                <td>$1,200</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -313,4 +335,5 @@
 
 
 </body>
+
 </html>

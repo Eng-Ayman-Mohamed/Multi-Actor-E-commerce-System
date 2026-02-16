@@ -1,48 +1,4 @@
 /* landing.css */
-
-.logo-circle {
-  width: 36px;
-  height: 36px;
-  background: #2563eb;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.cart-badge {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  background: red;
-  color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 50%;
-}
-.nav-link:hover {
-  color: #2563eb;
-}
-.elog {
-  font-size: 17px;
-  font-weight: bold;
-}
-/* ===== Footer ===== */
-.footer-bg {
-  background-color: #0f172a;
-}
-
-/* Footer links */
-.footer-bg a {
-  transition: color 0.2s ease;
-}
-
-.footer-bg a:hover {
-  color: #2563eb !important; /* نفس الأزرق اللي في الصورة */
-}
-
 #heroSection {
   background-image:
     linear-gradient(rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9)),
@@ -86,6 +42,13 @@
   color: red;
 }
 
+#featuredProducts .view-all:hover {
+  cursor: pointer;
+}
+#featuredProducts .view-all:hover i {
+  transition: 1s;
+  transform: translate(10px);
+}
 .cardContainer .card img:hover {
   transition: 1s ease;
   transform: scale(1.1);
