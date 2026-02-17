@@ -7,10 +7,10 @@ export function featuredProducts() {
                     <p class="h2 fw-bold">Featured Products</p>
                     <p>HandPicked deals just for you</p>
                 </div>
-                <div class="text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
-                </div>
+                <a href="./user/products/index.html"><div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
+                </div></a>
             </div>
-            <div id="featuredProductsContainer" class="row   justify-content-around">
+            <div id="featuredProductsContainer" class="row justify-content-around">
             </div>
         </div>`;
 }
