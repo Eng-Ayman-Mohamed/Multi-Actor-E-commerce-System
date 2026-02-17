@@ -1,6 +1,6 @@
 function renderFilters(categories) {
   $("#filters").html(`
-    <div class="filter-box shadow-lg sticky-top" style="top:70px !important;">
+    <div class="filter-box shadow-lg sticky-top" style="top:70px">
       <div class="filter-header">
         <h6>Filters</h6>
         <i class="bi bi-funnel"></i>
@@ -8,16 +8,12 @@ function renderFilters(categories) {
 
       <div class="filter-group">
         <p class="title">Category</p>
-        ${categories
-          .map(
-            (c) => `
+        ${categories.map(c => `
           <label>
             <input type="checkbox" class="category-filter" value="${c}">
             ${c}
           </label>
-        `,
-          )
-          .join("")}
+        `).join("")}
       </div>
 
       <div class="filter-group">
