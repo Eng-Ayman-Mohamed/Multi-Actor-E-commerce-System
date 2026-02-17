@@ -1,8 +1,11 @@
-import { getBasePath } from "../../../assets/utils/basePath.js";
-import { navbar, initNavBar } from "../../../components/user/navbar.js";
+import { getBasePath } from "../../assets/utils/basePath.js";
+import { navbar, initNavBar } from "../../components/user/navbar.js";
+import { footer, initFooter } from "../../components/user/footer.js";
 
-$("#mainWrapper").prepend(navbar(getBasePath()));
+console.log(getBasePath());
+$("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 initNavBar();
+initFooter(getBasePath());
 
 // ===== Get product ID =====
 const params = new URLSearchParams(window.location.search);

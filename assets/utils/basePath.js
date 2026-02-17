@@ -7,7 +7,6 @@ export function getBasePath() {
     const repo = pathname.split("/")[1];
     return `/${repo}`;
   }
-
   // Localhost or custom domain
   return "";
 }
