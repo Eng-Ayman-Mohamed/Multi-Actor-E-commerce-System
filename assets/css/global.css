@@ -40,6 +40,10 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+a {
+  text-decoration: none;
+}
+
 .logo-circle {
   width: 36px;
   height: 36px;
