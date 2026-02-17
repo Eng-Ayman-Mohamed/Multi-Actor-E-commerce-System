@@ -2,13 +2,10 @@ import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
 import { footer, initFooter } from "../../../components/user/footer.js";
 
-$("#mainWrapper")
-  .prepend(navbar(getBasePath()))
-  .append(footer(getBasePath()));
+$("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar();
 initFooter(getBasePath());
-
 
 // ===== Global State =====
 let allProducts = [];
@@ -28,13 +25,12 @@ function getProducts() {
 $(document).ready(function () {
   getProducts().done(function (products) {
     allProducts = products;
-filteredProducts = products;
+    filteredProducts = products;
 
-let categories = [...new Set(products.map(p => p.category))];
-renderFilters(categories);
+    let categories = [...new Set(products.map((p) => p.category))];
+    renderFilters(categories);
 
-updateView();
-   
+    updateView();
   });
 
   // Filters
@@ -90,35 +86,40 @@ updateView();
   });
 
   // Product Details
-  $(document).on("click", ".product-card", function (e) {
-    if ($(e.target).closest(".wishlist").length) return;
+  $(document).on("click", ".product-card h6", function (e) {
+    e.stopPropagation(); // prevent card click if exists
 
-    const productId = $(this).data("id");
+    const productId = $(this).closest(".product-card").data("id");
+
     window.location.href = `product-details.html?id=${productId}`;
   });
+
   $(document).on("click", ".wishlist", function (e) {
-  e.stopPropagation();
+    e.stopPropagation();
 
-  const icon = $(this).find("i");
+    const icon = $(this).find("i");
 
-  icon.toggleClass("bi-heart bi-heart-fill");
+    icon.toggleClass("bi-heart bi-heart-fill");
 
-  $(this).toggleClass("active");
-});
-
+    $(this).toggleClass("active");
+  });
 });
 
 // ===== FILTER LOGIC =====
 function applyFilters() {
   let selectedCategories = $(".category-filter:checked")
-    .map(function () { return this.value; })
+    .map(function () {
+      return this.value;
+    })
     .get();
 
   let maxPrice = $("#priceRange").val();
   let searchText = $("input[type='search']").val().toLowerCase();
 
-  filteredProducts = allProducts.filter(p => {
-    let catOK = selectedCategories.length === 0 || selectedCategories.includes(p.category);
+  filteredProducts = allProducts.filter((p) => {
+    let catOK =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(p.category);
     let priceOK = p.price <= maxPrice;
     let searchOK = p.title.toLowerCase().includes(searchText);
 
@@ -138,7 +139,7 @@ function updateView() {
   renderPagination();
 
   $("#productsCount").text(
-    `${start + 1}-${Math.min(end, filteredProducts.length)}`
+    `${start + 1}-${Math.min(end, filteredProducts.length)}`,
   );
 }
 

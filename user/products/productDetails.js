@@ -2,7 +2,6 @@ import { getBasePath } from "../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../components/user/navbar.js";
 import { footer, initFooter } from "../../components/user/footer.js";
 
-console.log(getBasePath());
 $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 initNavBar();
 initFooter(getBasePath());
