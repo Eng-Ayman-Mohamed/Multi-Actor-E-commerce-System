@@ -1,3 +1,4 @@
+/* landing.css */
 #heroSection {
   background-image:
     linear-gradient(rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9)),
@@ -30,4 +31,37 @@
   .hero-header {
     width: 50% !important;
   }
+}
+
+#CategoriesContainer .category:hover {
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer;
+}
+
+#featuredProducts .wishBtn:hover i {
+  color: red;
+}
+
+#featuredProducts .view-all:hover {
+  cursor: pointer;
+}
+#featuredProducts .view-all:hover i {
+  transition: 1s;
+  transform: translate(10px);
+}
+.cardContainer .card img:hover {
+  transition: 1s ease;
+  transform: scale(1.1);
+}
+
+.cardContainer .card h5:hover {
+  transition: 0.3s;
+  cursor: pointer;
+  color: #3b89fd;
+}
+
+/* dark theme fix */
+
+html[data-bs-theme="dark"] .rating-item-icon {
+  background-color: rgb(172, 172, 172);
 }
