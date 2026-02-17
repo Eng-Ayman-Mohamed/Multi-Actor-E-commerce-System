@@ -50,6 +50,15 @@ $(document).ready(function () {
 
     renderProducts(sorted);
   });
+  // ===== Product Details Navigation =====
+$(document).on("click", ".product-card", function (e) {
+  // لو ضغط على wishlist مايفتحش details
+  if ($(e.target).closest(".wishlist").length) return;
+
+  const productId = $(this).data("id");
+  window.location.href = `product-details.html?id=${productId}`;
+});
+
 });
 
 function applyFilters() {

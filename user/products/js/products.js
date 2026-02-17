@@ -8,7 +8,7 @@ function renderProducts(products) {
     .map(
       (p) => `
     <div class="col-lg-4 col-md-6">
-      <div class=" shadow-lg product-card">
+      <div class=" shadow-lg product-card " data-id="${p.id}" >
 
         <div class="product-img">
           <img src="${p.image}" >
