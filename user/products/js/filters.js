@@ -8,16 +8,12 @@ function renderFilters(categories) {
 
       <div class="filter-group">
         <p class="title">Category</p>
-        ${categories
-          .map(
-            (c) => `
+        ${categories.map(c => `
           <label>
             <input type="checkbox" class="category-filter" value="${c}">
             ${c}
           </label>
-        `,
-          )
-          .join("")}
+        `).join("")}
       </div>
 
       <div class="filter-group">
