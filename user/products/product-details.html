@@ -28,9 +28,13 @@
   <script src="./productDetails.js" type="module"></script>
 </head>
 
-<body>
-  <div class="container my-5">
-    <div id="productDetails"></div>
+<body class="d-flex justify-content-between flex-column min-vh-100">
+  <div class="container my-5 ">
+    <div id="productDetails" class="text-center">
+      <div class="spinner-border text-body " role="status" style="height: 100px !important; width: 100px !important;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   </div>
 </body>
 
