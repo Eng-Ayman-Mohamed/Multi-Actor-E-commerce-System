@@ -1,9 +1,14 @@
 import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
+import { footer, initFooter } from "../../../components/user/footer.js";
 
-// ===== Navbar =====
-$("#mainWrapper").prepend(navbar(getBasePath()));
+$("#mainWrapper")
+  .prepend(navbar(getBasePath()))
+  .append(footer(getBasePath()));
+
 initNavBar();
+initFooter(getBasePath());
+
 
 // ===== Global State =====
 let allProducts = [];
@@ -23,12 +28,13 @@ function getProducts() {
 $(document).ready(function () {
   getProducts().done(function (products) {
     allProducts = products;
-    filteredProducts = products;
+filteredProducts = products;
 
-    let categories = [...new Set(products.map(p => p.category))];
-    renderFilters(categories);
+let categories = [...new Set(products.map(p => p.category))];
+renderFilters(categories);
 
-    updateView();
+updateView();
+   
   });
 
   // Filters

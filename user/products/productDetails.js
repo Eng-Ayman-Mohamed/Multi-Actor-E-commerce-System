@@ -1,3 +1,12 @@
+import { getBasePath } from "../../assets/utils/basePath.js";
+import { navbar, initNavBar } from "../../components/user/navbar.js";
+import { footer, initFooter } from "../../components/user/footer.js";
+
+console.log(getBasePath());
+$("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
+initNavBar();
+initFooter(getBasePath());
+
 // ===== Get product ID =====
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id") || 1;
@@ -22,7 +31,6 @@ function generateStars(rate) {
 
 // ===== Load Page =====
 $(async function () {
-
   const product = await getProductById(productId);
   const oldPrice = (product.price * 1.25).toFixed(2);
 
@@ -34,14 +42,18 @@ $(async function () {
 
       <!-- Images -->
       <div class="col-lg-6">
-        <div class="card border-0 shadow-sm p-3 text-center">
+        <div class="card border-0 shadow p-3 text-center">
           <img src="${product.image}" class="img-fluid main-img" id="mainImage">
         </div>
 
         <div class="d-flex gap-3 mt-3 justify-content-center">
-          ${thumbnails.map(src => `
+          ${thumbnails
+            .map(
+              (src) => `
             <img src="${src}" class="img-thumbnail thumb">
-          `).join("")}
+          `,
+            )
+            .join("")}
         </div>
       </div>
 
@@ -82,12 +94,12 @@ $(async function () {
             <i class="bi bi-cart"></i> Add to Cart
           </button>
           <button class="btn btn-outline-secondary">
-            <i class="bi bi-heart"></i>
+            <i class="fa-regular fa-heart"></i>
           </button>
         </div>
 
         <!-- Shipping -->
-        <div class="bg-light p-3 rounded">
+        <div class="bg- p-3 rounded">
           <p class="mb-1"><i class="bi bi-truck"></i> Free shipping on orders over $50</p>
           <p class="mb-0"><i class="bi bi-shield-check"></i> 2-year warranty included</p>
         </div>
@@ -146,5 +158,4 @@ $(async function () {
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
   });
-
 });

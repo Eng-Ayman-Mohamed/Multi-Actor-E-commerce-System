@@ -7,20 +7,21 @@ import {
   featuredProducts,
   initFeaturedProducts,
 } from "../components/user/featuredProducts.js";
-import { footer, initFooter } from "../components/user/footer.js";
+import { CTASection, footer, initFooter } from "../components/user/footer.js";
 
 $(function () {
   const basePath = getBasePath();
 
   $("#mainWrapper")
     .append(navbar(basePath))
-    .append(heroSection)
+    .append(heroSection(basePath))
     .append(shopFeatures)
     .append(categories)
     .append(featuredProducts)
-    .append(footer);
+    .append(CTASection(basePath))
+    .append(footer(basePath));
   initCategories();
   initNavBar();
   initFeaturedProducts();
-  initFooter();
+  initFooter(basePath);
 });

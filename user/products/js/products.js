@@ -8,14 +8,14 @@ function renderProducts(products) {
     <div class="col-lg-4 col-md-6">
       <div class="shadow-lg product-card" data-id="${p.id}">
         <div class="product-img">
-          <img src="${p.image}">
-          <button class="wishlist">
-            <i class="bi bi-heart"></i>
+          <img src="${p.image}" >
+          <button class="wishlist bg-body">
+            <i class="bi bi-heart-fill"></i>
           </button>
         </div>
 
         <div class="product-body">
-          <h6 class="product-title">${p.title}</h6>
+          <h6 class="product-title fw-bold">${p.title}</h6>
 
           <div class="rating">
             ${renderStars(4)}
