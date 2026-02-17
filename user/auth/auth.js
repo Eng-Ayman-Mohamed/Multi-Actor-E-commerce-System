@@ -1,234 +1,242 @@
 import { navbar, initNavBar } from "../../components/user/navbar.js";
+import { getBasePath } from "../../assets/utils/basePath.js";
+import { footer, initFooter } from "../../components/user/footer.js";
 
-$(function () {
-    if ($("#container").length) {
-        $("#container").prepend(navbar);
-        initNavBar();
-    }
-});
+$("#container").prepend(navbar(getBasePath())).append(footer(getBasePath()));
+initNavBar();
+initFooter();
 
 window.togglePassword = function (id, btn) {
-    const input = document.getElementById(id);
-    if (!input) return;
+  const input = document.getElementById(id);
+  if (!input) return;
 
-    const icon = btn ? btn.querySelector("i") : null;
+  const icon = btn ? btn.querySelector("i") : null;
 
-    if (input.type === "password") {
-        input.type = "text";
-        if (icon) icon.classList.replace("fa-eye", "fa-eye-slash");
-    } else {
-        input.type = "password";
-        if (icon) icon.classList.replace("fa-eye-slash", "fa-eye");
-    }
+  if (input.type === "password") {
+    input.type = "text";
+    if (icon) icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    input.type = "password";
+    if (icon) icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    const registerForm = document.querySelector("form[novalidate]");
-    if (registerForm) {
-        registerForm.addEventListener("submit", handleRegisterSubmit);
-    }
+  const registerForm = document.querySelector("form[novalidate]");
+  if (registerForm) {
+    registerForm.addEventListener("submit", handleRegisterSubmit);
+  }
 
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
-        loginForm.addEventListener("submit", handleLoginSubmit);
-    }
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLoginSubmit);
+  }
 
-    document.querySelectorAll(".role-btn, .login-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            const group = this.parentElement.querySelectorAll(".btn");
-            group.forEach(btn => btn.classList.remove("active"));
-            this.classList.add("active");
-        });
+  document.querySelectorAll(".role-btn, .login-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      const group = this.parentElement.querySelectorAll(".btn");
+      group.forEach((btn) => btn.classList.remove("active"));
+      this.classList.add("active");
     });
+  });
 });
 
 // ==================== REGISTER ====================
 
 function handleRegisterSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const username = form.querySelector('input[name="username"]');
-    const email = form.querySelector('input[name="email"]');
-    const phone = form.querySelector('input[name="phone"]');
-    const password = form.querySelector('input[name="password"]');
-    const confirmPassword = form.querySelector('input[name="confirm_password"]');
-    const terms = form.querySelector('input[type="checkbox"]');
-    const role = form.querySelector(".role-btn.active").textContent.trim();
+  const username = form.querySelector('input[name="username"]');
+  const email = form.querySelector('input[name="email"]');
+  const phone = form.querySelector('input[name="phone"]');
+  const password = form.querySelector('input[name="password"]');
+  const confirmPassword = form.querySelector('input[name="confirm_password"]');
+  const terms = form.querySelector('input[type="checkbox"]');
+  const role = form.querySelector(".role-btn.active").textContent.trim();
 
-    clearErrors(form);
+  clearErrors(form);
 
-    let isValid = true;
+  let isValid = true;
 
-    if (!username.value.trim()) {
-        setError(username, "Username is required");
-        isValid = false;
-    }
+  if (!username.value.trim()) {
+    setError(username, "Username is required");
+    isValid = false;
+  }
 
-    if (!validateEmail(email.value.trim())) {
-        setError(email, "Enter a valid email address");
-        isValid = false;
-    }
+  if (!validateEmail(email.value.trim())) {
+    setError(email, "Enter a valid email address");
+    isValid = false;
+  }
 
-    if (!validatePhone(phone.value.trim())) {
-        setError(phone, "Enter a valid phone number");
-        isValid = false;
-    }
+  if (!validatePhone(phone.value.trim())) {
+    setError(phone, "Enter a valid phone number");
+    isValid = false;
+  }
 
-    if (!validatePassword(password.value)) {
-        setError(password, "Password must be at least 8 characters and contain letters and numbers");
-        isValid = false;
-    }
+  if (!validatePassword(password.value)) {
+    setError(
+      password,
+      "Password must be at least 8 characters and contain letters and numbers",
+    );
+    isValid = false;
+  }
 
-    if (!confirmPassword.value || confirmPassword.value !== password.value) {
-        setError(confirmPassword, "Passwords do not match");
-        isValid = false;
-    }
+  if (!confirmPassword.value || confirmPassword.value !== password.value) {
+    setError(confirmPassword, "Passwords do not match");
+    isValid = false;
+  }
 
-    if (!terms.checked) {
-        setError(terms, "You must accept the terms");
-        isValid = false;
-    }
+  if (!terms.checked) {
+    setError(terms, "You must accept the terms");
+    isValid = false;
+  }
 
-    if (!isValid) return;
+  if (!isValid) return;
 
-    const users = getUsers();
+  const users = getUsers();
 
-    const emailExists = users.some(user => user.email === email.value.trim());
+  const emailExists = users.some((user) => user.email === email.value.trim());
 
-    if (emailExists) {
-        setError(email, "Email already registered");
-        return;
-    }
+  if (emailExists) {
+    setError(email, "Email already registered");
+    return;
+  }
 
-    const newUser = {
-        id: Date.now(),
-        role,
-        username: username.value.trim(),
-        email: email.value.trim(),
-        phone: phone.value.trim(),
-        password: password.value
-    };
+  const newUser = {
+    id: Date.now(),
+    role,
+    username: username.value.trim(),
+    email: email.value.trim(),
+    phone: phone.value.trim(),
+    password: password.value,
+  };
 
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
 
-    window.location.href = "./login.html";
+  window.location.href = "./login.html";
 }
 
 // ==================== LOGIN ====================
 
 function handleLoginSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const email = form.querySelector('input[name="email"]');
-    const password = form.querySelector('input[name="password"]');
-    const role = form.querySelector(".login-btn.active").dataset.role;
+  const email = form.querySelector('input[name="email"]');
+  const password = form.querySelector('input[name="password"]');
+  const role = form.querySelector(".login-btn.active").dataset.role;
 
-    clearErrors(form);
+  clearErrors(form);
 
-    let isValid = true;
+  let isValid = true;
 
-    if (!validateEmail(email.value.trim())) {
-        setError(email, "Enter a valid email address");
-        isValid = false;
-    }
+  if (!validateEmail(email.value.trim())) {
+    setError(email, "Enter a valid email address");
+    isValid = false;
+  }
 
-    if (!password.value) {
-        setError(password, "Password is required");
-        isValid = false;
-    }
+  if (!password.value) {
+    setError(password, "Password is required");
+    isValid = false;
+  }
 
-    if (!isValid) return;
+  if (!isValid) return;
 
-    const users = getUsers();
+  const users = getUsers();
 
-    const user = users.find(u => u.email === email.value.trim() && u.password === password.value && u.role === role);
+  const user = users.find(
+    (u) =>
+      u.email === email.value.trim() &&
+      u.password === password.value &&
+      u.role === role,
+  );
 
-    if (!user) {
-        setError(email, "Invalid email, password, or role");
-        setError(password, "Invalid email, password, or role");
-        return;
-    }
+  if (!user) {
+    setError(email, "Invalid email, password, or role");
+    setError(password, "Invalid email, password, or role");
+    return;
+  }
 
-    localStorage.setItem("currentUser", JSON.stringify(user));
+  localStorage.setItem("currentUser", JSON.stringify(user));
 
-    window.location.href = "./dashboard.html";
+  window.location.href = "./dashboard.html";
 }
 
 // ==================== UTILITIES ====================
 
 function setError(input, message) {
-    input.classList.add("is-invalid");
+  input.classList.add("is-invalid");
 
-    const wrapper = input.closest(".input-group, .form-check") || input.parentElement;
+  const wrapper =
+    input.closest(".input-group, .form-check") || input.parentElement;
 
-    let feedback = wrapper.querySelector(".invalid-feedback");
+  let feedback = wrapper.querySelector(".invalid-feedback");
 
-    if (!feedback) {
-        feedback = document.createElement("div");
-        feedback.className = "invalid-feedback";
-        wrapper.appendChild(feedback);
-    }
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "invalid-feedback";
+    wrapper.appendChild(feedback);
+  }
 
-    feedback.textContent = message;
+  feedback.textContent = message;
 }
 
 function clearErrors(form) {
-    form.querySelectorAll(".is-invalid").forEach(input => {
-        input.classList.remove("is-invalid");
-    });
+  form.querySelectorAll(".is-invalid").forEach((input) => {
+    input.classList.remove("is-invalid");
+  });
 
-    form.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+  form.querySelectorAll(".invalid-feedback").forEach((el) => el.remove());
 }
 
 function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function validatePhone(phone) {
-    return /^[0-9]{7,15}$/.test(phone);
+  return /^[0-9]{7,15}$/.test(phone);
 }
 
 function validatePassword(password) {
-    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+  return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
 }
 
 function getUsers() {
-    return JSON.parse(localStorage.getItem("users")) || [];
+  return JSON.parse(localStorage.getItem("users")) || [];
 }
 
 // ==================== RESET PASSWORD ====================
 const resetForm = document.querySelector("form[method='post']");
 if (resetForm && window.location.pathname.includes("reset.html")) {
-    resetForm.addEventListener("submit", handleResetSubmit);
+  resetForm.addEventListener("submit", handleResetSubmit);
 }
 
 function handleResetSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const form = e.target;
-    const email = form.querySelector('input[name="email"]');
+  const form = e.target;
+  const email = form.querySelector('input[name="email"]');
 
-    clearErrors(form);
+  clearErrors(form);
 
-    if (!validateEmail(email.value.trim())) {
-        setError(email, "Enter a valid email address");
-        return;
-    }
+  if (!validateEmail(email.value.trim())) {
+    setError(email, "Enter a valid email address");
+    return;
+  }
 
-    const users = getUsers();
-    const userExists = users.some(u => u.email === email.value.trim());
+  const users = getUsers();
+  const userExists = users.some((u) => u.email === email.value.trim());
 
-    if (!userExists) {
-        setError(email, "Email not found in our records");
-        return;
-    }
+  if (!userExists) {
+    setError(email, "Email not found in our records");
+    return;
+  }
 
-    alert(`Password reset instructions sent to ${email.value.trim()}`);
+  alert(`Password reset instructions sent to ${email.value.trim()}`);
 
-    form.reset();
+  form.reset();
 }

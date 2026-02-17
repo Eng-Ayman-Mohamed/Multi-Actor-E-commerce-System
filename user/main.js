@@ -7,7 +7,7 @@ import {
   featuredProducts,
   initFeaturedProducts,
 } from "../components/user/featuredProducts.js";
-import { footer, initFooter } from "../components/user/footer.js";
+import { CTASection, footer, initFooter } from "../components/user/footer.js";
 
 $(function () {
   const basePath = getBasePath();
@@ -18,6 +18,7 @@ $(function () {
     .append(shopFeatures)
     .append(categories)
     .append(featuredProducts)
+    .append(CTASection(basePath))
     .append(footer(basePath));
   initCategories();
   initNavBar();

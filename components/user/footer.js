@@ -1,7 +1,7 @@
-// User footer
-export function footer(basePath) {
-  return `
-  <!-- ===== CTA Section ===== -->
+//CTA Section
+
+export function CTASection(basePath) {
+  return `  <!-- ===== CTA Section ===== -->
   <section class="py-5 text-white text-center"
     style="background: linear-gradient(90deg, #2563eb, #9333ea);">
     <div class="container">
@@ -20,9 +20,14 @@ export function footer(basePath) {
 
     </div>
   </section>
+`;
+}
 
+// User footer
+export function footer(basePath) {
+  return `
   <!-- ===== Footer ===== -->
-  <footer class="text-light pt-5 footer-bg">
+  <footer class="text-light pt-5 footer-bg w-100">
     <div class="container">
 
       <div class="row g-4 text-start">
@@ -91,7 +96,12 @@ export function initFooter(basePath) {
       { icon: "fa-instagram", link: "#" },
     ],
 
-    quickLinks: ["Home", "Products", "About Us", "Contact"],
+    quickLinks: [
+      { text: "Home", ref: `${basePath}/index.html` },
+      { text: "Products", ref: `${basePath}/user/products/index.html` },
+      { text: "Contact", ref: "#" },
+      { text: "Contacts", ref: "#" },
+    ],
 
     serviceLinks: [
       "Help Center",
@@ -106,7 +116,7 @@ export function initFooter(basePath) {
         text: "123 Commerce Street, City, State 12345",
       },
       { icon: "fa-phone", text: "+1 (555) 123-4567" },
-      { icon: "fa-envelope", text: "support@eshop.com" },
+      { icon: "fa-envelope", text: "support@vendra.com" },
     ],
   };
 
@@ -134,7 +144,7 @@ export function initFooter(basePath) {
   footerData.quickLinks.forEach((link) => {
     $("#quickLinks").append(`
       <li>
-        <a href="#" class="text-secondary text-decoration-none">${link}</a>
+        <a href=${link.ref} class="text-secondary text-decoration-none">${link.text}</a>
       </li>
     `);
   });
