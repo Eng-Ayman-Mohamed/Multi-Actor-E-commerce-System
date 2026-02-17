@@ -1,10 +1,5 @@
-body {
-  background: #f6f7fb;
-}
-
 /* Main Image (صغرناها) */
 .main-img {
-  background: #fff;
   border-radius: 12px;
   max-height: 320px;
   object-fit: contain;
@@ -32,8 +27,4 @@ body {
 .old-price {
   text-decoration: line-through;
   color: #888;
-}
-
-.tab-content {
-  background: #fff;
 }

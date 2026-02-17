@@ -3,7 +3,7 @@ export default function shopFeatures() {
             <div id="shopFeatures" class="bg-body-tertiary d-lg-flex justify-content-around py-5 px-4 ">
             <div class="d-flex gap-3 ">
                 <div class="bg-primary bg-opacity-50 p-2 rounded-3  " style="height: fit-content;"><i
-                        class="fa-regular fa-truck h4 text-primary-emphasis"></i></div>
+                        class="fa-regular fa-truck h4 "></i></div>
                 <div>
                     <p class="h5 fw-bold">Free Shipping</p>
                     <p class=" fw-lighter">On orders over $50</p>
@@ -11,7 +11,7 @@ export default function shopFeatures() {
             </div>
             <div class="d-flex gap-3 ">
                 <div class="bg-primary bg-opacity-50 p-2 rounded-3  " style="height: fit-content;">
-                    <i class="fa-solid fa-shield h4 text-primary-emphasis "></i>
+                    <i class="fa-solid fa-shield h4 "></i>
                 </div>
                 <div>
                     <p class="h5 fw-bold">Secure Payment</p>
@@ -20,7 +20,7 @@ export default function shopFeatures() {
             </div>
             <div class="d-flex gap-3 ">
                 <div class="bg-primary bg-opacity-50 p-2 rounded-3  " style="height: fit-content;">
-                    <i class="fa-solid fa-arrow-trend-up h4 text-primary-emphasis"></i>
+                    <i class="fa-solid fa-arrow-trend-up h4 "></i>
                 </div>
                 <div>
                     <p class="h5 fw-bold">Best Prices</p>
