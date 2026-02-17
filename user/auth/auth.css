@@ -1,48 +1,58 @@
 .login-btn {
-  border: 1px solid #cfd4da;
-  border-radius: 12px;
+    border: 1px solid #cfd4da;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: #333;
 }
 
 .login-btn:hover {
-  border: 1px solid #666;
+    border: 1px solid #666;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 .login-btn.active {
-  border: 2px solid #2f5bea;
-  color: #2f5bea;
+    border: 2px solid #2f5bea;
+    background-color: #eef2ff;
+    color: #2f5bea;
 }
 
 /* ----------------------------------------------------- */
 
 .role-btn {
-  border: 1px solid #cfd4da;
-  border-radius: 12px;
+    border: 1px solid #cfd4da;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: #333;
 }
 
 .role-btn:hover {
-  border: 1px solid #666;
+    border: 1px solid #666;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 .role-btn.active {
-  border: 2px solid #2f5bea;
-  color: #2f5bea;
+    border: 2px solid #2f5bea;
+    background-color: #eef2ff;
+    color: #2f5bea;
 }
 
 .input-group .form-control,
 .input-group .input-group-text {
-  border-radius: 12px;
+    border-radius: 12px;
 }
 
 .form-control:focus {
-  box-shadow: none !important;
-  border-color: #2f5bea !important;
+    box-shadow: none !important;
+    border-color: #2f5bea !important;
 }
 
 .input-group:focus-within .form-control {
-  box-shadow: 0 0 0 0.15rem rgba(47, 91, 234, 0.15);
-  border-color: #2f5bea;
+    box-shadow: 0 0 0 0.15rem rgba(47, 91, 234, 0.15);
+    border-color: #2f5bea;
 }
 
 .input-group:focus-within .input-group-text {
-  border-color: #2f5bea;
+    border-color: #2f5bea;
 }
