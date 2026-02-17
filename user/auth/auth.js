@@ -61,17 +61,22 @@ function handleRegisterSubmit(e) {
 
     let isValid = true;
 
-    if (!username.value.trim()) {
-        setError(username, "Username is required");
+    const usernameValue = username.value.trim();
+    const emailValue = email.value.trim();
+    const phoneValue = phone.value.trim();
+
+    const usernameError = validateUsername(usernameValue);
+    if (usernameError) {
+        setError(username, usernameError);
         isValid = false;
     }
 
-    if (!validateEmail(email.value.trim())) {
+    if (!validateEmail(emailValue)) {
         setError(email, "Enter a valid email address");
         isValid = false;
     }
 
-    if (!validatePhone(phone.value.trim())) {
+    if (!validatePhone(phoneValue)) {
         setError(phone, "Enter a valid phone number");
         isValid = false;
     }
@@ -95,19 +100,25 @@ function handleRegisterSubmit(e) {
 
     const users = getUsers();
 
-    const emailExists = users.some(user => user.email === email.value.trim());
+    const emailExists = users.some(user => user.email === emailValue);
+    const usernameExists = users.some(user => user.username === usernameValue);
 
     if (emailExists) {
         setError(email, "Email already registered");
         return;
     }
 
+    if (usernameExists) {
+        setError(username, "Username already taken");
+        return;
+    }
+
     const newUser = {
         id: Date.now(),
         role,
-        username: username.value.trim(),
-        email: email.value.trim(),
-        phone: phone.value.trim(),
+        username: usernameValue,
+        email: emailValue,
+        phone: phoneValue,
         password: password.value
     };
 
@@ -146,7 +157,11 @@ function handleLoginSubmit(e) {
 
     const users = getUsers();
 
-    const user = users.find(u => u.email === email.value.trim() && u.password === password.value && u.role === role);
+    const user = users.find(u =>
+        u.email === email.value.trim() &&
+        u.password === password.value &&
+        u.role === role
+    );
 
     if (!user) {
         setError(email, "Invalid email, password, or role");
@@ -155,11 +170,22 @@ function handleLoginSubmit(e) {
     }
 
     localStorage.setItem("currentUser", JSON.stringify(user));
-
-    window.location.href = "./dashboard.html";
+    window.location.href = "/";
 }
 
 // ==================== UTILITIES ====================
+
+function validateUsername(username) {
+    if (username.length < 5) {
+        return "Username must be at least 5 characters";
+    }
+
+    if (/^\d+$/.test(username)) {
+        return "Username cannot be numbers only";
+    }
+
+    return null;
+}
 
 function setError(input, message) {
     input.classList.add("is-invalid");
@@ -190,7 +216,7 @@ function validateEmail(email) {
 }
 
 function validatePhone(phone) {
-    return /^[0-9]{7,15}$/.test(phone);
+    return /^(010|011|012|015)[0-9]{8}$/.test(phone);
 }
 
 function validatePassword(password) {
@@ -202,6 +228,7 @@ function getUsers() {
 }
 
 // ==================== RESET PASSWORD ====================
+
 const resetForm = document.querySelector("form[method='post']");
 if (resetForm && window.location.pathname.includes("reset.html")) {
     resetForm.addEventListener("submit", handleResetSubmit);
@@ -229,6 +256,5 @@ function handleResetSubmit(e) {
     }
 
     alert(`Password reset instructions sent to ${email.value.trim()}`);
-
     form.reset();
 }
