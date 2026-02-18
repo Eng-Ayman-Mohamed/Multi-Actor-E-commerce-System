@@ -4,13 +4,15 @@ function renderProducts(products) {
     return;
   }
 
-  let html = products.map(p => `
+  let html = products
+    .map(
+      (p) => `
     <div class="col-lg-4 col-md-6">
       <div class="shadow-lg product-card" data-id="${p.id}">
         <div class="product-img">
           <img src="${p.image}" >
           <button class="wishlist bg-body">
-            <i class="bi bi-heart-fill"></i>
+            <i class="fa-regular fa-heart"></i>
           </button>
         </div>
 
@@ -31,7 +33,9 @@ function renderProducts(products) {
         </div>
       </div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   $("#products").html(html);
 }
