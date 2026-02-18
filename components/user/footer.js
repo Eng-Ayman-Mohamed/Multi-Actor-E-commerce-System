@@ -1,7 +1,7 @@
-// User footer
-export function footer() {
-  return `
-  <!-- ===== CTA Section ===== -->
+//CTA Section
+
+export function CTASection(basePath) {
+  return `  <!-- ===== CTA Section ===== -->
   <section class="py-5 text-white text-center"
     style="background: linear-gradient(90deg, #2563eb, #9333ea);">
     <div class="container">
@@ -13,16 +13,21 @@ export function footer() {
       <h2 class="fw-bold" id="ctaTitle"></h2>
       <p class="mb-4" id="ctaDesc"></p>
 
-      <a href="#" id="ctaBtn" class="btn btn-light px-4 py-2 fw-semibold">
+      <a  id="ctaBtn" class="btn btn-light px-4 py-2 fw-semibold">
         <span></span>
         <i class="fa-solid fa-arrow-right ms-2"></i>
       </a>
 
     </div>
   </section>
+`;
+}
 
+// User footer
+export function footer(basePath) {
+  return `
   <!-- ===== Footer ===== -->
-  <footer class="text-light pt-5 footer-bg">
+  <footer class="text-light pt-5 footer-bg w-100">
     <div class="container">
 
       <div class="row g-4 text-start">
@@ -30,7 +35,8 @@ export function footer() {
         <!-- Brand -->
         <div class="col-lg-3 col-12">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <div class="fw-bold btn btn-primary rounded">E</div>
+            <div class="fw-bold rounded">
+            <img class="me-2" style="height:30px"  src="${basePath}/assets/vendra.png"></div>
             <span class="fw-bold fs-5" id="brandName"></span>
           </div>
           <p class="small text-secondary" id="brandDesc"></p>
@@ -60,7 +66,7 @@ export function footer() {
 
       <hr class="border-secondary my-4">
 
-      <p class="text-center small text-secondary mb-0">
+      <p class="text-center small text-secondary mb-0 pb-4">
         © <span id="year"></span> <span id="copyName"></span>. All rights reserved.
       </p>
 
@@ -69,12 +75,11 @@ export function footer() {
   `;
 }
 
-export function initFooter() {
-
+export function initFooter(basePath) {
   /* ===== DATA ===== */
   const footerData = {
     brand: {
-      name: "E-Shop",
+      name: "Vendra",
       desc: "Your trusted online marketplace for quality products at great prices.",
     },
 
@@ -82,29 +87,37 @@ export function initFooter() {
       title: "Start Selling on Our Platform",
       desc: "Join thousands of successful sellers. Create your seller account today!",
       text: "Become a Seller",
-      link: "#"
+      link: `${basePath}/user/auth/login.html`,
     },
 
     social: [
       { icon: "fa-facebook", link: "#" },
       { icon: "fa-twitter", link: "#" },
-      { icon: "fa-instagram", link: "#" }
+      { icon: "fa-instagram", link: "#" },
     ],
 
-    quickLinks: ["Home", "Products", "About Us", "Contact"],
+    quickLinks: [
+      { text: "Home", ref: `${basePath}/index.html` },
+      { text: "Products", ref: `${basePath}/user/products/index.html` },
+      { text: "Contact", ref: "#" },
+      { text: "Contacts", ref: "#" },
+    ],
 
     serviceLinks: [
       "Help Center",
       "Track Order",
       "Returns & Refunds",
-      "Shipping Info"
+      "Shipping Info",
     ],
 
     contact: [
-      { icon: "fa-location-dot", text: "123 Commerce Street, City, State 12345" },
+      {
+        icon: "fa-location-dot",
+        text: "123 Commerce Street, City, State 12345",
+      },
       { icon: "fa-phone", text: "+1 (555) 123-4567" },
-      { icon: "fa-envelope", text: "support@eshop.com" }
-    ]
+      { icon: "fa-envelope", text: "support@vendra.com" },
+    ],
   };
 
   /* ===== CTA ===== */
@@ -119,7 +132,7 @@ export function initFooter() {
   $("#copyName").text(footerData.brand.name);
 
   /* ===== Social ===== */
-  footerData.social.forEach(s => {
+  footerData.social.forEach((s) => {
     $("#socialLinks").append(`
       <a href="${s.link}" class="text-light">
         <i class="fa-brands ${s.icon} fs-5"></i>
@@ -128,16 +141,16 @@ export function initFooter() {
   });
 
   /* ===== Quick Links ===== */
-  footerData.quickLinks.forEach(link => {
+  footerData.quickLinks.forEach((link) => {
     $("#quickLinks").append(`
       <li>
-        <a href="#" class="text-secondary text-decoration-none">${link}</a>
+        <a href=${link.ref} class="text-secondary text-decoration-none">${link.text}</a>
       </li>
     `);
   });
 
   /* ===== Service Links ===== */
-  footerData.serviceLinks.forEach(link => {
+  footerData.serviceLinks.forEach((link) => {
     $("#serviceLinks").append(`
       <li>
         <a href="#" class="text-secondary text-decoration-none">${link}</a>
@@ -146,7 +159,7 @@ export function initFooter() {
   });
 
   /* ===== Contact ===== */
-  footerData.contact.forEach(item => {
+  footerData.contact.forEach((item) => {
     $("#contactInfo").append(`
       <li>
         <i class="fa-solid ${item.icon} me-2"></i>

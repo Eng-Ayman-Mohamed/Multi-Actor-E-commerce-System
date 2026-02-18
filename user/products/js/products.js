@@ -8,17 +8,16 @@ function renderProducts(products) {
     .map(
       (p) => `
     <div class="col-lg-4 col-md-6">
-      <div class=" shadow-lg product-card">
-
+      <div class="shadow-lg product-card" data-id="${p.id}">
         <div class="product-img">
-          <img src="${p.image}">
-          <button class="wishlist">
-            <i class="bi bi-heart-fill"></i>
+          <img src="${p.image}" >
+          <button class="wishlist bg-body">
+            <i class="fa-regular fa-heart"></i>
           </button>
         </div>
 
         <div class="product-body">
-          <h6 class="product-title">${p.title}</h6>
+          <h6 class="product-title fw-bold">${p.title}</h6>
 
           <div class="rating">
             ${renderStars(4)}
@@ -32,7 +31,6 @@ function renderProducts(products) {
             </button>
           </div>
         </div>
-
       </div>
     </div>
   `,
