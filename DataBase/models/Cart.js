@@ -23,11 +23,8 @@ export default class Cart {
 
   updateQuantity(productId, qty) {
     const item = this.items.find((item) => item.productId === productId);
-
     if (!item) return;
-
     item.quantity = qty;
-
     if (item.quantity <= 0) {
       this.removeItem(productId);
     }
