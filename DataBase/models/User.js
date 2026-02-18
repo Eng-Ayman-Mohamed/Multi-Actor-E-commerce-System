@@ -27,8 +27,7 @@ export default class User {
     }
 
     // Core fields
-    this.id = Date.now();
-    this.createdAt = Date.now();
+    this.id = crypto.randomUUID();
 
     this.name = name;
     this.password = btoa(password);

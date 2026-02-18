@@ -23,8 +23,9 @@ export default class Product {
       "stock",
     ]);
     //  Core
-    this.id = Date.now() || generateProductId();
+    this.id = crypto.randomUUID();
     this.createdAt = Date.now();
+
     this.vendorId = vendorId;
     this.title = title;
     this.category = category;
@@ -36,14 +37,11 @@ export default class Product {
     this.rating = Number(rating) || 0;
     this.weight = weight || 0;
     this.images = images || [];
+    this.finalPrice = this.price - (this.price * (this.discount || 0)) / 100;
 
     //  Flags
     this.featured = featured ?? false;
     this.approved = approved ?? false;
-  }
-
-  getFinalPrice() {
-    return this.price - (this.price * this.discount) / 100;
   }
 
   isInStock() {
