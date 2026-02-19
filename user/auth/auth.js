@@ -3,6 +3,16 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { getBasePath } from "../../assets/utils/basePath.js";
 
 // ==================== LOAD NAVBAR & FOOTER ====================
+//Nav Bar initialization
+import { cartService } from "../../DataBase/services/cartService.js";
+import { userService } from "../../DataBase/services/userService.js";
+
+function updateCartCount() {
+  /* ===== Cart Count ===== */
+  let userId = userService.getCurrentUser().id;
+  $("#cartCount").text(cartService.getCartCount(userId));
+  $("#cartCountMobile").text(cartService.getCartCount(userId));
+}
 
 $(function () {
   if ($("#container").length) {
@@ -11,6 +21,7 @@ $(function () {
       .append(footer(getBasePath()));
     initNavBar();
     initFooter(getBasePath());
+    updateCartCount();
   }
 });
 
@@ -122,7 +133,7 @@ function handleRegisterSubmit(e) {
   if (!validatePassword(password.value)) {
     setError(
       password,
-      "Password must be at least 8 characters and contain letters and numbers"
+      "Password must be at least 8 characters and contain letters and numbers",
     );
     isValid = false;
   } else {
@@ -211,7 +222,7 @@ function handleLoginSubmit(e) {
     (u) =>
       u.email === email.value.trim() &&
       u.password === password.value &&
-      u.role === role
+      u.role === role,
   );
 
   if (!user) {

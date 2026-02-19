@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
     <div class="sidebar d-flex flex-column p-2">
         <div class="p-3 mb-3 d-flex align-items-center">
             <i class="fas fa-shield-alt text-danger fs-4 me-2"></i>
@@ -32,7 +31,6 @@
         </a>
         </li>
         </ul>
-        </ul>
     </div>
 
     <div class="main-content">
@@ -50,394 +48,182 @@
                 </div>
             </div>
         </header>
-            <!-- from here the users page starts -->
+
         <div class="container-fluid-limit" id="wrapper">
             <div id="users-page" class="page-section">
-    <div class="card-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h5 class="fw-bold mb-0">Platform Users List</h5>
-                <p class="text-muted small mb-0">Manage your system members and their roles.</p>
-            </div>
-            <button class="btn btn-primary shadow-sm" id="addUserBtn">
-                <i class="fas fa-plus me-2"></i>Add New User
-            </button>
-        </div>
+                <div class="card-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-0">Platform Users List</h5>
+                            <p class="text-muted small mb-0">Manage your system members and their roles.</p>
+                        </div>
+                        <button class="btn btn-primary shadow-sm" id="addUserBtn">
+                            <i class="fas fa-plus me-2"></i>Add New User
+                        </button>
+                    </div>
 
-        <div class="table-responsive">
-            <table class="table align-middle" id="usersTable">
-                <thead class="table-light">
-                    <tr>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Joined</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary-subtle text-primary rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">AA</div>
-                                Ahmed Ali
-                            </div>
-                        </td>
-                        <td><span class="badge border text-dark">Admin</span></td>
-                        <td><span class="badge bg-success-subtle text-success border border-success">Active</span></td>
-                        <td>Jan 2024</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-warning-subtle text-warning rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">JS</div>
-                                John Smith
-                            </div>
-                        </td>
-                        <td><span class="badge border text-dark">Seller</span></td>
-                        <td><span class="badge bg-warning-subtle text-warning border border-warning">Pending</span></td>
-                        <td>Feb 2024</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-info-subtle text-info rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">SR</div>
-                                Sarah Ridwa
-                            </div>
-                        </td>
-                        <td><span class="badge border text-dark">Editor</span></td>
-                        <td><span class="badge bg-success-subtle text-success border border-success">Active</span></td>
-                        <td>Mar 2024</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-danger-subtle text-danger rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">MK</div>
-                                Mike Ross
-                            </div>
-                        </td>
-                        <td><span class="badge border text-dark">Support</span></td>
-                        <td><span class="badge bg-danger-subtle text-danger border border-danger">Suspended</span></td>
-                        <td>May 2024</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-            <!-- from here the products page starts -->
-      <div id="products-page" class="page-section">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold mb-0">Product Inventory</h5>
-        <button class="btn btn-dark shadow-sm"><i class="fas fa-plus me-2"></i>Add Product</button>
-    </div>
-    
-    <div class="row g-3">
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-laptop fa-3x text-primary"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">MacBook Pro M3</h5>
-                    <p class="text-muted small mb-0">High-performance laptop for professionals.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$2,499.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 15</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    <div class="table-responsive">
+                        <table class="table align-middle" id="usersTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-mobile-alt fa-3x text-success"></i>
+            <div id="products-page" class="page-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Product Inventory</h5>
+                    <button class="btn btn-dark shadow-sm"><i class="fas fa-plus me-2"></i>Add Product</button>
                 </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">iPhone 15 Pro</h5>
-                    <p class="text-muted small mb-0">Titanium design with A17 Pro chip.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$999.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 42</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
+                
+                <div class="row g-3" id="productsList">
                 </div>
             </div>
-        </div>
 
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-headphones fa-3x text-info"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Sony WH-1000XM5</h5>
-                    <p class="text-muted small mb-0">Industry leading noise canceling headphones.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$348.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 28</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+            <div id="orders-page" class="page-section">
+                <div class="card-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-0">Manage Orders</h5>
+                            <p class="text-muted small mb-0">Track and manage customer transactions.</p>
+                        </div>
+                        <button class="btn btn-danger shadow-sm" id="addOrderBtn">
+                            <i class="fas fa-cart-plus me-2"></i>New Order</button>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-clock fa-3x text-warning"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Apple Watch Ultra</h5>
-                    <p class="text-muted small mb-0">Rugged and capable for athletes.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$799.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 10</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-camera fa-3x text-secondary"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Canon EOS R5</h5>
-                    <p class="text-muted small mb-0">Mirrorless camera with 45MP sensor.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$3,899.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 5</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-gamepad fa-3x text-dark"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">PlayStation 5</h5>
-                    <p class="text-muted small mb-0">Experience lightning-fast loading.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$499.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 22</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-tablet-alt fa-3x text-primary"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">iPad Pro 12.9"</h5>
-                    <p class="text-muted small mb-0">The ultimate iPad experience with M2.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$1,099.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 30</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-keyboard fa-3x text-muted"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Mechanical Keyboard</h5>
-                    <p class="text-muted small mb-0">RGB Backlit with blue switches.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$129.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 55</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-tv fa-3x text-info"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Samsung Odyssey G7</h5>
-                    <p class="text-muted small mb-0">32-inch 240Hz Curved Gaming Monitor.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$699.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 8</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card-container d-flex align-items-center p-3">
-                <div class="flex-shrink-0 me-4">
-                    <i class="fas fa-volume-up fa-3x text-danger"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1">Bose SoundLink</h5>
-                    <p class="text-muted small mb-0">Portable Bluetooth speaker with 360 sound.</p>
-                </div>
-                <div class="text-end">
-                    <p class="text-danger fw-bold fs-5 mb-1">$199.00</p>
-                    <span class="badge bg-light text-dark border">In Stock: 100</span>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    <div class="table-responsive">
+                        <table class="table align-middle" id="ordersTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-            <!-- from here the orders page starts -->
-           <div id="orders-page" class="page-section">
-    <div class="card-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h5 class="fw-bold mb-0">Manage Orders</h5>
-                <p class="text-muted small mb-0">Track and manage customer transactions.</p>
-            </div>
-            <button class="btn btn-danger shadow-sm" id="addOrderBtn">
-                <i class="fas fa-cart-plus me-2"></i>New Order</button>
-        </div>
-        <div class="table-responsive">
-            <table class="table align-middle" id="ordersTable">
-                <thead class="table-light">
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Date</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="fw-bold">#ORD-5542</td>
-                        <td>Kareem Mohamed</td>
-                        <td><span class="badge bg-info-subtle text-info border border-info">Shipped</span></td>
-                        <td class="fw-bold">$1,200</td>
-                        <td class="text-muted small">Oct 12, 2023</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">#ORD-5543</td>
-                        <td>Sarah Ahmed</td>
-                        <td><span class="badge bg-success-subtle text-success border border-success">Delivered</span></td>
-                        <td class="fw-bold">$850</td>
-                        <td class="text-muted small">Oct 13, 2023</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">#ORD-5544</td>
-                        <td>John Doe</td>
-                        <td><span class="badge bg-warning-subtle text-warning border border-warning">Pending</span></td>
-                        <td class="fw-bold">$2,100</td>
-                        <td class="text-muted small">Oct 14, 2023</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">#ORD-5545</td>
-                        <td>Omar Wael</td>
-                        <td><span class="badge bg-danger-subtle text-danger border border-danger">Cancelled</span></td>
-                        <td class="fw-bold">$450</td>
-                        <td class="text-muted small">Oct 14, 2023</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-
-
-
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script type="module" src="js/app.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            // 1. Users Data Array of Objects
+            const users = [
+                { initials: "AA", name: "Ahmed Ali", colorTheme: "primary", role: "Admin", status: "Active", statusTheme: "success", joined: "Jan 2024" },
+                { initials: "JS", name: "John Smith", colorTheme: "warning", role: "Seller", status: "Pending", statusTheme: "warning", joined: "Feb 2024" },
+                { initials: "SR", name: "Sarah Ridwa", colorTheme: "info", role: "Editor", status: "Active", statusTheme: "success", joined: "Mar 2024" },
+                { initials: "MK", name: "Mike Ross", colorTheme: "danger", role: "Support", status: "Suspended", statusTheme: "danger", joined: "May 2024" }
+            ];
 
+            // Render Users
+            users.forEach(user => {
+                const userRow = `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-${user.colorTheme}-subtle text-${user.colorTheme} rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">${user.initials}</div>
+                                ${user.name}
+                            </div>
+                        </td>
+                        <td><span class="badge border text-dark">${user.role}</span></td>
+                        <td><span class="badge bg-${user.statusTheme}-subtle text-${user.statusTheme} border border-${user.statusTheme}">${user.status}</span></td>
+                        <td>${user.joined}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                $('#usersTableBody').append(userRow);
+            });
 
+            // 2. Products Data Array of Objects
+            const products = [
+                { icon: "fa-laptop", iconColor: "text-primary", name: "MacBook Pro M3", desc: "High-performance laptop for professionals.", price: "$2,499.00", stock: 15 },
+                { icon: "fa-mobile-alt", iconColor: "text-success", name: "iPhone 15 Pro", desc: "Titanium design with A17 Pro chip.", price: "$999.00", stock: 42 },
+                { icon: "fa-headphones", iconColor: "text-info", name: "Sony WH-1000XM5", desc: "Industry leading noise canceling headphones.", price: "$348.00", stock: 28 },
+                { icon: "fa-clock", iconColor: "text-warning", name: "Apple Watch Ultra", desc: "Rugged and capable for athletes.", price: "$799.00", stock: 10 },
+                { icon: "fa-camera", iconColor: "text-secondary", name: "Canon EOS R5", desc: "Mirrorless camera with 45MP sensor.", price: "$3,899.00", stock: 5 },
+                { icon: "fa-gamepad", iconColor: "text-dark", name: "PlayStation 5", desc: "Experience lightning-fast loading.", price: "$499.00", stock: 22 },
+                { icon: "fa-tablet-alt", iconColor: "text-primary", name: 'iPad Pro 12.9"', desc: "The ultimate iPad experience with M2.", price: "$1,099.00", stock: 30 },
+                { icon: "fa-keyboard", iconColor: "text-muted", name: "Mechanical Keyboard", desc: "RGB Backlit with blue switches.", price: "$129.00", stock: 55 },
+                { icon: "fa-tv", iconColor: "text-info", name: "Samsung Odyssey G7", desc: "32-inch 240Hz Curved Gaming Monitor.", price: "$699.00", stock: 8 },
+                { icon: "fa-volume-up", iconColor: "text-danger", name: "Bose SoundLink", desc: "Portable Bluetooth speaker with 360 sound.", price: "$199.00", stock: 100 }
+            ];
 
+            // Render Products
+            products.forEach(product => {
+                const productCard = `
+                    <div class="col-12">
+                        <div class="card-container d-flex align-items-center p-3">
+                            <div class="flex-shrink-0 me-4">
+                                <i class="fas ${product.icon} fa-3x ${product.iconColor}"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">${product.name}</h5>
+                                <p class="text-muted small mb-0">${product.desc}</p>
+                            </div>
+                            <div class="text-end">
+                                <p class="text-danger fw-bold fs-5 mb-1">${product.price}</p>
+                                <span class="badge bg-light text-dark border">In Stock: ${product.stock}</span>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#productsList').append(productCard);
+            });
+
+            // 3. Orders Data Array of Objects
+            const orders = [
+                { id: "#ORD-5542", customer: "Kareem Mohamed", status: "Shipped", statusTheme: "info", total: "$1,200", date: "Oct 12, 2023" },
+                { id: "#ORD-5543", customer: "Sarah Ahmed", status: "Delivered", statusTheme: "success", total: "$850", date: "Oct 13, 2023" },
+                { id: "#ORD-5544", customer: "John Doe", status: "Pending", statusTheme: "warning", total: "$2,100", date: "Oct 14, 2023" },
+                { id: "#ORD-5545", customer: "Omar Wael", status: "Cancelled", statusTheme: "danger", total: "$450", date: "Oct 14, 2023" }
+            ];
+
+            // Render Orders
+            orders.forEach(order => {
+                const orderRow = `
+                    <tr>
+                        <td class="fw-bold">${order.id}</td>
+                        <td>${order.customer}</td>
+                        <td><span class="badge bg-${order.statusTheme}-subtle text-${order.statusTheme} border border-${order.statusTheme}">${order.status}</span></td>
+                        <td class="fw-bold">${order.total}</td>
+                        <td class="text-muted small">${order.date}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                $('#ordersTableBody').append(orderRow);
+            });
+        });
+    </script>
 
 </body>
-
 </html>

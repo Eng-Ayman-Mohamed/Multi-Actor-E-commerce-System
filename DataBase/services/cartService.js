@@ -63,18 +63,23 @@ export const cartService = {
     storage.set("carts", carts);
   },
 
+  getCartCount(userId) {
+    let totalCount = 0;
+    const userCart = this.getCart(userId);
+    userCart.items.forEach((element) => {
+      totalCount += element.quantity;
+    });
+    return totalCount;
+  },
+  // not working
   getCartTotal(userId) {
     const cart = this.getCart(userId);
     const products = storage.get("products") || [];
-
     let total = 0;
     const items = cart.items.map((item) => {
       const product = products.find((p) => p.id === item.productId);
 
-      // Calculate price after discount: P = Original - (Original * (D / 100))
-      const price = product
-        ? product.price - (product.price * (product.discount || 0)) / 100
-        : 0;
+      const price = product.finalPrice;
 
       const itemTotal = price * item.quantity;
       total += itemTotal;
