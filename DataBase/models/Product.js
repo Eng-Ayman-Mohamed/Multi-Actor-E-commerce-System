@@ -45,8 +45,4 @@ export default class Product {
     this.featured = featured ?? false;
     this.approved = approved ?? false;
   }
-
-  isInStock() {
-    return this.stock > 0;
-  }
 }

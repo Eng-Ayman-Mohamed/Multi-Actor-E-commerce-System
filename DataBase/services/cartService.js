@@ -1,13 +1,19 @@
 import { storage } from "../utils/storage.js";
 
 export const cartService = {
+  // Helper to get all carts from storage
+  _getAllCarts() {
+    return storage.get("carts") || [];
+  },
+
   getCart(userId) {
-    const carts = storage.get("carts");
-    return carts.find((c) => c.userId === userId);
+    const carts = this._getAllCarts();
+    const cart = carts.find((c) => c.userId === userId);
+    return cart || { userId, items: [] };
   },
 
   saveCart(cart) {
-    const carts = storage.get("carts");
+    const carts = this._getAllCarts();
     const index = carts.findIndex((c) => c.userId === cart.userId);
 
     if (index === -1) {
@@ -17,33 +23,62 @@ export const cartService = {
     }
     storage.set("carts", carts);
   },
+
+  addItem(userId, productId, qty = 1) {
+    const cart = this.getCart(userId);
+    const existing = cart.items.find((item) => item.productId === productId);
+
+    if (existing) {
+      existing.quantity += qty;
+    } else {
+      cart.items.push({ productId, quantity: qty });
+    }
+
+    this.saveCart(cart);
+  },
+
   removeItem(userId, productId) {
     const cart = this.getCart(userId);
-    if (!cart) return;
+    cart.items = cart.items.filter((item) => item.productId !== productId);
+    this.saveCart(cart);
+  },
 
-    cart.removeItem(productId);
+  updateQuantity(userId, productId, qty) {
+    const cart = this.getCart(userId);
+    const item = cart.items.find((item) => item.productId === productId);
+
+    if (!item) return;
+
+    item.quantity = qty;
+
+    if (item.quantity <= 0) {
+      return this.removeItem(userId, productId);
+    }
+
     this.saveCart(cart);
   },
 
   clearCart(userId) {
-    const carts = storage.get("carts").filter((c) => c.userId !== userId);
-
+    const carts = this._getAllCarts().filter((c) => c.userId !== userId);
     storage.set("carts", carts);
   },
 
   getCartTotal(userId) {
     const cart = this.getCart(userId);
-    if (!cart) return { items: [], cartTotal: 0 };
-
-    const products = storage.get("products");
+    const products = storage.get("products") || [];
 
     let total = 0;
     const items = cart.items.map((item) => {
       const product = products.find((p) => p.id === item.productId);
-      const price =
-        product.price - (product.price * (product.discount || 0)) / 100;
+
+      // Calculate price after discount: P = Original - (Original * (D / 100))
+      const price = product
+        ? product.price - (product.price * (product.discount || 0)) / 100
+        : 0;
+
       const itemTotal = price * item.quantity;
       total += itemTotal;
+
       return {
         productId: item.productId,
         quantity: item.quantity,

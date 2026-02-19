@@ -13,15 +13,15 @@ import { CTASection, footer, initFooter } from "../components/user/footer.js";
 $(function () {
   const basePath = getBasePath();
 
+  $("#mainWrapper")
+    .append(navbar(basePath))
+    .append(heroSection(basePath))
+    .append(shopFeatures)
+    .append(categories)
+    .append(featuredProducts)
+    .append(CTASection(basePath))
+    .append(footer(basePath));
   seedReady.then(() => {
-    $("#mainWrapper")
-      .append(navbar(basePath))
-      .append(heroSection(basePath))
-      .append(shopFeatures)
-      .append(categories)
-      .append(featuredProducts)
-      .append(CTASection(basePath))
-      .append(footer(basePath));
     initCategories();
     initNavBar();
     initFeaturedProducts();

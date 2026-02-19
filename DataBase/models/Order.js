@@ -17,12 +17,4 @@ export default class Order {
 
     this.status = "pending";
   }
-
-  updateStatus(stat) {
-    // Simple enum validation
-    if (!["pending", "shipped", "delivered", "cancelled"].includes(stat)) {
-      throw new Error("Invalid status");
-    }
-    this.status = stat;
-  }
 }
