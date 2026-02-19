@@ -9,6 +9,7 @@ export default class Product {
     price,
     discount,
     rating,
+    reviews,
     stock,
     weight,
     images,
@@ -35,6 +36,7 @@ export default class Product {
     this.price = Number(price);
     this.discount = Number(discount) || 0;
     this.rating = Number(rating) || 0;
+    this.reviews = reviews || [];
     this.weight = weight || 0;
     this.images = images || [];
     this.finalPrice = this.price - (this.price * (this.discount || 0)) / 100;
