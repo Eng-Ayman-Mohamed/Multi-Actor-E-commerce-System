@@ -31,7 +31,7 @@ async function initSeed() {
   userService.create(sysVendor);
 
   try {
-    const response = await fetch("https://dummyjson.com/products?limit=100");
+    const response = await fetch("https://dummyjson.com/products?limit=190");
     const { products: rawProducts } = await response.json();
 
     rawProducts.forEach((item) => {
@@ -56,7 +56,9 @@ async function initSeed() {
   } catch (error) {
     console.error("Seeding failed:", error);
   }
-
+  const cats = await fetch("https://dummyjson.com/products/categories")
+    .then((res) => res.json())
+    .then(console.log);
   // --- 4️⃣ Create Customers ---
   const customer1 = new User({
     name: "Alex Johnson",

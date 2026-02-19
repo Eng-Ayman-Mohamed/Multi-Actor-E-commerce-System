@@ -1,7 +1,7 @@
 import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
 import { footer, initFooter } from "../../../components/user/footer.js";
-
+import { productService } from "../../../DataBase/services/productService.js";
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar();
@@ -11,27 +11,27 @@ initFooter(getBasePath());
 let allProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
-const itemsPerPage = 6;
+const itemsPerPage = 21;
 
 // ===== API =====
 function getProducts() {
-  return $.ajax({
-    url: "https://fakestoreapi.com/products",
-    method: "GET",
-  });
+  return productService.getAll();
 }
 
 // ===== INIT =====
 $(document).ready(function () {
-  getProducts().done(function (products) {
-    allProducts = products;
-    filteredProducts = products;
+  let products = getProducts();
+  allProducts = products;
+  filteredProducts = products;
 
-    let categories = [...new Set(products.map((p) => p.category))];
-    renderFilters(categories);
+  //get max price
+  let prices = products.map((p) => p.price);
+  let maxPrice = Math.max(...prices);
 
-    updateView();
-  });
+  let categories = [...new Set(products.map((p) => p.category))];
+  renderFilters(categories, maxPrice);
+
+  updateView();
 
   // Filters
   $(document).on("change", ".category-filter", applyFilters);
@@ -46,7 +46,7 @@ $(document).ready(function () {
   // Clear
   $(document).on("click", "#clearFilters", function () {
     $(".category-filter").prop("checked", false);
-    $("#priceRange").val(2000);
+    $("#priceRange").val(maxPrice);
     $("input[type='search']").val("");
 
     filteredProducts = allProducts;
@@ -139,7 +139,8 @@ function updateView() {
   renderPagination();
 
   $("#productsCount").text(
-    `${start + 1}-${Math.min(end, filteredProducts.length)}`,
+    ` Showing ${start + 1}-${Math.min(end, filteredProducts.length)} of ${filteredProducts.length} products
+`,
   );
 }
 

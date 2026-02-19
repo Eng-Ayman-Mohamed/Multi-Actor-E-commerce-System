@@ -21,6 +21,9 @@ export const productService = {
   getAll() {
     return storage.get("products");
   },
+  getById(productId) {
+    return storage.get("products").filter((p) => p.id === productId)[0];
+  },
 
   getByVendor(vendorId) {
     return storage.get("products").filter((p) => p.vendorId === vendorId);

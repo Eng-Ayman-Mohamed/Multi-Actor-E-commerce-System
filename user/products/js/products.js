@@ -10,7 +10,7 @@ function renderProducts(products) {
     <div class="col-lg-4 col-md-6">
       <div class="shadow-lg product-card" data-id="${p.id}">
         <div class="product-img">
-          <img src="${p.image}" >
+          <img src="${p.images[0]}" >
           <button class="wishlist bg-body">
             <i class="fa-regular fa-heart"></i>
           </button>
