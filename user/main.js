@@ -1,3 +1,4 @@
+import { seedReady } from "../DataBase/utils/seed.js";
 import { getBasePath } from "../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../components/user/navbar.js";
 import heroSection from "../components/user/heroSection.js";
@@ -20,8 +21,10 @@ $(function () {
     .append(featuredProducts)
     .append(CTASection(basePath))
     .append(footer(basePath));
-  initCategories();
-  initNavBar();
-  initFeaturedProducts();
-  initFooter(basePath);
+  seedReady.then(() => {
+    initCategories();
+    initNavBar();
+    initFeaturedProducts();
+    initFooter(basePath);
+  });
 });

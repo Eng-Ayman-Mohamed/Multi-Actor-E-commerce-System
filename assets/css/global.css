@@ -1,3 +1,10 @@
+/* Import the font from Google */
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One:wght@400;700&display=swap");
+
+/* Apply it to your elements */
+/* body {
+  font-family: "Fjalla One", sans-serif;
+} */
 /* global.css */
 :root {
   --font-size: 16px;
@@ -86,4 +93,42 @@ a {
 
 .footer-bg a:hover {
   color: #2563eb !important; /* نفس الأزرق اللي في الصورة */
+}
+
+#featuredProducts .wishBtn:hover i {
+  color: red;
+}
+
+#featuredProducts .view-all:hover {
+  cursor: pointer;
+}
+#featuredProducts .view-all:hover i {
+  transition: 1s;
+  transform: translate(10px);
+}
+.cardContainer .card img:hover {
+  transition: 1s ease;
+  transform: scale(1.1);
+}
+
+.cardContainer .card a:hover {
+  transition: 0.3s;
+  cursor: pointer;
+  color: #3b89fd;
+}
+
+/* dark theme fix */
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating i {
+  color: #fbbf24;
+  font-size: 13px;
+}
+
+.rating .count {
+  color: #6b7280;
+  margin-left: 5px;
 }

@@ -8,144 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    :root {
-        --sidebar-width: 240px;
-        --sidebar-bg: #111827;
-        --accent-red: #e61e2a;
-        --bg-light: #f8f9fa;
-        --header-gray: #f1f3f5;
-    }
-
-    body {
-        background-color: var(--bg-light);
-        overflow-x: hidden;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .sidebar {
-        background-color: var(--sidebar-bg);
-        width: var(--sidebar-width);
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        top: 0;
-        color: white;
-        z-index: 1000;
-    }
-
-    .nav-link {
-        color: #9ca3af;
-        padding: 10px 15px;
-        border-radius: 8px;
-        margin: 4px 10px;
-        transition: 0.2s;
-        cursor: pointer;
-        text-decoration: none;
-        display: block;
-    }
-
-    .nav-link.active {
-        background-color: var(--accent-red);
-        color: white;
-    }
-
-    .nav-link:hover:not(.active) {
-        background-color: #1f2937;
-        color: white;
-    }
-
-    .main-content {
-        margin-left: var(--sidebar-width);
-        width: calc(100% - var(--sidebar-width));
-        min-height: 100vh;
-    }
-
-    .top-header {
-        background-color: var(--header-gray);
-        border-bottom: 1px solid #dee2e6;
-        padding: 15px 30px;
-        margin-bottom: 25px;
-    }
-
-    .container-fluid-limit {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 25px;
-    }
-
-    .stat-card {
-        border: none;
-        border-radius: 12px;
-        padding: 20px;
-        background: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-        height: 100%;
-        transition: 0.2s;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .card-container {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-        margin-bottom: 20px;
-    }
-
-    .stat-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-    }
-
-    .btn-action {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #eee;
-        transition: 0.2s;
-        background: white;
-    }
-
-    .btn-action:hover {
-        background-color: #f8f9fa;
-    }
-
-    canvas {
-        max-width: 100% !important;
-        height: 300px !important;
-    }
-
-    .page-section {
-        display: none;
-    }
-
-    .page-section.active-section {
-        display: block;
-    }
-</style>
+    <script src="./js/main.js" type="module"></script>
 </head>
 
 <body>
-
+    <!-- Sidebar -->
     <div class="sidebar d-flex flex-column p-2">
         <div class="p-3 mb-3 d-flex align-items-center">
             <i class="fas fa-shield-alt text-danger fs-4 me-2"></i>
             <div>
-                <h6 class="mb-0 fw-bold">Admin Panel</h6>
-                <small class="text-muted" style="font-size: 10px;">v2.0 System</small>
+                <h6 class="mb-0 fw-bold">Admin Panel</h6> 
             </div>
         </div>
         <ul class="nav flex-column mb-auto" id="sideNav">
@@ -153,7 +25,13 @@
             </li>
             <li><a class="nav-link" data-target="users-page"><i class="fas fa-users me-2"></i> Users</a></li>
             <li><a class="nav-link" data-target="products-page"><i class="fas fa-box me-2"></i> Products</a></li>
-            <li><a class="nav-link" data-target="orders-page"><i class="fas fa-shopping-cart me-2"></i> Orders</a></li>
+            <li><a class="nav-link" data-target="orders-page"><i class="fas fa-shopping-cart me-2"></i> Orders</a></li> <br><br>
+        <li>
+        <a href="the store page.html" class="nav-link text-danger fw-bold">
+            <i class="fas fa-sign-out-alt me-2"></i> Back to Store
+        </a>
+        </li>
+        </ul>
         </ul>
     </div>
 
@@ -172,152 +50,379 @@
                 </div>
             </div>
         </header>
-
-        <div class="container-fluid-limit" id="wrapper">
             <!-- from here the users page starts -->
+        <div class="container-fluid-limit" id="wrapper">
             <div id="users-page" class="page-section">
-                <div class="card-container">
-                    <h5 class="fw-bold mb-4">Platform Users List</h5>
-                    <table class="table align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Joined</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Ahmed Ali</td>
-                                <td>Admin</td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>Jan 2024</td>
-                            </tr>
-                            <tr>
-                                <td>John Smith</td>
-                                <td>Seller</td>
-                                <td><span class="badge bg-warning">Pending</span></td>
-                                <td>Feb 2024</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="card-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h5 class="fw-bold mb-0">Platform Users List</h5>
+                <p class="text-muted small mb-0">Manage your system members and their roles.</p>
             </div>
+            <button class="btn btn-primary shadow-sm" id="addUserBtn">
+                <i class="fas fa-plus me-2"></i>Add New User
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle" id="usersTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary-subtle text-primary rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">AA</div>
+                                Ahmed Ali
+                            </div>
+                        </td>
+                        <td><span class="badge border text-dark">Admin</span></td>
+                        <td><span class="badge bg-success-subtle text-success border border-success">Active</span></td>
+                        <td>Jan 2024</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning-subtle text-warning rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">JS</div>
+                                John Smith
+                            </div>
+                        </td>
+                        <td><span class="badge border text-dark">Seller</span></td>
+                        <td><span class="badge bg-warning-subtle text-warning border border-warning">Pending</span></td>
+                        <td>Feb 2024</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-info-subtle text-info rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">SR</div>
+                                Sarah Ridwa
+                            </div>
+                        </td>
+                        <td><span class="badge border text-dark">Editor</span></td>
+                        <td><span class="badge bg-success-subtle text-success border border-success">Active</span></td>
+                        <td>Mar 2024</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-danger-subtle text-danger rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">MK</div>
+                                Mike Ross
+                            </div>
+                        </td>
+                        <td><span class="badge border text-dark">Support</span></td>
+                        <td><span class="badge bg-danger-subtle text-danger border border-danger">Suspended</span></td>
+                        <td>May 2024</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
             <!-- from here the products page starts -->
-            <div id="products-page" class="page-section">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="card-container d-flex align-items-center p-3">
-                            <div class="flex-shrink-0 me-4">
-                                <i class="fas fa-laptop fa-3x text-muted"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h5 class="fw-bold mb-1">MacBook Pro M3</h5>
-                                <p class="text-muted small mb-0">High-performance laptop for professionals.</p>
-                            </div>
-                            <div class="text-end">
-                                <p class="text-danger fw-bold fs-5 mb-1">$2,499.00</p>
-                                <span class="badge bg-light text-dark border">In Stock: 15</span>
-                                <div class="mt-2">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-container d-flex align-items-center p-3">
-                        <div class="flex-shrink-0 me-4">
-                            <i class="fas fa-laptop fa-3x text-muted"></i>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="fw-bold mb-1">MacBook Pro M3</h5>
-                            <p class="text-muted small mb-0">High-performance laptop for professionals.</p>
-                        </div>
-                        <div class="text-end">
-                            <p class="text-danger fw-bold fs-5 mb-1">$2,499.00</p>
-                            <span class="badge bg-light text-dark border">In Stock: 15</span>
-                            <div class="mt-2">
-                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
+      <div id="products-page" class="page-section">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0">Product Inventory</h5>
+        <button class="btn btn-dark shadow-sm"><i class="fas fa-plus me-2"></i>Add Product</button>
+    </div>
+    
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-laptop fa-3x text-primary"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">MacBook Pro M3</h5>
+                    <p class="text-muted small mb-0">High-performance laptop for professionals.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$2,499.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 15</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
-
-
-            </div>
-        </div>
-        <!-- from here the orders page starts -->
-        <div id="orders-page" class="page-section">
-            <div class="card-container">
-                <h5 class="fw-bold mb-4">Latest Orders</h5>
-                <table class="table">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ORD-5542</td>
-                            <td>Kareem Mohamed</td>
-                            <td><span class="badge bg-info text-dark">Shipped</span></td>
-                            <td>$1,200</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-container">
-                <h5 class="fw-bold mb-4">Latest Orders</h5>
-                <table class="table">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ORD-5542</td>
-                            <td>Kareem Mohamed</td>
-                            <td><span class="badge bg-info text-dark">Shipped</span></td>
-                            <td>$1,200</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-container">
-                <h5 class="fw-bold mb-4">Latest Orders</h5>
-                <table class="table">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ORD-5542</td>
-                            <td>Kareem Mohamed</td>
-                            <td><span class="badge bg-info text-dark">Shipped</span></td>
-                            <td>$1,200</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
-    </div>
-    </div>
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-mobile-alt fa-3x text-success"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">iPhone 15 Pro</h5>
+                    <p class="text-muted small mb-0">Titanium design with A17 Pro chip.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$999.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 42</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-headphones fa-3x text-info"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Sony WH-1000XM5</h5>
+                    <p class="text-muted small mb-0">Industry leading noise canceling headphones.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$348.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 28</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-clock fa-3x text-warning"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Apple Watch Ultra</h5>
+                    <p class="text-muted small mb-0">Rugged and capable for athletes.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$799.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 10</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-camera fa-3x text-secondary"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Canon EOS R5</h5>
+                    <p class="text-muted small mb-0">Mirrorless camera with 45MP sensor.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$3,899.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 5</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-gamepad fa-3x text-dark"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">PlayStation 5</h5>
+                    <p class="text-muted small mb-0">Experience lightning-fast loading.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$499.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 22</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-tablet-alt fa-3x text-primary"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">iPad Pro 12.9"</h5>
+                    <p class="text-muted small mb-0">The ultimate iPad experience with M2.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$1,099.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 30</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-keyboard fa-3x text-muted"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Mechanical Keyboard</h5>
+                    <p class="text-muted small mb-0">RGB Backlit with blue switches.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$129.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 55</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-tv fa-3x text-info"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Samsung Odyssey G7</h5>
+                    <p class="text-muted small mb-0">32-inch 240Hz Curved Gaming Monitor.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$699.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 8</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-container d-flex align-items-center p-3">
+                <div class="flex-shrink-0 me-4">
+                    <i class="fas fa-volume-up fa-3x text-danger"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-1">Bose SoundLink</h5>
+                    <p class="text-muted small mb-0">Portable Bluetooth speaker with 360 sound.</p>
+                </div>
+                <div class="text-end">
+                    <p class="text-danger fw-bold fs-5 mb-1">$199.00</p>
+                    <span class="badge bg-light text-dark border">In Stock: 100</span>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- from here the orders page starts -->
+           <div id="orders-page" class="page-section">
+    <div class="card-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h5 class="fw-bold mb-0">Manage Orders</h5>
+                <p class="text-muted small mb-0">Track and manage customer transactions.</p>
+            </div>
+            <button class="btn btn-danger shadow-sm" id="addOrderBtn">
+                <i class="fas fa-cart-plus me-2"></i>New Order</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle" id="ordersTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">#ORD-5542</td>
+                        <td>Kareem Mohamed</td>
+                        <td><span class="badge bg-info-subtle text-info border border-info">Shipped</span></td>
+                        <td class="fw-bold">$1,200</td>
+                        <td class="text-muted small">Oct 12, 2023</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">#ORD-5543</td>
+                        <td>Sarah Ahmed</td>
+                        <td><span class="badge bg-success-subtle text-success border border-success">Delivered</span></td>
+                        <td class="fw-bold">$850</td>
+                        <td class="text-muted small">Oct 13, 2023</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">#ORD-5544</td>
+                        <td>John Doe</td>
+                        <td><span class="badge bg-warning-subtle text-warning border border-warning">Pending</span></td>
+                        <td class="fw-bold">$2,100</td>
+                        <td class="text-muted small">Oct 14, 2023</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">#ORD-5545</td>
+                        <td>Omar Wael</td>
+                        <td><span class="badge bg-danger-subtle text-danger border border-danger">Cancelled</span></td>
+                        <td class="fw-bold">$450</td>
+                        <td class="text-muted small">Oct 14, 2023</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 

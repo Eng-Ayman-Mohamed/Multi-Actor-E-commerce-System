@@ -1,6 +1,8 @@
 import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
 import { footer, initFooter } from "../../../components/user/footer.js";
+import { productService } from "../../../DataBase/services/productService.js";
+import { productCard } from "../../../components/user/card.js ";
 
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
@@ -11,27 +13,27 @@ initFooter(getBasePath());
 let allProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
-const itemsPerPage = 6;
+const itemsPerPage = 21;
 
 // ===== API =====
 function getProducts() {
-  return $.ajax({
-    url: "https://fakestoreapi.com/products",
-    method: "GET",
-  });
+  return productService.getAll();
 }
 
 // ===== INIT =====
 $(document).ready(function () {
-  getProducts().done(function (products) {
-    allProducts = products;
-    filteredProducts = products;
+  let products = getProducts();
+  allProducts = products;
+  filteredProducts = products;
 
-    let categories = [...new Set(products.map((p) => p.category))];
-    renderFilters(categories);
+  //get max price
+  let prices = products.map((p) => p.price);
+  let maxPrice = Math.max(...prices);
 
-    updateView();
-  });
+  let categories = [...new Set(products.map((p) => p.category))];
+  renderFilters(categories, maxPrice);
+
+  updateView();
 
   // Filters
   $(document).on("change", ".category-filter", applyFilters);
@@ -46,7 +48,7 @@ $(document).ready(function () {
   // Clear
   $(document).on("click", "#clearFilters", function () {
     $(".category-filter").prop("checked", false);
-    $("#priceRange").val(2000);
+    $("#priceRange").val(maxPrice);
     $("input[type='search']").val("");
 
     filteredProducts = allProducts;
@@ -57,9 +59,13 @@ $(document).ready(function () {
   // Sort
   $("#sortSelect").on("change", function () {
     let val = $(this).val();
-
+    if (val === "featured")
+      filteredProducts.sort((x, y) =>
+        x.featured === y.featured ? 0 : x.featured ? -1 : 1,
+      );
     if (val === "low") filteredProducts.sort((a, b) => a.price - b.price);
     if (val === "high") filteredProducts.sort((a, b) => b.price - a.price);
+    if (val === "rating") filteredProducts.sort((a, b) => b.rating - a.rating);
 
     updateView();
   });
@@ -67,12 +73,14 @@ $(document).ready(function () {
   // Pagination
   $(document).on("click", ".page-btn", function () {
     currentPage = +$(this).data("page");
+    window.scrollTo(0, 0);
     updateView();
   });
 
   $(document).on("click", "#prevPage", function () {
     if (currentPage > 1) {
       currentPage--;
+      window.scrollTo(0, 0);
       updateView();
     }
   });
@@ -81,6 +89,7 @@ $(document).ready(function () {
     let totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (currentPage < totalPages) {
       currentPage++;
+      window.scrollTo(0, 0);
       updateView();
     }
   });
@@ -139,7 +148,8 @@ function updateView() {
   renderPagination();
 
   $("#productsCount").text(
-    `${start + 1}-${Math.min(end, filteredProducts.length)}`,
+    ` Showing ${start + 1}-${Math.min(end, filteredProducts.length)} of ${filteredProducts.length} products
+`,
   );
 }
 
@@ -166,4 +176,25 @@ function renderPagination() {
   html += `<button id="nextPage" class="btn btn-outline-secondary btn-sm">Next</button>`;
 
   $("#pagination").html(html);
+}
+
+function renderProducts(products) {
+  $("#products").text("");
+  if (!products.length) {
+    $("#products").html(`<p class="text-center">No products found</p>`);
+    return;
+  }
+
+  products.forEach((element) => {
+    $("#products").append(
+      productCard(
+        element.id,
+        element.images[0],
+        element.title,
+        element.rating,
+        element.reviews.length,
+        element.price,
+      ),
+    );
+  });
 }

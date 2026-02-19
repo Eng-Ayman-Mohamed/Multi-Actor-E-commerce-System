@@ -46,3 +46,23 @@
 .input-group:focus-within .input-group-text {
   border-color: #2f5bea;
 }
+
+/* ================= VALID SUCCESS STYLE ================= */
+
+.form-control.is-valid {
+  border-color: #198754 !important; /* Bootstrap success green */
+}
+
+.form-control.is-valid:focus {
+  border-color: #198754 !important;
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25) !important;
+}
+
+.input-group:has(.form-control.is-valid) .input-group-text {
+  border-color: #198754 !important;
+}
+
+.valid-feedback {
+  color: #198754;
+  font-size: 0.85rem;
+}
