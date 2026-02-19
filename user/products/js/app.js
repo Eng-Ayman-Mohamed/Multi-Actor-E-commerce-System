@@ -57,9 +57,13 @@ $(document).ready(function () {
   // Sort
   $("#sortSelect").on("change", function () {
     let val = $(this).val();
-
+    if (val === "featured")
+      filteredProducts.sort((x, y) =>
+        x.featured === y.featured ? 0 : x.featured ? -1 : 1,
+      );
     if (val === "low") filteredProducts.sort((a, b) => a.price - b.price);
     if (val === "high") filteredProducts.sort((a, b) => b.price - a.price);
+    if (val === "rating") filteredProducts.sort((a, b) => b.rating - a.rating);
 
     updateView();
   });
@@ -67,12 +71,14 @@ $(document).ready(function () {
   // Pagination
   $(document).on("click", ".page-btn", function () {
     currentPage = +$(this).data("page");
+    window.scrollTo(0, 0);
     updateView();
   });
 
   $(document).on("click", "#prevPage", function () {
     if (currentPage > 1) {
       currentPage--;
+      window.scrollTo(0, 0);
       updateView();
     }
   });
@@ -81,6 +87,7 @@ $(document).ready(function () {
     let totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (currentPage < totalPages) {
       currentPage++;
+      window.scrollTo(0, 0);
       updateView();
     }
   });

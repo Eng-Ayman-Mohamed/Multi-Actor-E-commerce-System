@@ -2,7 +2,7 @@ import { productCard } from "./card.js";
 import { productService } from "../../DataBase/services/productService.js";
 
 export function featuredProducts() {
-  return `<div id="featuredProducts" class="mb-5 container-lg px-4 ">
+  return `<div class=" bg-body-tertiary "><div id="featuredProducts" class=" container-lg py-5  px-4 ">
             <div class="d-flex justify-content-between">
                 <div>
                     <p class="h2 fw-bold">Featured Products</p>
@@ -13,17 +13,17 @@ export function featuredProducts() {
             </div>
             <div id="featuredProductsContainer" class="row justify-content-around">
             </div>
-        </div>`;
+        </div></div>`;
 }
 
 export function initFeaturedProducts() {
   const allProducts = productService.getAll();
-  console.log(allProducts);
   const featuredProducts = allProducts
     .filter((product) => product.featured === true)
     .map((product) => {
       return {
-        productImage: product.images[0] || "https://via.placeholder.com/1080",
+        productId: product.id,
+        productImage: product.images[0],
         productTitle: product.title,
         productStars: product.rating,
         productReviews: product.reviews.length,
@@ -31,9 +31,10 @@ export function initFeaturedProducts() {
       };
     });
 
-  featuredProducts.forEach((item) => {
+  featuredProducts.slice(0, 12).forEach((item) => {
     $("#featuredProductsContainer").append(
       productCard(
+        item.productId,
         item.productImage,
         item.productTitle,
         item.productStars,

@@ -33,9 +33,9 @@
   }
 }
 
-#CategoriesContainer .category:hover {
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05) !important;
-  cursor: pointer;
+.category:hover #emoji {
+  transition: 1s ease;
+  transform: scale(1.2);
 }
 
 #featuredProducts .wishBtn:hover i {
@@ -54,14 +54,24 @@
   transform: scale(1.1);
 }
 
-.cardContainer .card h5:hover {
+.cardContainer .card a:hover {
   transition: 0.3s;
   cursor: pointer;
   color: #3b89fd;
 }
 
 /* dark theme fix */
+.rating {
+  display: flex;
+  align-items: center;
+}
 
-html[data-bs-theme="dark"] .rating-item-icon {
-  background-color: rgb(172, 172, 172);
+.rating i {
+  color: #fbbf24;
+  font-size: 13px;
+}
+
+.rating .count {
+  color: #6b7280;
+  margin-left: 5px;
 }

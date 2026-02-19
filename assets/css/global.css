@@ -1,3 +1,10 @@
+/* Import the font from Google */
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One:wght@400;700&display=swap");
+
+/* Apply it to your elements */
+/* body {
+  font-family: "Fjalla One", sans-serif;
+} */
 /* global.css */
 :root {
   --font-size: 16px;

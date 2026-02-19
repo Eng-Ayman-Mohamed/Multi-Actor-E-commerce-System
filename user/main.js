@@ -28,3 +28,29 @@ $(function () {
     initFooter(basePath);
   });
 });
+
+/*  addItem(productId, qty = 1) {
+    const existing = this.items.find((item) => item.productId === productId);
+
+    if (existing) {
+      existing.quantity += qty;
+    } else {
+      this.items.push({
+        productId,
+        quantity: qty,
+      });
+    }
+  },
+
+  addToCart(userId, productId, quantity = 1) {
+    const carts = storage.get("carts");
+    const index = carts.findIndex((c) => c.userId === userId);
+    if (index === -1) {
+      let newCart = new Cart(userId);
+      newCart.addItem(productId, quantity);
+      carts.push(newCart);
+    } else {
+      carts[index] = cart;
+    }
+    storage.set("carts", carts);
+  },*/

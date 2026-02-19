@@ -12,7 +12,6 @@ async function initSeed() {
   storage.set("carts", []);
   storage.set("orders", []);
 
-  // --- 1️⃣ Create Admin ---
   const admin = new User({
     name: "System Admin",
     email: "admin@shopflow.com",
@@ -51,15 +50,10 @@ async function initSeed() {
       });
       productService.create(p); // Save directly to service
     });
-
-    console.log("✅ Seed complete!");
   } catch (error) {
     console.error("Seeding failed:", error);
   }
-  const cats = await fetch("https://dummyjson.com/products/categories")
-    .then((res) => res.json())
-    .then(console.log);
-  // --- 4️⃣ Create Customers ---
+  // --- Create Customers ---
   const customer1 = new User({
     name: "Alex Johnson",
     email: "alex.j@gmail.com",

@@ -80,10 +80,10 @@ $(function () {
           <span>Quantity</span>
           <div class="input-group" style="width:130px;">
             <button class="btn btn-outline-secondary" id="minus">-</button>
-            <input type="text" id="qty  " class="form-control text-center" value="1">
+            <input type="text" id="qty" class="form-control text-center" value="1">
             <button class="btn btn-outline-secondary" id="plus">+</button>
           </div>
-          <span class="text-muted">Total: $<span id="totalPrice">${+product.finalPrice.toFixed(2)}</span></span>
+          <span class="text-muted">Total: $<span id="totalPrice">${product.finalPrice.toFixed(2)}</span></span>
         </div>
 
         <!-- Buttons -->

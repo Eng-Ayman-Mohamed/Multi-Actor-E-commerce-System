@@ -20,8 +20,8 @@ function renderProducts(products) {
           <h6 class="product-title fw-bold">${p.title}</h6>
 
           <div class="rating">
-            ${renderStars(4)}
-            <span class="count">(324)</span>
+            ${renderStars(`${p.rating}`)}
+            <span class="count">(${p.reviews.length})</span>
           </div>
 
           <div class="product-footer">
@@ -43,7 +43,7 @@ function renderProducts(products) {
 function renderStars(num) {
   let stars = "";
   for (let i = 1; i <= 5; i++) {
-    stars += `<i class="bi bi-star${i <= num ? "-fill" : ""}"></i>`;
+    stars += `<i class="fa-${i <= num ? "solid" : "regular"} fa-star"></i>`;
   }
   return stars;
 }

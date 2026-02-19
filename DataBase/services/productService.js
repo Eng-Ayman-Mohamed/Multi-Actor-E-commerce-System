@@ -34,4 +34,8 @@ export const productService = {
       approved: true,
     });
   },
+
+  isInStock(productId) {
+    return this.getById(productId).stock > 0;
+  },
 };
