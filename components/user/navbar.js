@@ -30,7 +30,7 @@ export function navbar(basePath) {
         <i class="fa-regular fa-moon"></i>
         </button>
         
-        <a href="#" class="position-relative btn btn-body rounded">
+        <a href="${basePath}/user/cart/index.html" class="position-relative btn btn-body rounded">
         <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
           </a>

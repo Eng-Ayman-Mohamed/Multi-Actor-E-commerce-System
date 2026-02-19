@@ -4,8 +4,26 @@ import { footer, initFooter } from "../../../components/user/footer.js";
 import { productService } from "../../../DataBase/services/productService.js";
 import { productCard } from "../../../components/user/card.js ";
 
+//Nav Bar initialization
 import { cartService } from "../../../DataBase/services/cartService.js";
 import { userService } from "../../../DataBase/services/userService.js";
+let userId = userService.getCurrentUser().id;
+
+function dynamicData() {
+  updateCartCount();
+  $(".addToCartBtn").click(function () {
+    let productId = $(this).attr("data-productId");
+    cartService.addItem(userId, productId);
+    console.log("product Added", productId);
+    updateCartCount();
+  });
+}
+function updateCartCount() {
+  /* ===== Cart Count ===== */
+  let userId = userService.getCurrentUser().id;
+  $("#cartCount").text(cartService.getCartCount(userId));
+  $("#cartCountMobile").text(cartService.getCartCount(userId));
+}
 
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
@@ -115,6 +133,7 @@ $(document).ready(function () {
 
     $(this).toggleClass("active");
   });
+  dynamicData();
 });
 
 // ===== FILTER LOGIC =====
@@ -199,12 +218,5 @@ function renderProducts(products) {
         element.price,
       ),
     );
-  });
-
-  $(".addToCartBtn").click(function () {
-    let user = userService.getCurrentUser();
-    let productId = $(this).attr("data-productId");
-    cartService.addItem(user.id, productId);
-    console.log("product Added", productId);
   });
 }

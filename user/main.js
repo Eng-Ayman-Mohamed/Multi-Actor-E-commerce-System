@@ -9,12 +9,8 @@ import {
 } from "../components/user/featuredProducts.js";
 import { CTASection, footer, initFooter } from "../components/user/footer.js";
 
-import { cartService } from "../DataBase/services/cartService.js";
-import { userService } from "../DataBase/services/userService.js";
-
 $(function () {
   const basePath = getBasePath();
-
   $("#mainWrapper")
     .append(navbar(basePath))
     .append(heroSection(basePath))
@@ -27,7 +23,14 @@ $(function () {
   initNavBar();
   initFeaturedProducts();
   initFooter(basePath);
-  let userId = userService.getCurrentUser().id;
+  dynamicData();
+});
+
+import { cartService } from "../DataBase/services/cartService.js";
+import { userService } from "../DataBase/services/userService.js";
+let userId = userService.getCurrentUser().id;
+
+function dynamicData() {
   updateCartCount();
   $(".addToCartBtn").click(function () {
     let productId = $(this).attr("data-productId");
@@ -35,9 +38,7 @@ $(function () {
     console.log("product Added", productId);
     updateCartCount();
   });
-});
-
-function dynamicData() {}
+}
 
 function updateCartCount() {
   /* ===== Cart Count ===== */
@@ -45,4 +46,3 @@ function updateCartCount() {
   $("#cartCount").text(cartService.getCartCount(userId));
   $("#cartCountMobile").text(cartService.getCartCount(userId));
 }
-dynamicData();

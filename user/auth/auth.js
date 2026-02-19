@@ -122,7 +122,7 @@ function handleRegisterSubmit(e) {
   if (!validatePassword(password.value)) {
     setError(
       password,
-      "Password must be at least 8 characters and contain letters and numbers"
+      "Password must be at least 8 characters and contain letters and numbers",
     );
     isValid = false;
   } else {
@@ -211,7 +211,7 @@ function handleLoginSubmit(e) {
     (u) =>
       u.email === email.value.trim() &&
       u.password === password.value &&
-      u.role === role
+      u.role === role,
   );
 
   if (!user) {
