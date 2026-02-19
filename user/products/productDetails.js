@@ -8,6 +8,12 @@ import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
 let userId = userService.getCurrentUser().id;
 
+function updateCartCount() {
+  /* ===== Cart Count ===== */
+  let userId = userService.getCurrentUser().id;
+  $("#cartCount").text(cartService.getCartCount(userId));
+  $("#cartCountMobile").text(cartService.getCartCount(userId));
+}
 function dynamicData() {
   updateCartCount();
   $(".addToCartBtn").click(function () {
@@ -16,12 +22,6 @@ function dynamicData() {
     console.log("product Added", productId);
     updateCartCount();
   });
-}
-function updateCartCount() {
-  /* ===== Cart Count ===== */
-  let userId = userService.getCurrentUser().id;
-  $("#cartCount").text(cartService.getCartCount(userId));
-  $("#cartCountMobile").text(cartService.getCartCount(userId));
 }
 
 $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));

@@ -10,7 +10,9 @@ export const userService = {
   getCurrentUser() {
     return storage.get("currentUser");
   },
-
+  setCurrentUser(user) {
+    storage.set("currentUser", user);
+  },
   create(user) {
     if (this.emailExists(user.email)) {
       throw new Error("Email already registered");
