@@ -13,7 +13,7 @@ export function productCard(id, image, productTitle, stars, reviews, price) {
                              </div>
                         <div class="d-flex justify-content-between">
                             <p class="h3 fw-bold text-primary">$${price}</p>
-                            <button href="#" class="btn btn-primary"><i
+                            <button data-productId=${id}  class="addToCartBtn btn btn-primary"><i
                                     class="fa-solid fa-cart-shopping"></i>Add</button>
                         </div>
                     </div>

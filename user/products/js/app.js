@@ -4,6 +4,9 @@ import { footer, initFooter } from "../../../components/user/footer.js";
 import { productService } from "../../../DataBase/services/productService.js";
 import { productCard } from "../../../components/user/card.js ";
 
+import { cartService } from "../../../DataBase/services/cartService.js";
+import { userService } from "../../../DataBase/services/userService.js";
+
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar();
@@ -196,5 +199,12 @@ function renderProducts(products) {
         element.price,
       ),
     );
+  });
+
+  $(".addToCartBtn").click(function () {
+    let user = userService.getCurrentUser();
+    let productId = $(this).attr("data-productId");
+    cartService.addItem(user.id, productId);
+    console.log("product Added", productId);
   });
 }
