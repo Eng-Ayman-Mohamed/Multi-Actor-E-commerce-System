@@ -1,6 +1,6 @@
 export function productCard(id, image, productTitle, stars, reviews, price) {
   return `
-        <div class="cardContainer col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+        <div class="cardContainer col-12  col-lg-6 col-xl-4 my-2">
         <div class="card p-0 h-100  position-relative">
                     <button class="wishBtn border-0 w-auto position-absolute end-0 rounded-circle m-2 z-1"><i
                             class="h5 fa-regular fa-heart my-2"></i></button>

@@ -2,6 +2,8 @@ import { getBasePath } from "../../../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../../../components/user/navbar.js";
 import { footer, initFooter } from "../../../components/user/footer.js";
 import { productService } from "../../../DataBase/services/productService.js";
+import { productCard } from "../../../components/user/card.js ";
+
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar();
@@ -174,4 +176,25 @@ function renderPagination() {
   html += `<button id="nextPage" class="btn btn-outline-secondary btn-sm">Next</button>`;
 
   $("#pagination").html(html);
+}
+
+function renderProducts(products) {
+  $("#products").text("");
+  if (!products.length) {
+    $("#products").html(`<p class="text-center">No products found</p>`);
+    return;
+  }
+
+  products.forEach((element) => {
+    $("#products").append(
+      productCard(
+        element.id,
+        element.images[0],
+        element.title,
+        element.rating,
+        element.reviews.length,
+        element.price,
+      ),
+    );
+  });
 }

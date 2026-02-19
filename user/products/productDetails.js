@@ -76,7 +76,7 @@ $(function () {
         </p>
 
         <!-- Quantity -->
-        <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="d-flex justify-content-center gap-3 mb-4">
           <span>Quantity</span>
           <div class="input-group" style="width:130px;">
             <button class="btn btn-outline-secondary" id="minus">-</button>

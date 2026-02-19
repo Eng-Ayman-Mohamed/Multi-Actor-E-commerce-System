@@ -31,7 +31,7 @@ const emojiMap = {
   "mens-shirts": "👔",
   "mens-shoes": "👟",
   "mens-watches": "⌚",
-  "mobile-accessories": "🔌",
+  "mobile-accessories": "🎧",
   motorcycle: "🏍️",
   "skin-care": "🧴",
   smartphones: "📱",
