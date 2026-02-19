@@ -1,5 +1,5 @@
 import { category } from "./category.js";
-
+import { productService } from "../../DataBase/services/productService.js";
 export function categories() {
   return `<div class="container-xl my-5">
             <p class="h2 fw-bold text-center">Shop by Category</p>
@@ -11,42 +11,57 @@ export function categories() {
 
 export function initCategories() {
   let CategoriesContainer = $("#CategoriesContainer");
-  let categoriesData = [
-    {
-      categoryEmoji: "💻",
-      categoryName: "Electronics",
-      categoryItems: "234",
-    },
-    {
-      categoryEmoji: "👗",
-      categoryName: "Fashion",
-      categoryItems: "567",
-    },
-    {
-      categoryEmoji: "🏠",
-      categoryName: "Home & Living",
-      categoryItems: "21894",
-    },
-    {
-      categoryEmoji: "⚽",
-      categoryName: "Sports",
-      categoryItems: "345",
-    },
-    {
-      categoryEmoji: "📚",
-      categoryName: "Books",
-      categoryItems: "678",
-    },
-    {
-      categoryEmoji: "🎮",
-      categoryName: "Toys",
-      categoryItems: "123",
-    },
-  ];
+  let categoriesData = getTopCategories();
 
   categoriesData.forEach((item) => {
     CategoriesContainer.append(
       category(item.categoryEmoji, item.categoryName, item.categoryItems),
     );
   });
+}
+
+const emojiMap = {
+  beauty: "💄",
+  fragrances: "✨",
+  furniture: "🪑",
+  groceries: "🍎",
+  "home-decoration": "🏠",
+  "kitchen-accessories": "🍳",
+  laptops: "💻",
+  "mens-shirts": "👔",
+  "mens-shoes": "👟",
+  "mens-watches": "⌚",
+  "mobile-accessories": "🎧",
+  motorcycle: "🏍️",
+  "skin-care": "🧴",
+  smartphones: "📱",
+  "sports-accessories": "⚽",
+  sunglasses: "🕶️",
+  tablets: "📟",
+  tops: "👕",
+  vehicle: "🚗",
+  "womens-bags": "👜",
+  "womens-dresses": "👗",
+  "womens-jewellery": "💍",
+  "womens-shoes": "👠",
+  "womens-watches": "⌚",
+};
+
+export function getTopCategories() {
+  let allProducts = productService.getAll();
+  const categoryCounts = allProducts.reduce((acc, product) => {
+    const cat = product.category;
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {});
+
+  const categoryArray = Object.entries(categoryCounts);
+
+  categoryArray.sort((a, b) => b[1] - a[1]);
+
+  return categoryArray.slice(0, 6).map(([name, count]) => ({
+    categoryName: name,
+    categoryItems: count,
+    categoryEmoji: emojiMap[name],
+  }));
 }
