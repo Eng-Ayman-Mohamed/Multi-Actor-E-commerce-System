@@ -3,6 +3,27 @@ import { navbar, initNavBar } from "../../components/user/navbar.js";
 import { footer, initFooter } from "../../components/user/footer.js";
 import { productService } from "../../DataBase/services/productService.js";
 
+//Nav Bar initialization
+import { cartService } from "../../DataBase/services/cartService.js";
+import { userService } from "../../DataBase/services/userService.js";
+let userId = userService.getCurrentUser().id;
+
+function dynamicData() {
+  updateCartCount();
+  $(".addToCartBtn").click(function () {
+    let productId = $(this).attr("data-productId");
+    cartService.addItem(userId, productId);
+    console.log("product Added", productId);
+    updateCartCount();
+  });
+}
+function updateCartCount() {
+  /* ===== Cart Count ===== */
+  let userId = userService.getCurrentUser().id;
+  $("#cartCount").text(cartService.getCartCount(userId));
+  $("#cartCountMobile").text(cartService.getCartCount(userId));
+}
+
 $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 initNavBar();
 initFooter(getBasePath());
@@ -88,7 +109,7 @@ $(function () {
 
         <!-- Buttons -->
         <div class="d-flex gap-2 mb-4">
-          <button class="btn btn-primary flex-grow-1">
+          <button data-productId=${product.id} class="btn btn-primary flex-grow-1 addToCartBtn">
             <i class="bi bi-cart"></i> Add to Cart
           </button>
           <button class="btn btn-outline-secondary">
@@ -156,4 +177,5 @@ $(function () {
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
   });
+  dynamicData();
 });

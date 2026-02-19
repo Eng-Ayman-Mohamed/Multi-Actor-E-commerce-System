@@ -7,6 +7,10 @@ export const userService = {
     return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
   },
 
+  getCurrentUser() {
+    return storage.get("currentUser");
+  },
+
   create(user) {
     if (this.emailExists(user.email)) {
       throw new Error("Email already registered");

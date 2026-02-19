@@ -17,7 +17,18 @@ import { orderService } from "./services/orderService.js";
 // ===============================
 function setCurrentUserByRole(role) {
   const users = userService.getAll();
+  console.log("🔍 All Users in Storage:", users); // Check if this is empty or has data
+
   const user = users.find((u) => u.role === role);
+
+  if (!user) {
+    console.error(
+      `❌ Role "${role}" not found in:`,
+      users.map((u) => u.role),
+    );
+    return; // Stop execution before the .name crash
+  }
+
   storage.set("currentUser", user);
   console.log(`\n👤 Current User → ${role.toUpperCase()} :`, user.name);
   return user;
@@ -99,23 +110,21 @@ function customerFlow(product) {
   console.log("\n================ CUSTOMER FLOW ================");
 
   const customer = setCurrentUserByRole("customer");
-
-  // 🛒 Create Cart
-  let cart = new Cart(customer.id);
-
-  // Mixed vendors simulation → add same product twice
-  cart.addItem(product.id, 2);
-
-  cartService.saveCart(cart);
-  console.log("🛒 Items Added To Cart");
+  // ✨ NEW WAY: The service handles creation, logic, and saving internally.
+  cartService.addItem(customer.id, product.id, 2);
+  console.log("🛒 Items Added To Cart (Logic & Save handled by Service)");
 
   // 💰 Cart Total
+  // The service fetches the raw data and calculates totals on the fly
   const totals = cartService.getCartTotal(customer.id);
-  console.log("💰 Cart Total:", totals);
+  console.log("💰 Cart Total Details:", totals);
 
   // 🧾 Checkout
+  // We fetch the latest cart data from the service for the order
+  const currentCart = cartService.getCart(customer.id);
   const productsDB = productService.getAll();
-  const order = new Order(customer.id, cart.items, productsDB);
+
+  const order = new Order(customer.id, currentCart.items, productsDB);
 
   orderService.create(order);
   console.log("✅ Order Created:", order.id);
