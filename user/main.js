@@ -1,3 +1,4 @@
+import { seedReady } from "../DataBase/utils/seed.js";
 import { getBasePath } from "../assets/utils/basePath.js";
 import { navbar, initNavBar } from "../components/user/navbar.js";
 import heroSection from "../components/user/heroSection.js";
@@ -12,16 +13,18 @@ import { CTASection, footer, initFooter } from "../components/user/footer.js";
 $(function () {
   const basePath = getBasePath();
 
-  $("#mainWrapper")
-    .append(navbar(basePath))
-    .append(heroSection(basePath))
-    .append(shopFeatures)
-    .append(categories)
-    .append(featuredProducts)
-    .append(CTASection(basePath))
-    .append(footer(basePath));
-  initCategories();
-  initNavBar();
-  initFeaturedProducts();
-  initFooter(basePath);
+  seedReady.then(() => {
+    $("#mainWrapper")
+      .append(navbar(basePath))
+      .append(heroSection(basePath))
+      .append(shopFeatures)
+      .append(categories)
+      .append(featuredProducts)
+      .append(CTASection(basePath))
+      .append(footer(basePath));
+    initCategories();
+    initNavBar();
+    initFeaturedProducts();
+    initFooter(basePath);
+  });
 });
