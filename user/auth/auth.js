@@ -3,6 +3,16 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { getBasePath } from "../../assets/utils/basePath.js";
 
 // ==================== LOAD NAVBAR & FOOTER ====================
+//Nav Bar initialization
+import { cartService } from "../../DataBase/services/cartService.js";
+import { userService } from "../../DataBase/services/userService.js";
+
+function updateCartCount() {
+  /* ===== Cart Count ===== */
+  let userId = userService.getCurrentUser().id;
+  $("#cartCount").text(cartService.getCartCount(userId));
+  $("#cartCountMobile").text(cartService.getCartCount(userId));
+}
 
 $(function () {
   if ($("#container").length) {
@@ -11,6 +21,7 @@ $(function () {
       .append(footer(getBasePath()));
     initNavBar();
     initFooter(getBasePath());
+    updateCartCount();
   }
 });
 
