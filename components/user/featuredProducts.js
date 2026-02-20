@@ -28,6 +28,7 @@ export function initFeaturedProducts() {
         productStars: product.rating,
         productReviews: product.reviews.length,
         productPrice: product.price,
+        featured: product.featured,
       };
     });
 
@@ -40,6 +41,7 @@ export function initFeaturedProducts() {
         item.productStars,
         item.productReviews,
         item.productPrice,
+        item.featured,
       ),
     );
   });

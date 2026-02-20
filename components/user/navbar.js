@@ -90,7 +90,9 @@ export function initNavBar() {
 
     html.setAttribute("data-bs-theme", savedTheme);
     icon.className =
-      savedTheme === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
+      savedTheme === "dark"
+        ? "fa-regular fa-sun text-warning"
+        : "fa-regular fa-moon";
 
     btn.addEventListener("click", () => {
       const current = html.getAttribute("data-bs-theme");
@@ -100,7 +102,9 @@ export function initNavBar() {
       localStorage.setItem("theme", next);
 
       icon.className =
-        next === "dark" ? "fa-regular fa-sun" : "fa-regular fa-moon";
+        next === "dark"
+          ? "fa-regular fa-sun  text-warning"
+          : "fa-regular fa-moon";
     });
   }
 

@@ -52,9 +52,9 @@ async function initSeed() {
         discount: item.discountPercentage,
         rating: item.rating,
         stock: item.stock,
+        reviews: item.reviews,
         weight: item.weight,
         images: item.images,
-        featured: item.rating > 4.5,
         approved: true,
       });
       productService.create(p); // Save directly to service
