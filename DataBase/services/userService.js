@@ -6,7 +6,6 @@ export const userService = {
     const users = storage.get("users");
     return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
   },
-
   getCurrentUser() {
     return storage.get("currentUser");
   },
