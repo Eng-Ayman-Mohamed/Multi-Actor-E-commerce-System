@@ -7,6 +7,7 @@ import { productCard } from "../../../components/user/card.js";
 import { cartService } from "../../../DataBase/services/cartService.js";
 import { userService } from "../../../DataBase/services/userService.js";
 
+import { getCachedImage } from "../../../DataBase/utils/cacheHelper.js";
 let userId = userService.getCurrentUser().id;
 
 // ===== CART =====
@@ -212,25 +213,26 @@ function renderPagination() {
 }
 
 // ===== PRODUCTS RENDER =====
-function renderProducts(products) {
+async function renderProducts(products) {
   $("#products").empty();
 
-  if (!products.length) {
-    $("#products").html(`<p class="text-center">No products found</p>`);
-    return;
-  }
-
-  products.forEach((p) => {
-    $("#products").append(
-      productCard(
+  // Fetch all images for the current page in parallel
+  const cards = await Promise.all(
+    products.map(async (p) => {
+      const cachedUrl = await getCachedImage(
+        p.images[0] || "/assets/vendra-thubnail.png",
+      );
+      return productCard(
         p.id,
-        p.images[0],
+        cachedUrl,
         p.title,
         p.rating,
         p.reviews.length,
         p.price,
         p.featured,
-      ),
-    );
-  });
+      );
+    }),
+  );
+
+  $("#products").append(cards.join(""));
 }
