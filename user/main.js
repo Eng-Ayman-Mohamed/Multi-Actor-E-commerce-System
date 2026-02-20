@@ -8,6 +8,7 @@ import {
   initFeaturedProducts,
 } from "../components/user/featuredProducts.js";
 import { CTASection, footer, initFooter } from "../components/user/footer.js";
+import { seedReady } from "../DataBase/utils/seed.js";
 
 $(function () {
   const basePath = getBasePath();
@@ -19,11 +20,13 @@ $(function () {
     .append(featuredProducts)
     .append(CTASection(basePath))
     .append(footer(basePath));
-  initCategories();
-  initNavBar();
-  initFeaturedProducts();
-  initFooter(basePath);
-  dynamicData();
+  seedReady.then(() => {
+    initCategories();
+    initNavBar();
+    initFeaturedProducts();
+    initFooter(basePath);
+    dynamicData();
+  });
 });
 
 import { cartService } from "../DataBase/services/cartService.js";

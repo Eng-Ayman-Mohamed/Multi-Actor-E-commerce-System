@@ -6,6 +6,15 @@ import { productService } from "../services/productService.js";
 import { storage } from "../utils/storage.js";
 
 async function initSeed() {
+  const existingProducts = productService.getAll() || [];
+
+  if (existingProducts.length > 0) {
+    console.log("📦 Data already exists in storage. Skipping seed.");
+    return;
+  }
+
+  console.log("🌱 Storage is empty. Starting seed process...");
+
   // Reset storage
   storage.set("users", []);
   storage.set("products", []);
