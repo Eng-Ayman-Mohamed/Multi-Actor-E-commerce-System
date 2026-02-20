@@ -39,7 +39,7 @@ async function initSeed() {
   userService.create(sysVendor);
 
   try {
-    const response = await fetch("https://dummyjson.com/products?limit=190");
+    const response = await fetch("https://dummyjson.com/products?limit=10");
     const { products: rawProducts } = await response.json();
 
     rawProducts.forEach((item) => {
