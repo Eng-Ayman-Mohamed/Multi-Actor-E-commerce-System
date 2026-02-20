@@ -3,6 +3,7 @@
  
  import { overviewPage } from "./overveiw.js";
  import { productsPage } from "./products.js";
+ import { analyticsPage } from "./analytics.js";
  
  $(document).ready(function () {
  
@@ -19,15 +20,18 @@
    $('ul li').eq(1).click(function () {
      $('#content').html( productsPage() );
    });
- 
-   $('ul li').eq(2).click(function () {
-     $('#content').html('<div class="alert alert-primary vh-100">Hi there</div>');
-   });
- 
-   $('ul li').eq(3).click(function () {
+
+    $('ul li').eq(2).click(function () {
      $('#content').html('<div class="alert alert-warning vh-100">Hi there</div>');
    });
  
+   $('ul li').eq(3).click(function () {
+   $('#content').html(analyticsPage());
+   loadAnalyticsCharts();
+    });
+ 
+  
+
    $('ul li').eq(4).click(function () {
      $('#content').html('<div class="alert alert-info vh-100">Hi there</div>');
    });
@@ -81,6 +85,36 @@
      }
    });
  }
+ function loadAnalyticsCharts() {
+
+  const salesCtx = document.getElementById('analyticsSalesChart');
+  const statusCtx = document.getElementById('ordersStatusChart');
+
+  if (!salesCtx || !statusCtx) return;
+
+  new Chart(salesCtx, {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      datasets: [{
+        label: 'Sales',
+        data: [8200, 10400, 9600, 12100],
+        borderWidth: 2
+      }]
+    }
+  });
+
+  new Chart(statusCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Delivered', 'Processing', 'Cancelled'],
+      datasets: [{
+        data: [65, 25, 10],
+        borderWidth: 1
+      }]
+    }
+  });
+}
  
   
   
