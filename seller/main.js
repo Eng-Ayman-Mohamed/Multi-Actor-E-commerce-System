@@ -9,6 +9,7 @@
  
     
     overviewPage();
+    
    loadCharts();
    productsPage();
  
@@ -18,11 +19,11 @@
    });
  
    $('ul li').eq(1).click(function () {
-     $('#content').html( productsPage() );
+     $('#content').html(productsPage());
    });
 
     $('ul li').eq(2).click(function () {
-     $('#content').html('<div class="alert alert-warning vh-100">Hi there</div>');
+     $('#content').html(overviewPage());
    });
  
    $('ul li').eq(3).click(function () {
