@@ -26,9 +26,7 @@ function updateCartCount() {
 }
 
 // ===== LAYOUT =====
-$("#mainWrapper")
-  .prepend(navbar(getBasePath()))
-  .append(footer(getBasePath()));
+$("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar();
 initFooter(getBasePath());
@@ -50,10 +48,10 @@ $(document).ready(function () {
   filteredProducts = allProducts;
 
   // ===== Max Price & Categories =====
-  let prices = allProducts.map(p => p.price);
+  let prices = allProducts.map((p) => p.price);
   let maxPrice = Math.max(...prices);
 
-  let categories = [...new Set(allProducts.map(p => p.category))];
+  let categories = [...new Set(allProducts.map((p) => p.category))];
   renderFilters(categories, maxPrice);
 
   // ===== Auto filter from Category page =====
@@ -95,21 +93,21 @@ $(document).ready(function () {
   });
 
   // ===== SORT =====
-  $("#sortSelect").on("change", function () {
-    let val = $(this).val();
+  $("#sortSelect").on("change", sortFun);
+
+  function sortFun() {
+    const val = $("#sortSelect").val();
 
     if (val === "featured")
       filteredProducts.sort((a, b) => b.featured - a.featured);
-    if (val === "low")
-      filteredProducts.sort((a, b) => a.price - b.price);
-    if (val === "high")
-      filteredProducts.sort((a, b) => b.price - a.price);
-    if (val === "rating")
-      filteredProducts.sort((a, b) => b.rating - a.rating);
+    if (val === "low") filteredProducts.sort((a, b) => a.price - b.price);
+    if (val === "high") filteredProducts.sort((a, b) => b.price - a.price);
+    if (val === "rating") filteredProducts.sort((a, b) => b.rating - a.rating);
 
     updateView();
-  });
-
+  }
+  //initial Call
+  sortFun();
   // ===== PAGINATION =====
   $(document).on("click", ".page-btn", function () {
     currentPage = +$(this).data("page");
@@ -160,7 +158,7 @@ function applyFilters() {
   let maxPrice = $("#priceRange").val();
   let searchText = $("input[type='search']").val().toLowerCase();
 
-  filteredProducts = allProducts.filter(p => {
+  filteredProducts = allProducts.filter((p) => {
     let catOK =
       selectedCategories.length === 0 ||
       selectedCategories.includes(p.category);
@@ -184,7 +182,7 @@ function updateView() {
   renderPagination();
 
   $("#productsCount").text(
-    `Showing ${start + 1}-${Math.min(end, filteredProducts.length)} of ${filteredProducts.length} products`
+    `Showing ${start + 1}-${Math.min(end, filteredProducts.length)} of ${filteredProducts.length} products`,
   );
 }
 
@@ -222,7 +220,7 @@ function renderProducts(products) {
     return;
   }
 
-  products.forEach(p => {
+  products.forEach((p) => {
     $("#products").append(
       productCard(
         p.id,
@@ -230,8 +228,9 @@ function renderProducts(products) {
         p.title,
         p.rating,
         p.reviews.length,
-        p.price
-      )
+        p.price,
+        p.featured,
+      ),
     );
   });
 }
