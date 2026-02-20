@@ -1,6 +1,6 @@
 import { productCard } from "./card.js";
 import { productService } from "../../DataBase/services/productService.js";
-
+import { getCachedImage } from "../../DataBase/utils/cacheHelper.js";
 export function featuredProducts() {
   return `<div class=" bg-body-tertiary "><div id="featuredProducts" class=" container-lg py-5  px-4 ">
             <div class="d-flex justify-content-between">
@@ -16,41 +16,41 @@ export function featuredProducts() {
         </div></div>`;
 }
 
-export function initFeaturedProducts() {
+export async function initFeaturedProducts() {
   const allProducts = productService.getAll();
-  const featuredProducts = allProducts
-    .filter((product) => product.featured === true)
-    .map((product) => {
-      return {
-        productId: product.id,
-        productImage: product.images[0],
-        productTitle: product.title,
-        productStars: product.rating,
-        productReviews: product.reviews.length,
-        productPrice: product.price,
-        featured: product.featured,
-      };
-    });
 
-  featuredProducts.slice(0, 12).forEach((item) => {
-    $("#featuredProductsContainer").append(
-      productCard(
-        item.productId,
-        item.productImage,
-        item.productTitle,
-        item.productStars,
-        item.productReviews,
-        item.productPrice,
-        item.featured,
-      ),
+  const featuredList = allProducts
+    .filter((product) => product.featured === true)
+    .slice(0, 12);
+
+  const cardPromises = featuredList.map(async (product) => {
+    const imageUrl = product.images[0] || "/assets/vendra-thubnail.png";
+
+    // Get the cached version
+    const finalImageSrc = await getCachedImage(imageUrl);
+
+    return productCard(
+      product.id,
+      finalImageSrc,
+      product.title,
+      product.rating,
+      product.reviews.length,
+      product.price,
+      product.featured,
     );
   });
 
+  // 3. Wait for all promises to resolve
+  const allCardsHtml = await Promise.all(cardPromises);
+
+  // 4. Append everything to the DOM at once (better for performance)
+  $("#featuredProductsContainer").append(allCardsHtml.join(""));
+
+  // 5. Re-initialize stars/ratings
   const ratingElements = document.querySelectorAll(
     '[data-coreui-toggle="rating"]',
   );
   ratingElements.forEach((el) => {
-    // This creates the actual stars based on the 'data-coreui-value'
     new coreui.Rating(el);
   });
 }
