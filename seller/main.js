@@ -2,12 +2,13 @@
   
  
  import { overviewPage } from "./overveiw.js";
- import { productsPage } from "./products.js";
+ import {  productsPage } from "./products.js";
  
  $(document).ready(function () {
  
     
     overviewPage();
+    
    loadCharts();
    productsPage();
  
@@ -17,7 +18,7 @@
    });
  
    $('ul li').eq(1).click(function () {
-     $('#content').html( productsPage() );
+     $('#content').html(productsPage());
    });
  
    $('ul li').eq(2).click(function () {
