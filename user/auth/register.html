@@ -49,18 +49,23 @@
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4">
 
-                    <form method="post" novalidate>
+                    <form id="registerForm" method="post" novalidate>
 
+                        <!-- ✅ UPDATED ROLE SECTION ONLY -->
                         <div class="mb-4">
                             <label class="form-label fw-semibold">
                                 Register As
                             </label>
                             <div class="d-flex gap-3">
-                                <button type="button" class="btn role-btn active flex-fill">
+                                <button type="button"
+                                    class="btn role-btn active flex-fill"
+                                    data-role="customer">
                                     Customer
                                 </button>
-                                <button type="button" class="btn role-btn flex-fill">
-                                    Seller
+                                <button type="button"
+                                    class="btn role-btn flex-fill"
+                                    data-role="vendor">
+                                    Vendor
                                 </button>
                             </div>
                         </div>
