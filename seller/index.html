@@ -24,30 +24,43 @@
 </head>
 
 <body>
+
 <div class="container-fluid">
   <div class="row">
 
-    <!-- Sidebar -->
-    <nav class="col-2 bg-dark text-white vh-100 p-3">
+    <!-- ===== Desktop Sidebar ===== -->
+    <nav class="col-2 bg-dark text-white vh-100 p-3 d-none d-md-block">
       <div class="d-flex align-items-center gap-2 mb-4">
         <img src="e.png" width="40">
         <h5 class="mb-0">Seller Portal</h5>
       </div>
 
       <ul class="nav flex-column sidebar-nav">
-        <li class="nav-item" data-page="overview"><i class="fas fa-chart-pie"></i> Overview</li>
+        <li class="nav-item active" data-page="overview"><i class="fas fa-chart-pie"></i> Overview</li>
         <li class="nav-item" data-page="products"><i class="fas fa-box"></i> Products</li>
         <li class="nav-item" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</li>
         <li class="nav-item" data-page="analytics"><i class="fas fa-chart-line"></i> Analytics</li>
-        
         <li class="nav-item" data-page="back"><i class="fas fa-sign-out-alt"></i> Back to store</li>
       </ul>
     </nav>
 
-    <!-- Main -->
-    <div class="col-10">
+    <!-- ===== Main Content ===== -->
+    <div class="col-12 col-md-10">
+
+      <!-- Header -->
       <header class="d-flex justify-content-between align-items-center p-3 border-bottom">
-        <h3 id="pageTitle">Overview</h3>
+
+        <div class="d-flex align-items-center gap-2">
+          <!-- Hamburger (Mobile Only) -->
+          <button class="btn btn-dark d-md-none"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#mobileSidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <h3 id="pageTitle" class="mb-0">Overview</h3>
+        </div>
+
         <div class="d-flex align-items-center gap-2">
           <img src="ss.png" width="40">
           <div>
@@ -55,13 +68,39 @@
             <strong>Seller Name</strong>
           </div>
         </div>
+
       </header>
 
       <main class="bg-light p-3" style="min-height: 80vh;">
         <div id="content"></div>
       </main>
+
     </div>
 
+  </div>
+</div>
+
+<!-- ===== Mobile Sidebar (Offcanvas) ===== -->
+<div class="offcanvas offcanvas-start bg-dark text-white"
+     tabindex="-1"
+     id="mobileSidebar">
+
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title d-flex align-items-center gap-2">
+      <img src="e.png" width="35">
+      Seller Portal
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body p-3">
+    <ul class="nav flex-column sidebar-nav">
+      <li class="nav-item active" data-page="overview"><i class="fas fa-chart-pie"></i> Overview</li>
+      <li class="nav-item" data-page="products"><i class="fas fa-box"></i> Products</li>
+      <li class="nav-item" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</li>
+      <li class="nav-item" data-page="analytics"><i class="fas fa-chart-line"></i> Analytics</li>
+      <li class="nav-item" data-page="back"><i class="fas fa-sign-out-alt"></i> Back to store</li>
+    </ul>
   </div>
 </div>
 

@@ -1,17 +1,15 @@
-  export function productsPage() {
+export function productsPage() {
 
   // منع تكرار الايفنتات
   $(document).off('click', '.add-product');
   $(document).off('click', '#saveProduct');
   $(document).off('click', '.delete-btn');
 
-
   // فتح المودال
   $(document).on('click', '.add-product', function () {
     const modal = new bootstrap.Modal(document.getElementById('productModal'));
     modal.show();
   });
-
 
   // حفظ المنتج
   $(document).on('click', '#saveProduct', function () {
@@ -32,7 +30,7 @@
 
     $('table tbody').append(`
       <tr>
-        <td>${desc}</td>
+        <td class="text-truncate" style="max-width:180px">${desc}</td>
         <td>${category}</td>
         <td>${price}</td>
         <td>${discount}</td>
@@ -42,7 +40,7 @@
         <td>
           <img src="${image}" width="50" class="rounded">
         </td>
-        <td>
+        <td class="text-nowrap">
           <i class="fas fa-eye text-primary me-2"></i>
           <i class="fas fa-edit text-success me-2"></i>
           <i class="fas fa-trash text-danger delete-btn"></i>
@@ -54,7 +52,6 @@
     $('#productForm')[0].reset();
   });
 
-
   // حذف
   $(document).on('click', '.delete-btn', function () {
     if (confirm('Are you sure you want to delete this product?')) {
@@ -62,39 +59,39 @@
     }
   });
 
-
-
   return `
   <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <h3>Products</h3>
-      </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h3 class="mb-0">Products</h3>
       <button class="btn btn-primary add-product">
         <i class="fas fa-plus"></i> Add Product
       </button>
     </div>
 
     <div class="card shadow-sm p-3">
-      <table class="table align-middle">
-        <thead>
-          <tr>
-            <th>Descraibe</th>
-            <th>category</th>
-            <th>price</th>
-            <th>discount</th>
-            <th>rating</th>
-            <th>stock</th>
-            <th>weight</th>
-            <th>images</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
 
+      <!-- ✅ Responsive Table Wrapper -->
+      <div class="table-responsive-lg">
+        <table class="table align-middle table-nowrap">
+          <thead class="table-light">
+            <tr>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Discount</th>
+              <th>Rating</th>
+              <th>Stock</th>
+              <th>Weight</th>
+              <th>Image</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1">
@@ -166,4 +163,3 @@
   </div>
   `;
 }
-productsPage();
