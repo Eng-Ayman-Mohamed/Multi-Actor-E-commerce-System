@@ -10,6 +10,8 @@ import { productService } from "../DataBase/services/productService.js";
 import { orderService } from "../DataBase/services/orderService.js";
 
 $(document).ready(function () {
+  let user = userService.getCurrentUser();
+  $("#sellerName").text(user.name);
   // ===== Default Page =====
   loadPage("overview");
 
@@ -42,6 +44,7 @@ function handleNavigation(page) {
       break;
 
     case "back":
+      userService.setCurrentUser({});
       window.location.href = "../index.html";
       return;
   }

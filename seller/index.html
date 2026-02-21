@@ -25,80 +25,6 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../utils/errorHandler.js" type="module"></script>
-  <script type="module">
-    import { userService } from "../DataBase/services/userService.js";
-    import { productService } from "../../DataBase/services/productService.js";
-    import { cartService } from "../DataBase/services/cartService.js";
-    import { orderService } from "../DataBase/services/orderService.js";
-    import Product from "../../DataBase/models/Product.js";
-    import Order from "../DataBase/models/Order.js";
-
-    $(function () {
-      // let products = productService.getAll().slice(0, 6);
-      // products.forEach(element => {
-      //   customerFlow(element);
-      // });
-
-      // ===============================
-      // Helper → Set Current User
-      // ===============================
-      function setCurrentUserByRole(role) {
-        const users = userService.getAll();
-        console.log("🔍 All Users in Storage:", users); // Check if this is empty or has data
-
-        const user = users.find((u) => u.role === role);
-
-        if (!user) {
-          console.error(
-            `❌ Role "${role}" not found in:`,
-            users.map((u) => u.role),
-          );
-          return; // Stop execution before the .name crash
-        }
-        userService.setCurrentUser(user);
-        console.log(
-          `\n👤 Current User → ${role.toUpperCase()} :`,
-          userService.getCurrentUser().name,
-        );
-        return user;
-      }
-      // ===============================
-      // 3️⃣ Customer Cart + Checkout
-      // ===============================
-      function customerFlow(product) {
-        console.log("\n================ CUSTOMER FLOW ================");
-
-        const customer = setCurrentUserByRole("customer");
-        // ✨ NEW WAY: The service handles creation, logic, and saving internally.
-        cartService.addItem(customer.id, product.id, 2);
-        console.log("🛒 Items Added To Cart (Logic & Save handled by Service)");
-
-        // 💰 Cart Total
-        // The service fetches the raw data and calculates totals on the fly
-        const totals = cartService.getCartTotal(customer.id);
-        console.log("💰 Cart Total Details:", totals);
-
-        // 🧾 Checkout
-        // We fetch the latest cart data from the service for the order
-        const currentCart = cartService.getCart(customer.id);
-        const productsDB = productService.getAll();
-
-        const order = new Order(customer.id, currentCart.items, productsDB);
-
-        orderService.create(order);
-        console.log("✅ Order Created:", order.id);
-
-        // 🧹 Clear Cart After Checkout
-        cartService.clearCart(customer.id);
-        console.log("🧹 Cart Cleared After Checkout");
-
-        return order;
-      }
-      setCurrentUserByRole("vendor");
-
-
-    })
-  </script>
 </head>
 
 <body>
@@ -109,7 +35,6 @@
       <!-- ===== Desktop Sidebar ===== -->
       <nav class="col-2 bg-dark text-white vh-100 p-3 d-none d-md-block">
         <div class="d-flex align-items-center gap-2 mb-4">
-          <img src="e.png" width="40">
           <h5 class="mb-0">Seller Portal</h5>
         </div>
 
@@ -118,7 +43,7 @@
           <li class="nav-item" data-page="products"><i class="fas fa-box"></i> Products</li>
           <li class="nav-item" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</li>
           <li class="nav-item" data-page="analytics"><i class="fas fa-chart-line"></i> Analytics</li>
-          <li class="nav-item" data-page="back"><i class="fas fa-sign-out-alt"></i> Back to store</li>
+          <li id="backBtn" class="nav-item back" data-page="back"><i class="fas fa-sign-out-alt"></i> Back to store</li>
         </ul>
       </nav>
 
@@ -138,10 +63,10 @@
           </div>
 
           <div class="d-flex align-items-center gap-2">
-            <img src="ss.png" width="40">
+            <img src="https://placehold.net/avatar.png" width="40">
             <div>
               <div>Welcome back</div>
-              <strong>Seller Name</strong>
+              <strong id="sellerName"></strong>
             </div>
           </div>
 
@@ -161,7 +86,6 @@
 
     <div class="offcanvas-header">
       <h5 class="offcanvas-title d-flex align-items-center gap-2">
-        <img src="e.png" width="35">
         Seller Portal
       </h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
