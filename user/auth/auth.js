@@ -4,6 +4,7 @@ import { getBasePath } from "../../assets/utils/basePath.js";
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
 
+import User from "../../DataBase/models/User.js";
 // ==================== LOAD NAVBAR & FOOTER ====================
 function updateCartCount() {
   const currentUser = userService.getCurrentUser();
@@ -41,7 +42,8 @@ window.togglePassword = function (id, btn) {
 // ==================== DOM READY ====================
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.querySelector("form[novalidate]");
-  if (registerForm) registerForm.addEventListener("submit", handleRegisterSubmit);
+  if (registerForm)
+    registerForm.addEventListener("submit", handleRegisterSubmit);
 
   const loginForm = document.getElementById("loginForm");
   if (loginForm) loginForm.addEventListener("submit", handleLoginSubmit);
@@ -87,7 +89,10 @@ async function handleRegisterSubmit(e) {
   let isValid = true;
 
   if (!validateUsername(username.value)) {
-    setError(username, "Username must be at least 3 characters and not numbers only");
+    setError(
+      username,
+      "Username must be at least 3 characters and not numbers only",
+    );
     isValid = false;
   } else setSuccess(username);
 
@@ -102,7 +107,10 @@ async function handleRegisterSubmit(e) {
   } else setSuccess(phone);
 
   if (!validatePassword(password.value)) {
-    setError(password, "Password must be at least 8 characters with letters and numbers");
+    setError(
+      password,
+      "Password must be at least 8 characters with letters and numbers",
+    );
     isValid = false;
   } else setSuccess(password);
 
@@ -123,15 +131,17 @@ async function handleRegisterSubmit(e) {
     return;
   }
 
-  userService.create({
+  let newUser = new User({
     name: username.value.trim(),
     email: email.value.trim(),
     phone: phone.value.trim(),
-    password: btoa(password.value),
+    password: password.value,
     role,
   });
 
-  window.location.href = "./login.html";
+  userService.create(newUser, false);
+  userService.setCurrentUser(newUser);
+  window.location.href = "../../index.html";
 }
 
 // ==================== LOGIN ====================
@@ -162,11 +172,11 @@ function handleLoginSubmit(e) {
   if (!isValid) return;
 
   const users = userService.getAll();
-
   // Find user by email and password, ignoring role first
-  const userByEmailPass = users.find(u => 
-    u.email.toLowerCase() === email.value.trim().toLowerCase() &&
-    atob(u.password).trim() === password.value.trim()
+  const userByEmailPass = users.find(
+    (u) =>
+      u.email.toLowerCase() === email.value.trim().toLowerCase() &&
+      atob(u.password).trim() === password.value.trim(),
   );
 
   if (!userByEmailPass) {
@@ -178,14 +188,19 @@ function handleLoginSubmit(e) {
 
   // Check if role matches
   if (userByEmailPass.role.toLowerCase() !== role.toLowerCase()) {
-    setError(email, `Role does not match. You registered as "${userByEmailPass.role}"`);
-    setError(password, `Role does not match. You registered as "${userByEmailPass.role}"`);
+    setError(
+      email,
+      `Role does not match. You registered as "${userByEmailPass.role}"`,
+    );
+    setError(
+      password,
+      `Role does not match. You registered as "${userByEmailPass.role}"`,
+    );
     return;
   }
 
   // Role matches, login success
-  if (remember) userService.setCurrentUser(userByEmailPass);
-  else sessionStorage.setItem("currentUser", JSON.stringify(userByEmailPass));
+  userService.setCurrentUser(userByEmailPass, remember);
 
   if (role === "admin") window.location.href = "../../admin/dashboard.html";
   else if (role === "vendor") window.location.href = "../../seller/index.html";
@@ -206,7 +221,9 @@ function handleResetSubmit(e) {
   }
 
   const users = userService.getAll();
-  const user = users.find(u => u.email.toLowerCase() === email.value.trim().toLowerCase());
+  const user = users.find(
+    (u) => u.email.toLowerCase() === email.value.trim().toLowerCase(),
+  );
 
   if (!user) {
     setError(email, "Email not found");
@@ -214,15 +231,17 @@ function handleResetSubmit(e) {
   }
 
   const tempPassword = generateTempPassword();
-  userService.update(user.id, { password: btoa(tempPassword) });
+  userService.update(user.id, { password: tempPassword });
   alert(`Your temporary password: ${tempPassword}`);
   window.location.href = "./login.html";
 }
 
 function generateTempPassword() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let password = "";
-  for (let i = 0; i < 8; i++) password += chars.charAt(Math.floor(Math.random() * chars.length));
+  for (let i = 0; i < 8; i++)
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
   return password;
 }
 
@@ -231,7 +250,7 @@ window.logout = function () {
   localStorage.removeItem("currentUser");
   sessionStorage.removeItem("currentUser");
   window.location.href = "../auth/login.html";
-}
+};
 
 // ==================== VALIDATION HELPERS ====================
 function validateUsername(username) {
@@ -254,7 +273,8 @@ function validatePassword(password) {
 
 // ==================== UI HELPERS ====================
 function setError(input, message) {
-  const parent = input.closest(".input-group, .form-check") || input.parentElement;
+  const parent =
+    input.closest(".input-group, .form-check") || input.parentElement;
   let feedback = parent.querySelector(".invalid-feedback");
   if (!feedback) {
     feedback = document.createElement("div");
@@ -268,7 +288,8 @@ function setError(input, message) {
 }
 
 function setSuccess(input) {
-  const parent = input.closest(".input-group, .form-check") || input.parentElement;
+  const parent =
+    input.closest(".input-group, .form-check") || input.parentElement;
   let feedback = parent.querySelector(".valid-feedback");
   if (!feedback) {
     feedback = document.createElement("div");
@@ -282,13 +303,17 @@ function setSuccess(input) {
 }
 
 function clearErrors(form) {
-  form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
-  form.querySelectorAll(".is-valid").forEach(el => el.classList.remove("is-valid"));
-  form.querySelectorAll(".invalid-feedback").forEach(el => {
+  form
+    .querySelectorAll(".is-invalid")
+    .forEach((el) => el.classList.remove("is-invalid"));
+  form
+    .querySelectorAll(".is-valid")
+    .forEach((el) => el.classList.remove("is-valid"));
+  form.querySelectorAll(".invalid-feedback").forEach((el) => {
     el.textContent = "";
     el.style.display = "none";
   });
-  form.querySelectorAll(".valid-feedback").forEach(el => {
+  form.querySelectorAll(".valid-feedback").forEach((el) => {
     el.textContent = "";
     el.style.display = "none";
   });
