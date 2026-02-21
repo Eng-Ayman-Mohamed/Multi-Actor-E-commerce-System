@@ -1,6 +1,6 @@
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
-import { initToast } from "../../components/user/toast.js";
+import { initToast } from "../../utils/toast.js";
 
 export function productCard(
   id,

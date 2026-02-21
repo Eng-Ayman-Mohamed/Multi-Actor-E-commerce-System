@@ -6,6 +6,7 @@ export default class Order {
       const product = productsDB.find((p) => p.id === item.productId);
       return {
         productId: item.productId,
+        vendorId: item.vendorId,
         price: product.finalPrice,
         quantity: item.quantity,
         total: product.finalPrice * item.quantity,

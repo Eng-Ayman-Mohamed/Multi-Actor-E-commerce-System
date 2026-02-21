@@ -13,6 +13,15 @@ export const orderService = {
     return storage.get("orders");
   },
 
+  getByVendor(vendorId) {
+    let products = [];
+    const allOrders = this.getAll();
+    allOrders.forEach((element) => {
+      products.push(element.items.filter((p) => p.vendorId === vendorId));
+    });
+    return products;
+  },
+
   updateStatus(orderId, status) {
     return storage.update("orders", orderId, {
       status,

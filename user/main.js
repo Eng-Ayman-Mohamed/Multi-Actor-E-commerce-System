@@ -11,13 +11,8 @@ import { CTASection, footer, initFooter } from "../components/user/footer.js";
 import { seedReady } from "../DataBase/utils/seed.js";
 import { initCard } from "../components/user/card.js";
 
-//test
-
-import { userService } from "../DataBase/services/userService.js";
-
 $(function () {
   const basePath = getBasePath();
-  userService.setCurrentUser(userService.getAll()[2]);
   $("#mainWrapper")
     .append(navbar(basePath))
     .append(heroSection(basePath))

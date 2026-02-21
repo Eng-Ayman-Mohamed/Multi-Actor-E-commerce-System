@@ -1,61 +1,87 @@
+import { productService } from "../DataBase/services/productService.js";
+import { userService } from "../DataBase/services/userService.js";
+import Product from "../DataBase/models/Product.js";
 export function productsPage() {
-
   // منع تكرار الايفنتات
-  $(document).off('click', '.add-product');
-  $(document).off('click', '#saveProduct');
-  $(document).off('click', '.delete-btn');
+  $(document).off("click", ".add-product");
+  $(document).off("click", "#saveProduct");
+  $(document).off("click", ".delete-btn");
 
   // فتح المودال
-  $(document).on('click', '.add-product', function () {
-    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+  $(document).on("click", ".add-product", function () {
+    const modal = new bootstrap.Modal(document.getElementById("productModal"));
     modal.show();
   });
 
-  // حفظ المنتج
-  $(document).on('click', '#saveProduct', function () {
+  let vendorId = userService.getCurrentUser().id;
 
-    let desc = $('#desc').val();
-    let category = $('#category').val();
-    let price = $('#price').val();
-    let discount = $('#discount').val();
-    let rating = $('#rating').val();
-    let stock = $('#stock').val();
-    let weight = $('#weight').val();
-    let image = $('#image').val();
+  // on page load
+  $(function () {
+    renderProducts();
+  });
 
-    if (!desc || !category || !price) {
-      alert("Please fill required fields");
-      return;
-    }
-
-    $('table tbody').append(`
+  function renderProducts() {
+    $("table tbody").text("");
+    let products = productService.getByVendor(vendorId);
+    products.forEach((element) => {
+      $("table tbody").append(`
       <tr>
-        <td class="text-truncate" style="max-width:180px">${desc}</td>
-        <td>${category}</td>
-        <td>${price}</td>
-        <td>${discount}</td>
-        <td>${rating}</td>
-        <td>${stock}</td>
-        <td>${weight}</td>
+        <td class="text-truncate" style="max-width:180px">${element.desc}</td>
+        <td>${element.category}</td>
+        <td>${element.price} $</td>
+        <td>${element.discount} %</td>
+        <td>${element.rating}</td>
+        <td>${element.stock}</td>
+        <td>${element.weight}</td>
         <td>
-          <img src="${image}" width="50" class="rounded">
+          <img src="${element.images[0]}" width="50" class="rounded">
         </td>
         <td class="text-nowrap">
           <i class="fas fa-eye text-primary me-2"></i>
           <i class="fas fa-edit text-success me-2"></i>
-          <i class="fas fa-trash text-danger delete-btn"></i>
+          <i data-productId=${element.id} class="fas fa-trash text-danger delete-btn"></i>
         </td>
       </tr>
     `);
+    });
+  }
+  // حفظ المنتج
+  $(document).on("click", "#saveProduct", function () {
+    let title = $("#title").val();
+    let desc = $("#desc").val();
+    let category = $("#category").val();
+    let price = $("#price").val();
+    let discount = $("#discount").val();
+    let stock = $("#stock").val();
+    let weight = $("#weight").val();
+    let image = $("#image").val();
 
-    bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
-    $('#productForm')[0].reset();
+    // ➕ Create Product
+    const product = new Product({
+      vendorId: vendorId,
+      title: title,
+      desc: desc,
+      category: category,
+      price: price,
+      discount: discount,
+      stock: stock,
+      images: image ? [image] : [],
+      weight: weight,
+    });
+
+    productService.create(product);
+
+    bootstrap.Modal.getInstance(document.getElementById("productModal")).hide();
+    $("#productForm")[0].reset();
+    renderProducts();
   });
 
   // حذف
-  $(document).on('click', '.delete-btn', function () {
-    if (confirm('Are you sure you want to delete this product?')) {
-      $(this).closest('tr').remove();
+  $(document).on("click", ".delete-btn", function () {
+    let productId = $(this).attr("data-productId");
+    if (confirm("Are you sure you want to delete this product?")) {
+      productService.remove(productId);
+      renderProducts();
     }
   });
 
@@ -108,41 +134,41 @@ export function productsPage() {
               <div class="row g-3">
 
                 <div class="col-md-6">
-                  <label>Description</label>
-                  <input type="text" class="form-control" id="desc">
+                  <label>Title*</label>
+                  <input type="text" class="form-control" id="title">
                 </div>
-
+                
                 <div class="col-md-6">
-                  <label>Category</label>
+                  <label>Category*</label>
                   <input type="text" class="form-control" id="category">
                 </div>
 
                 <div class="col-md-4">
-                  <label>Price</label>
+                  <label>Price*</label>
                   <input type="number" class="form-control" id="price">
                 </div>
-
+                
                 <div class="col-md-4">
-                  <label>Discount</label>
-                  <input type="number" class="form-control" id="discount">
+                <label>Stock*</label>
+                <input type="number" class="form-control" id="stock">
                 </div>
-
+                
                 <div class="col-md-4">
-                  <label>Rating</label>
-                  <input type="number" class="form-control" id="rating">
+                <label>Discount</label>
+                <input type="number" class="form-control" id="discount">
                 </div>
-
-                <div class="col-md-4">
-                  <label>Stock</label>
-                  <input type="number" class="form-control" id="stock">
+                
+                <div class="col-md-8">
+                  <label>Description</label>
+                  <input type="text" class="form-control" id="desc">
                 </div>
-
+                
                 <div class="col-md-4">
                   <label>Weight</label>
                   <input type="text" class="form-control" id="weight">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <label>Image URL</label>
                   <input type="text" class="form-control" id="image">
                 </div>

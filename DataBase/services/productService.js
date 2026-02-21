@@ -18,6 +18,10 @@ export const productService = {
     return storage.add("products", product);
   },
 
+  remove(productId) {
+    return storage.delete("products", productId);
+  },
+
   getAll() {
     return storage.get("products");
   },

@@ -29,7 +29,7 @@ export default class Product {
     this.vendorId = vendorId;
     this.title = title;
     this.category = category;
-    this.stock = Number(stock);
+    this.stock = Number(stock) || 1;
 
     this.desc = desc || "";
     this.price = Number(price);
@@ -37,7 +37,9 @@ export default class Product {
     this.rating = Number(rating) || 0;
     this.reviews = reviews || [];
     this.weight = weight || 0;
-    this.images = images || [];
+    this.images = images.length
+      ? images
+      : ["https://placehold.net/product-400x400.png"];
     this.finalPrice = this.price - (this.price * (this.discount || 0)) / 100;
 
     //  Flags
