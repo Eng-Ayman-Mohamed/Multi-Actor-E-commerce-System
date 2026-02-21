@@ -16,7 +16,7 @@ export function featuredProducts() {
         </div></div>`;
 }
 
-export async function initFeaturedProducts() {
+export async function initFeaturedProducts(basePath) {
   const allProducts = productService.getAll();
 
   const featuredList = allProducts
@@ -24,7 +24,7 @@ export async function initFeaturedProducts() {
     .slice(0, 12);
 
   const cardPromises = featuredList.map(async (product) => {
-    const imageUrl = product.images[0] || "/assets/vendra-thubnail.png";
+    const imageUrl = product.images[0];
 
     // Get the cached version
     const finalImageSrc = await getCachedImage(imageUrl);
@@ -37,6 +37,7 @@ export async function initFeaturedProducts() {
       product.reviews.length,
       product.price,
       product.featured,
+      basePath,
     );
   });
 

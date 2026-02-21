@@ -1,6 +1,6 @@
 function toast(message, type) {
   return `
-<div class="toast-container position-fixed top-0 end-0 p-3 ">
+<div class="toast-container position-fixed top-0 mt-5 end-0 p-3 ">
   <div id="liveToast" class="bg-${type} text-dark fw-bold toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <strong class="me-auto">Vendra</strong>

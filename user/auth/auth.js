@@ -18,7 +18,7 @@ $(function () {
     $("#container")
       .prepend(navbar(getBasePath()))
       .append(footer(getBasePath()));
-    initNavBar();
+    initNavBar(getBasePath());
     initFooter(getBasePath());
     updateCartCount();
   }

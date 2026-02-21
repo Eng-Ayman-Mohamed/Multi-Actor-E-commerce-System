@@ -3,23 +3,18 @@ import { navbar, initNavBar } from "../../components/user/navbar.js";
 import { footer, initFooter } from "../../components/user/footer.js";
 import { productService } from "../../DataBase/services/productService.js";
 
-//Nav Bar initialization
-import { cartService } from "../../DataBase/services/cartService.js";
-import { userService } from "../../DataBase/services/userService.js";
 import { initCard } from "../../components/user/card.js";
 
 // ===== Load Page =====
 $(function () {
   $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
-  initNavBar();
+  initNavBar(getBasePath());
   initFooter(getBasePath());
 
   // ===== Get product ID =====
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
   const product = productService.getById(productId);
-
-  let userId = userService.getCurrentUser().id;
 
   const thumbnails = product.images;
 

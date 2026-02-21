@@ -42,11 +42,11 @@ function cartItem(product, element) {
   </div>`;
 }
 
-let userId = userService.getCurrentUser().id;
+let userId = userService.getCurrentUser()?.id;
 
 /* ===== Navbar / Footer ===== */
 $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
-initNavBar();
+initNavBar(getBasePath());
 initFooter(getBasePath());
 
 function updateCartCount() {
@@ -56,10 +56,11 @@ function updateCartCount() {
   $("#cartCountMobile").text(cartService.getCartCount(currentUser.id));
 }
 
+const cart = cartService.getCart(userId);
+
 /* ===== Render Cart ===== */
 function renderCart() {
   updateCartCount();
-  const cart = cartService.getCart(userId);
   $("#mainCartWrapper").html("");
 
   if (!cart.items.length) {
@@ -110,6 +111,10 @@ $(document).on("click", ".plus-btn", function () {
   let productId = $(this).attr("data-id");
   cartService.addItem(userId, productId);
   renderCart();
+});
+
+$(document).on("click", "#checkout", function () {
+  if (cart.items.length) window.location.href = "../checkout/checkpage.html";
 });
 
 renderCart();
