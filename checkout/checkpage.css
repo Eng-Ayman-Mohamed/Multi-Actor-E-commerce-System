@@ -1,15 +1,13 @@
-/* General Styling */
+
 body {
-    background-color: #f8f9fa; /* Light grey background similar to the image */
+    background-color: #f8f9fa; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Card Styling */
 .card {
     border-radius: 12px;
 }
 
-/* Form Inputs */
 .form-control, .form-select {
     border-radius: 8px;
     padding: 0.6rem 1rem;
@@ -30,16 +28,14 @@ body {
     border-radius: 0 8px 8px 0;
 }
 
-/* Product Image in Summary */
 .product-img {
     width: 60px;
     height: 60px;
     object-fit: cover;
     border-radius: 8px;
-    background-color: #eee; /* Fallback for missing images */
+    background-color: #eee; 
 }
 
-/* Text Truncate for long product names */
 .text-truncate-2 {
     display: -webkit-box !important;
     -webkit-box-orient: vertical !important;
@@ -47,13 +43,11 @@ body {
     text-overflow: ellipsis;
     white-space: normal;
     
-    /* Fallback للمتصفحات اللي مش بتدعمها */
     line-height: 1.5;
-    max-height: 3em; /* 1.5 * 2 lines */
-}
+    max-height: 3em; 
 /* Footer Styling */
 .footer-bg {
-    background-color: #1a2235; /* Dark blue/black from the image */
+    background-color: #1a2235; 
 }
 
 .text-light-muted {
@@ -64,7 +58,6 @@ body {
     color: #ffffff;
 }
 
-/* Validation Error Styles */
 .is-invalid {
     border-color: #dc3545 !important;
 }
