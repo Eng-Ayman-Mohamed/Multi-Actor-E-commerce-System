@@ -13,7 +13,6 @@ export default class Product {
     stock,
     weight,
     images,
-    featured,
     approved,
   }) {
     requireFields({ vendorId, title, price, category, stock }, [
@@ -42,7 +41,7 @@ export default class Product {
     this.finalPrice = this.price - (this.price * (this.discount || 0)) / 100;
 
     //  Flags
-    this.featured = featured ?? false;
+    this.featured = Math.round(this.rating) === 5 ? true : false;
     this.approved = approved ?? false;
   }
 }

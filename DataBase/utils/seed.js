@@ -6,6 +6,15 @@ import { productService } from "../services/productService.js";
 import { storage } from "../utils/storage.js";
 
 async function initSeed() {
+  const existingProducts = productService.getAll() || [];
+
+  if (existingProducts.length > 0) {
+    console.log("📦 Data already exists in storage. Skipping seed.");
+    return;
+  }
+
+  console.log("🌱 Storage is empty. Starting seed process...");
+
   // Reset storage
   storage.set("users", []);
   storage.set("products", []);
@@ -30,7 +39,7 @@ async function initSeed() {
   userService.create(sysVendor);
 
   try {
-    const response = await fetch("https://dummyjson.com/products?limit=190");
+    const response = await fetch("https://dummyjson.com/products?limit=10");
     const { products: rawProducts } = await response.json();
 
     rawProducts.forEach((item) => {
@@ -43,9 +52,9 @@ async function initSeed() {
         discount: item.discountPercentage,
         rating: item.rating,
         stock: item.stock,
+        reviews: item.reviews,
         weight: item.weight,
         images: item.images,
-        featured: item.rating > 4.5,
         approved: true,
       });
       productService.create(p); // Save directly to service

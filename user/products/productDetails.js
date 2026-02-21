@@ -3,36 +3,23 @@ import { navbar, initNavBar } from "../../components/user/navbar.js";
 import { footer, initFooter } from "../../components/user/footer.js";
 import { productService } from "../../DataBase/services/productService.js";
 
-$("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
-initNavBar();
-initFooter(getBasePath());
-
-// ===== Get product ID =====
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id") || 1;
-
-// ===== API =====
-function getProductById(id) {
-  return productService.getById(id);
-}
-
-// ⭐ Stars
-function generateStars(rating) {
-  let stars = "";
-  const full = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
-
-  for (let i = 0; i < full; i++) stars += `<i class="bi bi-star-fill"></i>`;
-  if (half) stars += `<i class="bi bi-star-half"></i>`;
-  for (let i = full + half; i < 5; i++) stars += `<i class="bi bi-star"></i>`;
-
-  return stars;
-}
+//Nav Bar initialization
+import { cartService } from "../../DataBase/services/cartService.js";
+import { userService } from "../../DataBase/services/userService.js";
 
 // ===== Load Page =====
 $(function () {
-  const product = getProductById(productId);
-  // لو مفيش صور إضافية → كرر الصورة الرئيسية
+  $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
+  initNavBar();
+  initFooter(getBasePath());
+
+  // ===== Get product ID =====
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id") || 1;
+  const product = productService.getById(productId);
+
+  let userId = userService.getCurrentUser().id;
+
   const thumbnails = product.images;
 
   $("#productDetails").html(`
@@ -40,7 +27,8 @@ $(function () {
 
       <!-- Images -->
       <div class="col-lg-6">
-        <div class="card border-0 shadow p-3 text-center">
+        <div class="card border-0 shadow p-3 ">
+        ${product.featured ? ` <span class="text-warning z-1 position-absolute end-0 h3 my-3 mx-2 " title="Featured Product" ><i " class="fa-solid fa-bookmark" ></i></span>` : ""}
           <img src="${product.images[0]}" class="img-fluid main-img" id="mainImage">
         </div>
 
@@ -56,12 +44,10 @@ $(function () {
       </div>
 
       <!-- Details -->
-      <div class="col-lg-6">
-
+      <div class="col-lg-6 ">
         <h4 class="fw-bold">${product.title}</h4>
-
-        <div class="rating mb-2">
-          ${generateStars(product.rating)}
+        <div class="justify-content-center rating mb-2">
+          ${renderStars(Math.round(product.rating))}
           <span class="text-muted ms-2">${product.rating} (${product.reviews.length} reviews)</span>
         </div>
 
@@ -88,12 +74,10 @@ $(function () {
 
         <!-- Buttons -->
         <div class="d-flex gap-2 mb-4">
-          <button class="btn btn-primary flex-grow-1">
+          <button data-productId=${product.id} class="btn btn-primary flex-grow-1 addToCartBtn">
             <i class="bi bi-cart"></i> Add to Cart
           </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-heart"></i>
-          </button>
+
         </div>
 
         <!-- Shipping -->
@@ -125,24 +109,25 @@ $(function () {
           ${product.desc}
         </div>
 
-        <div class="tab-pane fade" id="specs">
-          <p><strong>Category:</strong> ${product.category}</p>
-          <p><strong>Rating:</strong> ${product.reviews.length}</p>
+        <div class="tab-pane fade p-2" id="specs">
+          <div class="row p-3 text-start border-bottom"><span class="col-6">Category</span>  <span class="col-6">${product.category}</span></div>
+          <div class="row p-3 text-start border-bottom"><span class="col-6">Weight</span>  <span class="col-6">${product.weight} KG</span></div>
         </div>
 
         <div class="tab-pane fade" id="reviews">
-          ${product.reviews.length ? `<p>reviews</p>` : `<p>No reviews available.</p>`}
+          ${product.reviews.length ? ` <div id="reviewsContainer" class="row"> </div>` : `<p>No reviews available.</p>`}
         </div>
 
       </div>
     </div>
   `);
 
-  // Hover change image
-  $(".thumb").hover(function () {
-    $("#mainImage").attr("src", $(this).attr("src"));
-  });
-
+  function updateCartCount() {
+    /* ===== Cart Count ===== */
+    let userId = userService.getCurrentUser().id;
+    $("#cartCount").text(cartService.getCartCount(userId));
+    $("#cartCountMobile").text(cartService.getCartCount(userId));
+  }
   // Quantity logic
   let qty = 1;
   $("#plus").click(() => {
@@ -155,5 +140,44 @@ $(function () {
     if (qty > 1) qty--;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
+  });
+
+  function dynamicData() {
+    updateCartCount();
+    $(".addToCartBtn").click(function () {
+      let productId = $(this).attr("data-productId");
+      cartService.addItem(userId, productId, qty);
+      console.log("product Added", productId);
+      updateCartCount();
+    });
+  }
+
+  //Dynamic Nav bar Caller
+  dynamicData();
+
+  function renderStars(num) {
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+      stars += `<i class="fa-${i <= num ? "solid" : "regular"} fa-star text-warning"></i>`;
+    }
+    return stars;
+  }
+  function renderReviews(reviews) {
+    reviews.forEach((element) => {
+      $("#reviewsContainer").append(`
+        <div class="col-lg-4 col-xl-3 mb-5 mb-md-0 col-md-6 col-12">
+      <h5 class="mb-3">${element.reviewerName}</h5>
+      <h6 class="text-primary mb-3">${element.reviewerEmail}</h6>
+      <p class="px-xl-3">
+        <i class="fas fa-quote-left pe-2"></i>${element.comment}
+      </p>
+        ${renderStars(element.rating)}
+    </div>`);
+    });
+  }
+  renderReviews(product.reviews);
+  // Hover change image
+  $(".thumb").hover(function () {
+    $("#mainImage").attr("src", $(this).attr("src"));
   });
 });
