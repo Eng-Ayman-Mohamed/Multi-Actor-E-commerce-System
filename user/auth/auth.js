@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) loginForm.addEventListener("submit", handleLoginSubmit);
 
-  const resetForm = document.querySelector("form[action='./reset.html']");
+  const resetForm = document.getElementById("resetForm");
   if (resetForm) resetForm.addEventListener("submit", handleResetSubmit);
 
   // Register role buttons
@@ -127,7 +127,7 @@ async function handleRegisterSubmit(e) {
     name: username.value.trim(),
     email: email.value.trim(),
     phone: phone.value.trim(),
-    password: btoa(password.value), // encode password on registration
+    password: btoa(password.value),
     role,
   });
 
