@@ -10,7 +10,7 @@ import { initCard } from "../../../components/user/card.js";
 // ===== LAYOUT =====
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
-initNavBar();
+initNavBar(getBasePath());
 initFooter(getBasePath());
 
 // ===== STATE =====
@@ -211,6 +211,7 @@ async function renderProducts(products) {
         p.reviews.length,
         p.price,
         p.featured,
+        getBasePath(),
       );
     }),
   );

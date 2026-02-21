@@ -1,3 +1,5 @@
+import { userService } from "../../DataBase/services/userService.js";
+
 export function navbar(basePath) {
   return `
   <div id="navbar" class="w-100 sticky-top bg-body border-bottom z-3">
@@ -34,10 +36,10 @@ export function navbar(basePath) {
         <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
           </a>
-          
-          <a href="${basePath}/user/auth/login.html" class="btn btn-primary rounded px-3">
-          Sign In
-          </a>
+         <div class="text-center Profile d-flex align-items-center" >
+         
+          </div>
+
           </div>
           
           </div>
@@ -57,16 +59,13 @@ export function navbar(basePath) {
       Dark Mode
       </button>
       
-      <a href="#" class="nav-link w-100">
+      <a href="${basePath}/user/cart/index.html" class="nav-link w-100">
       <i class="fa-solid fa-cart-shopping me-3"></i>
           Cart (<span id="cartCountMobile">0</span>)
           </a>
           
           <!-- Sign In (CENTER + FULL WIDTH) -->
-          <div class="text-center mt-3">
-          <a href="${basePath}/user/auth/login.html" class="btn btn-primary w-100">
-          Sign In
-          </a>
+          <div class="text-center Profile " >
           </div>
           
           </div>
@@ -77,7 +76,7 @@ export function navbar(basePath) {
 }
 
 //
-export function initNavBar() {
+export function initNavBar(basePath) {
   /* ===== Theme Toggle ===== */
   const html = document.documentElement;
 
@@ -106,6 +105,21 @@ export function initNavBar() {
           ? "fa-regular fa-sun  text-warning"
           : "fa-regular fa-moon";
     });
+  }
+
+  let currentUser = userService.getCurrentUser();
+  if (currentUser) {
+    $(".Profile").html(`
+      <a href="${basePath}/user/auth/profile.html" class=" w-100 ">
+        <img src="https://placehold.net/avatar.png" style="height:30px; object-fit:contain"/>
+      </a>
+    `);
+  } else {
+    $(".Profile").html(`
+      <a href="${basePath}/user/auth/login.html" class="btn btn-primary w-100">
+        Sign In
+      </a>
+    `);
   }
 
   setupToggle("themeToggle");
