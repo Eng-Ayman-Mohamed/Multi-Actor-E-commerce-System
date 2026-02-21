@@ -1,6 +1,6 @@
-import { productService } from "../DataBase/services/productService.js";
-import { userService } from "../DataBase/services/userService.js";
-import Product from "../DataBase/models/Product.js";
+import { productService } from "../../DataBase/services/productService.js";
+import { userService } from "../../DataBase/services/userService.js";
+import Product from "../../DataBase/models/Product.js";
 export function productsPage() {
   // منع تكرار الايفنتات
   $(document).off("click", ".add-product");

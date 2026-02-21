@@ -1,7 +1,7 @@
-import { overviewPage } from "./overveiw.js";
-import { productsPage } from "./products.js";
-import { analyticsPage } from "./analytics.js";
-import { ordersPage } from "./orders.js";
+import { overviewPage } from "./components/overveiw.js";
+import { productsPage } from "./components/products.js";
+import { analyticsPage } from "./components/analytics.js";
+import { ordersPage } from "./components/orders.js";
 
 //API integration
 
