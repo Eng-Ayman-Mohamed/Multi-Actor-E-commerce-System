@@ -8,7 +8,6 @@ export const userService = {
     return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
   },
 
-  // ==================== CURRENT USER ====================
   getCurrentUser() {
     // Try localStorage first
     let user = storage.get("currentUser");

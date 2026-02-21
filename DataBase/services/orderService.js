@@ -9,6 +9,10 @@ export const orderService = {
     return storage.get("orders").filter((o) => o.userId === userId);
   },
 
+  getAll() {
+    return storage.get("orders");
+  },
+
   updateStatus(orderId, status) {
     return storage.update("orders", orderId, {
       status,
