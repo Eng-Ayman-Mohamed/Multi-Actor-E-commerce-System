@@ -9,21 +9,25 @@ export const userService = {
   },
 
   getCurrentUser() {
-    // Try localStorage first
-    let user = storage.get("currentUser");
-    if (!user || (Array.isArray(user) && user.length === 0)) {
-      // Fallback to sessionStorage
-      const sessionUser = sessionStorage.getItem("currentUser");
-      user = sessionUser ? JSON.parse(sessionUser) : null;
-    }
-    return user;
+    // First check localStorage
+    const localUser = localStorage.getItem("currentUser");
+    if (localUser) return JSON.parse(localUser);
+
+    // Then check sessionStorage
+    const sessionUser = sessionStorage.getItem("currentUser");
+    if (sessionUser) return JSON.parse(sessionUser);
+
+    return null;
   },
 
-  setCurrentUser(user) {
-    // Always save to localStorage
-    storage.set("currentUser", user);
-    // Also save to sessionStorage for non-remembered sessions
-    sessionStorage.setItem("currentUser", JSON.stringify(user));
+  setCurrentUser(user, remember = false) {
+    if (remember) {
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      sessionStorage.removeItem("currentUser");
+    } else {
+      sessionStorage.setItem("currentUser", JSON.stringify(user));
+      localStorage.removeItem("currentUser");
+    }
   },
 
   // ==================== CRUD ====================
