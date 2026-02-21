@@ -1,5 +1,4 @@
-
-export function overviewPage() {
+export function overviewPage(products, orders) {
   return `
     <div class="container-fluid">
 
@@ -17,7 +16,7 @@ export function overviewPage() {
         <div class="col-md-3">
           <div class="card shadow-sm p-3">
             <h6>Total Orders</h6>
-            <h4>902</h4>
+            <h4>${orders.length}</h4>
             <small class="text-success">+8.2% from last month</small>
           </div>
         </div>
@@ -25,7 +24,7 @@ export function overviewPage() {
         <div class="col-md-3">
           <div class="card shadow-sm p-3">
             <h6>Products</h6>
-            <h4>24</h4>
+            <h4>${products.length}</h4>
             <small class="text-danger">3 out of stock</small>
           </div>
         </div>
@@ -62,6 +61,3 @@ export function overviewPage() {
      
   `;
 }
-
-
- 

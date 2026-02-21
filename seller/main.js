@@ -1,10 +1,17 @@
-import { overviewPage } from "./overveiw.js";
-import { productsPage } from "./products.js";
-import { analyticsPage } from "./analytics.js";
-import { ordersPage } from "./orders.js";
+import { overviewPage } from "./components/overveiw.js";
+import { productsPage } from "./components/products.js";
+import { analyticsPage } from "./components/analytics.js";
+import { ordersPage } from "./components/orders.js";
+
+//API integration
+
+import { userService } from "../DataBase/services/userService.js";
+import { productService } from "../DataBase/services/productService.js";
+import { orderService } from "../DataBase/services/orderService.js";
 
 $(document).ready(function () {
-
+  let user = userService.getCurrentUser();
+  $("#sellerName").text(user.name);
   // ===== Default Page =====
   loadPage("overview");
 
@@ -13,14 +20,12 @@ $(document).ready(function () {
     const page = $(this).data("page");
     handleNavigation(page);
   });
-
 });
 
 /* ===============================
    Navigation Handler
 ================================ */
 function handleNavigation(page) {
-
   switch (page) {
     case "overview":
       loadPage("overview");
@@ -39,6 +44,7 @@ function handleNavigation(page) {
       break;
 
     case "back":
+      userService.setCurrentUser({});
       window.location.href = "../index.html";
       return;
   }
@@ -59,10 +65,12 @@ function handleNavigation(page) {
    Page Loader
 ================================ */
 function loadPage(page) {
-
+  let currentUser = userService.getCurrentUser().id;
+  let userProducts = productService.getByVendor(currentUser);
+  let userOrders = orderService.getByVendor(currentUser);
   switch (page) {
     case "overview":
-      $("#content").html(overviewPage());
+      $("#content").html(overviewPage(userProducts, userOrders));
       $("#pageTitle").text("Overview");
       loadCharts();
       break;
@@ -98,24 +106,28 @@ function loadCharts() {
     type: "line",
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      datasets: [{
-        label: "Sales",
-        data: [4200, 3800, 5000, 4600, 6200, 7100],
-        borderWidth: 2
-      }]
-    }
+      datasets: [
+        {
+          label: "Sales",
+          data: [4200, 3800, 5000, 4600, 6200, 7100],
+          borderWidth: 2,
+        },
+      ],
+    },
   });
 
   new Chart(revenueCtx, {
     type: "bar",
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      datasets: [{
-        label: "Revenue",
-        data: [4200, 3800, 5000, 4600, 6200, 7100],
-        borderWidth: 1
-      }]
-    }
+      datasets: [
+        {
+          label: "Revenue",
+          data: [4200, 3800, 5000, 4600, 6200, 7100],
+          borderWidth: 1,
+        },
+      ],
+    },
   });
 }
 
@@ -129,22 +141,26 @@ function loadAnalyticsCharts() {
     type: "line",
     data: {
       labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-      datasets: [{
-        label: "Sales",
-        data: [8200, 10400, 9600, 12100],
-        borderWidth: 2
-      }]
-    }
+      datasets: [
+        {
+          label: "Sales",
+          data: [8200, 10400, 9600, 12100],
+          borderWidth: 2,
+        },
+      ],
+    },
   });
 
   new Chart(statusCtx, {
     type: "doughnut",
     data: {
       labels: ["Delivered", "Processing", "Cancelled"],
-      datasets: [{
-        data: [65, 25, 10],
-        borderWidth: 1
-      }]
-    }
+      datasets: [
+        {
+          data: [65, 25, 10],
+          borderWidth: 1,
+        },
+      ],
+    },
   });
 }
