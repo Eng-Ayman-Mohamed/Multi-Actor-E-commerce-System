@@ -1,3 +1,7 @@
+import { cartService } from "../../DataBase/services/cartService.js";
+import { userService } from "../../DataBase/services/userService.js";
+import { initToast } from "../../components/user/toast.js";
+
 export function productCard(
   id,
   image,
@@ -35,4 +39,37 @@ function renderStars(num) {
     stars += `<i class="fa-${i <= num ? "solid" : "regular"} fa-star"></i>`;
   }
   return stars;
+}
+
+export function initCard() {
+  updateCartCount();
+
+  $(document)
+    .off("click", ".addToCartBtn")
+    .on("click", ".addToCartBtn", function () {
+      const currentUser = userService.getCurrentUser();
+
+      if (!currentUser) {
+        initToast("Please login first", "warning");
+        return;
+      }
+
+      const userId = currentUser.id;
+      const productId = $(this).attr("data-productId");
+
+      // Read quantity dynamically if exists (details page)
+      const quantity = parseInt($("#qty").val()) || 1;
+
+      cartService.addItem(userId, productId, quantity);
+
+      updateCartCount();
+    });
+
+  function updateCartCount() {
+    const currentUser = userService.getCurrentUser();
+    const count = currentUser ? cartService.getCartCount(currentUser.id) : 0;
+
+    $("#cartCount").text(count);
+    $("#cartCountMobile").text(count);
+  }
 }

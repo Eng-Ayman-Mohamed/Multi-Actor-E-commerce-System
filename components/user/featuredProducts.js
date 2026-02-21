@@ -40,13 +40,10 @@ export async function initFeaturedProducts() {
     );
   });
 
-  // 3. Wait for all promises to resolve
   const allCardsHtml = await Promise.all(cardPromises);
 
-  // 4. Append everything to the DOM at once (better for performance)
   $("#featuredProductsContainer").append(allCardsHtml.join(""));
 
-  // 5. Re-initialize stars/ratings
   const ratingElements = document.querySelectorAll(
     '[data-coreui-toggle="rating"]',
   );

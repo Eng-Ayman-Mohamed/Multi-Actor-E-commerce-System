@@ -4,27 +4,8 @@ import { footer, initFooter } from "../../../components/user/footer.js";
 import { productService } from "../../../DataBase/services/productService.js";
 import { productCard } from "../../../components/user/card.js";
 
-import { cartService } from "../../../DataBase/services/cartService.js";
-import { userService } from "../../../DataBase/services/userService.js";
-
 import { getCachedImage } from "../../../DataBase/utils/cacheHelper.js";
-let userId = userService.getCurrentUser().id;
-
-// ===== CART =====
-function dynamicData() {
-  updateCartCount();
-
-  $(".addToCartBtn").click(function () {
-    let productId = $(this).attr("data-productId");
-    cartService.addItem(userId, productId);
-    updateCartCount();
-  });
-}
-
-function updateCartCount() {
-  $("#cartCount").text(cartService.getCartCount(userId));
-  $("#cartCountMobile").text(cartService.getCartCount(userId));
-}
+import { initCard } from "../../../components/user/card.js";
 
 // ===== LAYOUT =====
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
@@ -145,7 +126,7 @@ $(document).ready(function () {
     $(this).toggleClass("active");
   });
 
-  dynamicData();
+  initCard();
 });
 
 // ===== FILTER LOGIC =====

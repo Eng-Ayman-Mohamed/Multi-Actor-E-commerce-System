@@ -43,21 +43,6 @@ export const cartService = {
     this.saveCart(cart);
   },
 
-  updateQuantity(userId, productId, qty) {
-    const cart = this.getCart(userId);
-    const item = cart.items.find((item) => item.productId === productId);
-
-    if (!item) return;
-
-    item.quantity = qty;
-
-    if (item.quantity <= 0) {
-      return this.removeItem(userId, productId);
-    }
-
-    this.saveCart(cart);
-  },
-
   clearCart(userId) {
     const carts = this._getAllCarts().filter((c) => c.userId !== userId);
     storage.set("carts", carts);
