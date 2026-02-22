@@ -108,9 +108,9 @@ export function initNavBar(basePath) {
   }
 
   let currentUser = userService.getCurrentUser();
-  if (currentUser) {
+  if (currentUser !== "" && currentUser !== null) {
     $(".Profile").html(`
-      <a href="${basePath}/user/auth/profile.html" class=" w-100 ">
+      <a id="profileBtn"  class=" w-100 ">
         <img src="https://placehold.net/avatar.png" style="height:30px; object-fit:contain"/>
       </a>
     `);
@@ -121,7 +121,10 @@ export function initNavBar(basePath) {
       </a>
     `);
   }
-
+  $("#profileBtn").click(function () {
+    window.logout();
+  });
   setupToggle("themeToggle");
   setupToggle("themeToggleMobile");
 }
+// href="${basePath}/user/auth/profile.html"

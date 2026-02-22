@@ -20,6 +20,11 @@ $(document).ready(function () {
     const page = $(this).data("page");
     handleNavigation(page);
   });
+
+  //change color mode
+  const html = document.documentElement;
+  const savedTheme = localStorage.getItem("theme") || "light";
+  html.setAttribute("data-bs-theme", savedTheme);
 });
 
 /* ===============================
@@ -44,7 +49,7 @@ function handleNavigation(page) {
       break;
 
     case "back":
-      userService.setCurrentUser({});
+      window.logout();
       window.location.href = "../index.html";
       return;
   }
