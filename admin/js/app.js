@@ -14,6 +14,10 @@ initUsersBoard();
 initProductsBoard();
 initOrdersBoard();
 $(document).ready(function () {
+  let user = userService.getCurrentUser();
+  if (!user) {
+    window.location.href = "../user/auth/login.html";
+  }
   initNavigation();
   initCharts();
 
@@ -24,6 +28,10 @@ $(document).ready(function () {
 
   //logout
   $(document).on("click", "#logOut", function () {
+    userService.deleteCurrentUser();
+    window.location.href = "../../index.html";
+  });
+  window.addEventListener("pagehide", () => {
     userService.deleteCurrentUser();
     window.location.href = "../../index.html";
   });

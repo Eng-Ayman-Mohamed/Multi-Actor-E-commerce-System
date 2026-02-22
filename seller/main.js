@@ -11,6 +11,9 @@ import { orderService } from "../DataBase/services/orderService.js";
 
 $(document).ready(function () {
   let user = userService.getCurrentUser();
+  if (!user) {
+    window.location.href = "../user/auth/login.html";
+  }
   $("#sellerName").text(user.name);
   // ===== Default Page =====
   loadPage("overview");
@@ -25,6 +28,11 @@ $(document).ready(function () {
   const html = document.documentElement;
   const savedTheme = localStorage.getItem("theme") || "light";
   html.setAttribute("data-bs-theme", savedTheme);
+  //on page leave log out
+  window.addEventListener("pagehide", () => {
+    userService.deleteCurrentUser();
+    window.location.href = "../../index.html";
+  });
 });
 
 /* ===============================
