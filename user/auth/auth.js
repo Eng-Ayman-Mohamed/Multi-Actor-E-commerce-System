@@ -248,7 +248,7 @@ function generateTempPassword() {
 window.logout = function () {
   localStorage.removeItem("currentUser");
   sessionStorage.removeItem("currentUser");
-  window.location.href = "../auth/login.html";
+  window.location.href = `${getBasePath()}auth/login.html`;
 };
 
 // ==================== VALIDATION HELPERS ====================
