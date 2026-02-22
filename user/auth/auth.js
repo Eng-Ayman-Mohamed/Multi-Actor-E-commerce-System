@@ -139,9 +139,8 @@ async function handleRegisterSubmit(e) {
     role,
   });
 
-  userService.create(newUser, false);
-  userService.setCurrentUser(newUser);
-  window.location.href = "../../index.html";
+  userService.create(newUser);
+  window.location.href = "./login.html";
 }
 
 // ==================== LOGIN ====================
@@ -231,7 +230,7 @@ function handleResetSubmit(e) {
   }
 
   const tempPassword = generateTempPassword();
-  userService.update(user.id, { password: tempPassword });
+  userService.update(user.id, { password: btoa(tempPassword) });
   alert(`Your temporary password: ${tempPassword}`);
   window.location.href = "./login.html";
 }
