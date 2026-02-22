@@ -5,6 +5,7 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
 import { productService } from "../../DataBase/services/productService.js";
+import { initToast } from "../../utils/toast.js";
 
 /* ===== Cart Item Layout (NEW UI  ===== */
 function cartItem(product, element) {
@@ -115,6 +116,7 @@ $(document).on("click", ".plus-btn", function () {
 
 $(document).on("click", "#checkout", function () {
   if (cart.items.length) window.location.href = "../checkout/checkpage.html";
+  else initToast("Please Add Products to cart first!", "warning");
 });
 
 renderCart();

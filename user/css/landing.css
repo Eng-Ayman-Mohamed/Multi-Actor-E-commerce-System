@@ -37,3 +37,151 @@
   transition: 1s ease;
   transform: scale(1.2);
 }
+
+/* featured card */
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background: linear-gradient(135deg, #ffdf59 0%, #f7b733 100%);
+  color: #5d4037;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  overflow: hidden; /* Crucial: keeps the shine inside the badge */
+  box-shadow: 0 4px 10px rgba(247, 183, 51, 0.2);
+}
+
+/* The light streak */
+.featured-badge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%; /* Start outside the badge */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  transform: skewX(-20deg);
+  /* Apply animation ONLY to this pseudo-element */
+  animation: badgeShine 10s infinite;
+}
+
+@keyframes badgeShine {
+  0% {
+    left: -150%;
+  }
+  20% {
+    left: 150%;
+  } /* Movement happens quickly */
+  100% {
+    left: 150%;
+  } /* Wait for the remainder of 4s */
+}
+
+/* promotion card */
+
+/* Badge styling */
+.promo-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  background: #ff4757;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+}
+/* Card Core */
+.modern-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.modern-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Image Hover Zoom */
+.image-wrapper {
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  transition: transform 0.5s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.modern-card:hover .image-wrapper img {
+  transform: scale(1.1);
+}
+
+/* Enhanced Badges */
+.card-badges {
+  position: absolute;
+  bottom: 250px;
+  left: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.badge-hot {
+  background: #ff4757;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+}
+.badge-discount {
+  background: #2ed573;
+  color: rgb(0, 0, 0);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+}
+
+/* Stars Color */
+.stars-gold {
+  color: #ffbc00;
+  font-size: 0.85rem;
+}
+
+/* Button Animation */
+.addToCartBtn {
+  transition: all 0.2s;
+}
+.modern-card:hover .addToCartBtn {
+  background-color: black;
+  border-color: black;
+  color: white !important;
+}
+.addToCartBtn:active {
+  transform: scale(0.95);
+}
+.modern-card {
+  border: 2px solid #f0f0f0; /* Very light static border */
+  transition: all 0.4s ease;
+}
+
+.modern-card:hover {
+  border-color: transparent;
+  background: linear-gradient(135deg, #6a11cb, #2575fc) border-box;
+  transform: translateY(-5px);
+}
