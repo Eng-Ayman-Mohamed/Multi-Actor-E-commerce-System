@@ -6,6 +6,7 @@ import { overview, initOverview } from "../components/overview.js";
 import { initUsersBoard } from "../components/usersBoard.js";
 import { initProductsBoard } from "../components/productsBoard.js";
 import { initOrdersBoard } from "../components/ordersBoard.js";
+import { userService } from "../../DataBase/services/userService.js";
 
 $("#wrapper").prepend(overview);
 initOverview();
@@ -20,4 +21,10 @@ $(document).ready(function () {
   const html = document.documentElement;
   const savedTheme = localStorage.getItem("theme") || "light";
   html.setAttribute("data-bs-theme", savedTheme);
+
+  //logout
+  $(document).on("click", "#logOut", function () {
+    userService.deleteCurrentUser();
+    window.location.href = "../../index.html";
+  });
 });

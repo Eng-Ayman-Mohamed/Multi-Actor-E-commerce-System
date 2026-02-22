@@ -49,7 +49,7 @@ function handleNavigation(page) {
       break;
 
     case "back":
-      window.logout();
+      userService.deleteCurrentUser();
       window.location.href = "../index.html";
       return;
   }
