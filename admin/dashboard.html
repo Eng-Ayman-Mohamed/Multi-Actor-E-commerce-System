@@ -5,51 +5,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Professional Overview</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="./js/main.js" type="module"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./js/app.js"></script>
+
+    <!-- Test script -->
+    <!-- <script src="./test.js" type="module"></script> -->
+
 </head>
 
 <body>
-    <div class="sidebar d-flex flex-column p-2">
-        <div class="p-3 mb-3 d-flex align-items-center">
-            <i class="fas fa-shield-alt text-danger fs-4 me-2"></i>
-            <div>
-                <h6 class="mb-0 fw-bold">Admin Panel</h6> 
-            </div>
-        </div>
-        <ul class="nav flex-column mb-auto" id="sideNav">
-            <li><a class="nav-link active" data-target="overview-page"><i class="fas fa-th-large me-2"></i> Overview</a>
-            </li>
-            <li><a class="nav-link" data-target="users-page"><i class="fas fa-users me-2"></i> Users</a></li>
-            <li><a class="nav-link" data-target="products-page"><i class="fas fa-box me-2"></i> Products</a></li>
-            <li><a class="nav-link" data-target="orders-page"><i class="fas fa-shopping-cart me-2"></i> Orders</a></li> <br><br>
-        <li>
-        <a href="the store page.html" class="nav-link text-danger fw-bold">
-            <i class="fas fa-sign-out-alt me-2"></i> Back to Store
-        </a>
-        </li>
-        </ul>
+    <div class="modal fade" id="confirmModal" tabindex="-1">
     </div>
 
-    <div class="main-content">
-        <header class="top-header">
+
+    <div class="offcanvas offcanvas-start " data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div><i class="fa-solid fa-shield-halved "></i>
+                <span nav-link p-0>Admin Panel</span>
+
+            </div>
+            <ul class=" nav d-flex flex-column" id="sideNav">
+                <li><a class="nav-link  active" data-target="overview-page"><i class="fas fa-th-large "></i>
+                        <span nav-link p-0>Overview</span>
+                    </a>
+                </li>
+                <li><a class="nav-link" data-target="users-page"><i class="fas fa-users "></i> <span nav-link
+                            p-0>Users</span></a>
+                </li>
+                <li><a class="nav-link" data-target="products-page"><i class="fas fa-box "></i>
+                        <span nav-link p-0>Products</span></a></li>
+                <li><a class="nav-link" data-target="orders-page"><i class="fas fa-shopping-cart "></i>
+                        <span nav-link p-0>Orders</span></a></li>
+                <li>
+                    <a onclick="window.location.href = `../index.html`; window.localStorage.setItem(`currentUser` , ``)"
+                        class="nav-link  text-danger fw-bold">
+                        <i class="fas fa-sign-out-alt "></i> <span nav-link p-0>Back to Store</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="main-content col-12 container-lg ">
+        <header class="top-header border-bottom">
             <div class="d-flex justify-content-between align-items-center">
-                <h4 class="fw-bold mb-0 text-dark" id="dynamicTitle">Dashboard Overview</h4>
+                <button class="btn border-1 " type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i
+                        class="fa-solid fa-bars h3"></i></button>
                 <div class="d-flex align-items-center">
                     <div class="text-end me-3">
                         <small class="d-block text-muted fw-semibold"
                             style="font-size: 11px; text-transform: uppercase;">Logged in as</small>
-                        <span class="fw-bold text-dark">System Administrator</span>
+                        <span class="fw-bold " id="userName">System Administrator</span>
                     </div>
-                    <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
-                        style="width:40px; height:40px; border: 2px solid #fff;">A</div>
+                    <div class="  rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                        style="width:40px; height:40px; border: 2px solid;">A</div>
                 </div>
             </div>
         </header>
 
-        <div class="container-fluid-limit" id="wrapper">
+        <div class="px-3 " id="wrapper">
             <div id="users-page" class="page-section">
                 <div class="card-container">
                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -57,18 +93,15 @@
                             <h5 class="fw-bold mb-0">Platform Users List</h5>
                             <p class="text-muted small mb-0">Manage your system members and their roles.</p>
                         </div>
-                        <button class="btn btn-primary shadow-sm" id="addUserBtn">
-                            <i class="fas fa-plus me-2"></i>Add New User
-                        </button>
+
                     </div>
 
                     <div class="table-responsive">
                         <table class="table align-middle" id="usersTable">
-                            <thead class="table-light">
+                            <thead class="table">
                                 <tr>
                                     <th>Name</th>
                                     <th>Role</th>
-                                    <th>Status</th>
                                     <th>Joined</th>
                                     <th class="text-end">Actions</th>
                                 </tr>
@@ -83,9 +116,8 @@
             <div id="products-page" class="page-section">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="fw-bold mb-0">Product Inventory</h5>
-                    <button class="btn btn-dark shadow-sm"><i class="fas fa-plus me-2"></i>Add Product</button>
                 </div>
-                
+
                 <div class="row g-3" id="productsList">
                 </div>
             </div>
@@ -97,19 +129,16 @@
                             <h5 class="fw-bold mb-0">Manage Orders</h5>
                             <p class="text-muted small mb-0">Track and manage customer transactions.</p>
                         </div>
-                        <button class="btn btn-danger shadow-sm" id="addOrderBtn">
-                            <i class="fas fa-cart-plus me-2"></i>New Order</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-middle" id="ordersTable">
-                            <thead class="table-light">
+                            <thead class="table">
                                 <tr>
                                     <th>Order ID</th>
                                     <th>Customer</th>
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Date</th>
-                                    <th class="text-end">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="ordersTableBody">
@@ -120,110 +149,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="js/app.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // 1. Users Data Array of Objects
-            const users = [
-                { initials: "AA", name: "Ahmed Ali", colorTheme: "primary", role: "Admin", status: "Active", statusTheme: "success", joined: "Jan 2024" },
-                { initials: "JS", name: "John Smith", colorTheme: "warning", role: "Seller", status: "Pending", statusTheme: "warning", joined: "Feb 2024" },
-                { initials: "SR", name: "Sarah Ridwa", colorTheme: "info", role: "Editor", status: "Active", statusTheme: "success", joined: "Mar 2024" },
-                { initials: "MK", name: "Mike Ross", colorTheme: "danger", role: "Support", status: "Suspended", statusTheme: "danger", joined: "May 2024" }
-            ];
-
-            // Render Users
-            users.forEach(user => {
-                const userRow = `
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-${user.colorTheme}-subtle text-${user.colorTheme} rounded-circle p-2 me-2 fw-bold" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">${user.initials}</div>
-                                ${user.name}
-                            </div>
-                        </td>
-                        <td><span class="badge border text-dark">${user.role}</span></td>
-                        <td><span class="badge bg-${user.statusTheme}-subtle text-${user.statusTheme} border border-${user.statusTheme}">${user.status}</span></td>
-                        <td>${user.joined}</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-                $('#usersTableBody').append(userRow);
-            });
-
-            // 2. Products Data Array of Objects
-            const products = [
-                { icon: "fa-laptop", iconColor: "text-primary", name: "MacBook Pro M3", desc: "High-performance laptop for professionals.", price: "$2,499.00", stock: 15 },
-                { icon: "fa-mobile-alt", iconColor: "text-success", name: "iPhone 15 Pro", desc: "Titanium design with A17 Pro chip.", price: "$999.00", stock: 42 },
-                { icon: "fa-headphones", iconColor: "text-info", name: "Sony WH-1000XM5", desc: "Industry leading noise canceling headphones.", price: "$348.00", stock: 28 },
-                { icon: "fa-clock", iconColor: "text-warning", name: "Apple Watch Ultra", desc: "Rugged and capable for athletes.", price: "$799.00", stock: 10 },
-                { icon: "fa-camera", iconColor: "text-secondary", name: "Canon EOS R5", desc: "Mirrorless camera with 45MP sensor.", price: "$3,899.00", stock: 5 },
-                { icon: "fa-gamepad", iconColor: "text-dark", name: "PlayStation 5", desc: "Experience lightning-fast loading.", price: "$499.00", stock: 22 },
-                { icon: "fa-tablet-alt", iconColor: "text-primary", name: 'iPad Pro 12.9"', desc: "The ultimate iPad experience with M2.", price: "$1,099.00", stock: 30 },
-                { icon: "fa-keyboard", iconColor: "text-muted", name: "Mechanical Keyboard", desc: "RGB Backlit with blue switches.", price: "$129.00", stock: 55 },
-                { icon: "fa-tv", iconColor: "text-info", name: "Samsung Odyssey G7", desc: "32-inch 240Hz Curved Gaming Monitor.", price: "$699.00", stock: 8 },
-                { icon: "fa-volume-up", iconColor: "text-danger", name: "Bose SoundLink", desc: "Portable Bluetooth speaker with 360 sound.", price: "$199.00", stock: 100 }
-            ];
-
-            // Render Products
-            products.forEach(product => {
-                const productCard = `
-                    <div class="col-12">
-                        <div class="card-container d-flex align-items-center p-3">
-                            <div class="flex-shrink-0 me-4">
-                                <i class="fas ${product.icon} fa-3x ${product.iconColor}"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h5 class="fw-bold mb-1">${product.name}</h5>
-                                <p class="text-muted small mb-0">${product.desc}</p>
-                            </div>
-                            <div class="text-end">
-                                <p class="text-danger fw-bold fs-5 mb-1">${product.price}</p>
-                                <span class="badge bg-light text-dark border">In Stock: ${product.stock}</span>
-                                <div class="mt-2">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                $('#productsList').append(productCard);
-            });
-
-            // 3. Orders Data Array of Objects
-            const orders = [
-                { id: "#ORD-5542", customer: "Kareem Mohamed", status: "Shipped", statusTheme: "info", total: "$1,200", date: "Oct 12, 2023" },
-                { id: "#ORD-5543", customer: "Sarah Ahmed", status: "Delivered", statusTheme: "success", total: "$850", date: "Oct 13, 2023" },
-                { id: "#ORD-5544", customer: "John Doe", status: "Pending", statusTheme: "warning", total: "$2,100", date: "Oct 14, 2023" },
-                { id: "#ORD-5545", customer: "Omar Wael", status: "Cancelled", statusTheme: "danger", total: "$450", date: "Oct 14, 2023" }
-            ];
-
-            // Render Orders
-            orders.forEach(order => {
-                const orderRow = `
-                    <tr>
-                        <td class="fw-bold">${order.id}</td>
-                        <td>${order.customer}</td>
-                        <td><span class="badge bg-${order.statusTheme}-subtle text-${order.statusTheme} border border-${order.statusTheme}">${order.status}</span></td>
-                        <td class="fw-bold">${order.total}</td>
-                        <td class="text-muted small">${order.date}</td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-action text-primary"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-action text-danger delete-order"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-                $('#ordersTableBody').append(orderRow);
-            });
-        });
-    </script>
-
 </body>
+
 </html>

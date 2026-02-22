@@ -23,23 +23,23 @@ async function initSeed() {
 
   const admin = new User({
     name: "System Admin",
-    email: "admin@shopflow.com",
-    password: "admin123password",
+    email: "admin@vendra.com",
+    password: "admin1234",
     role: "admin",
   });
   userService.create(admin);
 
   const sysVendor = new User({
     name: "Vendra",
-    email: "system@vendra.com",
-    password: "system1123password",
+    email: "vendor@vendra.com",
+    password: "vendor1234",
     role: "vendor",
   });
 
   userService.create(sysVendor);
 
   try {
-    const response = await fetch("https://dummyjson.com/products?limit=190");
+    const response = await fetch("https://dummyjson.com/products?limit=50");
     const { products: rawProducts } = await response.json();
 
     rawProducts.forEach((item) => {
@@ -57,26 +57,11 @@ async function initSeed() {
         images: item.images,
         approved: true,
       });
-      productService.create(p); // Save directly to service
+      productService.create(p);
     });
   } catch (error) {
     console.error("Seeding failed:", error);
   }
-  // --- Create Customers ---
-  const customer1 = new User({
-    name: "Alex Johnson",
-    email: "alex.j@gmail.com",
-    password: "customer123password",
-    role: "customer",
-  });
-  const customer2 = new User({
-    name: "Sarah Miller",
-    email: "s.miller@outlook.com",
-    password: "customer123password",
-    role: "customer",
-  });
-  userService.create(customer1);
-  userService.create(customer2);
 }
 
 export const seedReady = initSeed();

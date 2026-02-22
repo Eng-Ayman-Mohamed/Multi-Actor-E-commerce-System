@@ -3,22 +3,18 @@ import { navbar, initNavBar } from "../../components/user/navbar.js";
 import { footer, initFooter } from "../../components/user/footer.js";
 import { productService } from "../../DataBase/services/productService.js";
 
-//Nav Bar initialization
-import { cartService } from "../../DataBase/services/cartService.js";
-import { userService } from "../../DataBase/services/userService.js";
+import { initCard } from "../../components/user/card.js";
 
 // ===== Load Page =====
 $(function () {
   $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
-  initNavBar();
+  initNavBar(getBasePath());
   initFooter(getBasePath());
 
   // ===== Get product ID =====
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
   const product = productService.getById(productId);
-
-  let userId = userService.getCurrentUser().id;
 
   const thumbnails = product.images;
 
@@ -122,38 +118,23 @@ $(function () {
     </div>
   `);
 
-  function updateCartCount() {
-    /* ===== Cart Count ===== */
-    let userId = userService.getCurrentUser().id;
-    $("#cartCount").text(cartService.getCartCount(userId));
-    $("#cartCountMobile").text(cartService.getCartCount(userId));
-  }
   // Quantity logic
   let qty = 1;
   $("#plus").click(() => {
     qty++;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
+    //Dynamic Nav bar Caller
   });
 
   $("#minus").click(() => {
     if (qty > 1) qty--;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
+    //Dynamic Nav bar Caller
   });
-
-  function dynamicData() {
-    updateCartCount();
-    $(".addToCartBtn").click(function () {
-      let productId = $(this).attr("data-productId");
-      cartService.addItem(userId, productId, qty);
-      console.log("product Added", productId);
-      updateCartCount();
-    });
-  }
-
   //Dynamic Nav bar Caller
-  dynamicData();
+  initCard();
 
   function renderStars(num) {
     let stars = "";
