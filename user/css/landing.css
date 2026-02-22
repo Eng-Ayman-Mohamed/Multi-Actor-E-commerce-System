@@ -38,54 +38,6 @@
   transform: scale(1.2);
 }
 
-/* featured card */
-.featured-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 10;
-  background: linear-gradient(135deg, #ffdf59 0%, #f7b733 100%);
-  color: #5d4037;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  overflow: hidden; /* Crucial: keeps the shine inside the badge */
-  box-shadow: 0 4px 10px rgba(247, 183, 51, 0.2);
-}
-
-/* The light streak */
-.featured-badge::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -150%; /* Start outside the badge */
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.6),
-    transparent
-  );
-  transform: skewX(-20deg);
-  /* Apply animation ONLY to this pseudo-element */
-  animation: badgeShine 10s infinite;
-}
-
-@keyframes badgeShine {
-  0% {
-    left: -150%;
-  }
-  20% {
-    left: 150%;
-  } /* Movement happens quickly */
-  100% {
-    left: 150%;
-  } /* Wait for the remainder of 4s */
-}
-
 /* promotion card */
 
 /* Badge styling */

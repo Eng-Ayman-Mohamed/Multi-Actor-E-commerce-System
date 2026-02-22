@@ -56,11 +56,10 @@ function updateCartCount() {
   $("#cartCount").text(cartService.getCartCount(currentUser.id));
   $("#cartCountMobile").text(cartService.getCartCount(currentUser.id));
 }
-
-const cart = cartService.getCart(userId);
-
+let cart;
 /* ===== Render Cart ===== */
 function renderCart() {
+  cart = cartService.getCart(userId);
   updateCartCount();
   $("#mainCartWrapper").html("");
 
@@ -115,8 +114,9 @@ $(document).on("click", ".plus-btn", function () {
 });
 
 $(document).on("click", "#checkout", function () {
-  if (cart.items.length) window.location.href = "../checkout/checkpage.html";
-  else initToast("Please Add Products to cart first!", "warning");
+  if (!cart.items.length)
+    initToast("Please Add Products to cart first!", "warning");
+  else window.location.href = "../checkout/checkpage.html";
 });
 
 renderCart();
