@@ -29,6 +29,10 @@ export const userService = {
       localStorage.removeItem("currentUser");
     }
   },
+  deleteCurrentUser() {
+    localStorage.removeItem("currentUser");
+    sessionStorage.removeItem("currentUser");
+  },
 
   // ==================== CRUD ====================
   create(user) {

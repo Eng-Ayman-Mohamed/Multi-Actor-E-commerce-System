@@ -5,6 +5,7 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
 import { productService } from "../../DataBase/services/productService.js";
+import { initToast } from "../../utils/toast.js";
 
 /* ===== Cart Item Layout (NEW UI  ===== */
 function cartItem(product, element) {
@@ -55,11 +56,10 @@ function updateCartCount() {
   $("#cartCount").text(cartService.getCartCount(currentUser.id));
   $("#cartCountMobile").text(cartService.getCartCount(currentUser.id));
 }
-
-const cart = cartService.getCart(userId);
-
+let cart;
 /* ===== Render Cart ===== */
 function renderCart() {
+  cart = cartService.getCart(userId);
   updateCartCount();
   $("#mainCartWrapper").html("");
 
@@ -114,7 +114,9 @@ $(document).on("click", ".plus-btn", function () {
 });
 
 $(document).on("click", "#checkout", function () {
-  if (cart.items.length) window.location.href = "../checkout/checkpage.html";
+  if (!cart.items.length)
+    initToast("Please Add Products to cart first!", "warning");
+  else window.location.href = "../checkout/checkpage.html";
 });
 
 renderCart();

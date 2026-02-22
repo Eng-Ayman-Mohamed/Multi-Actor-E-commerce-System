@@ -9,6 +9,7 @@ export function productCard(
   stars,
   reviews,
   price,
+  finalPrice,
   featured,
   basePath,
 ) {
@@ -17,19 +18,26 @@ export function productCard(
         <div class="card p-0 h-100  position-relative">
                         ${
                           featured
-                            ? ` <span class="text-warning z-1 position-absolute end-0 h3 my-3 mx-2 " title="Featured Product" >
-                          <i " class="fa-solid fa-bookmark" ></i></span>`
+                            ? `
+                                <div class="featured-badge">
+                                    <i class="fa-solid fa-star me-1"></i>
+                                    <span>FEATURED</span>
+                                </div>
+                            `
                             : ""
                         }
                             <div class="overflow-hidden h-100"><img src=${image} class="card-img-top  h-100 object-fit-cover"></div>
                     <div class="card-body">
+                    <div class="rating">
+                           ${renderStars(`${Math.round(stars)}`)}
+                       <span class="count">(${reviews})</span>
+                        </div>
                         <a class="h6 fw-bold card-title" href="${basePath}/user/products/product-details.html?id=${id}">${productTitle}</a>
-                         <div class="rating">
-                                ${renderStars(`${Math.round(stars)}`)}
-                            <span class="count">(${reviews})</span>
-                             </div>
                         <div class="d-flex justify-content-between">
-                            <p class="h3 fw-bold text-primary">$${price}</p>
+                           <div class="d-flex">
+                               <p class="h3 fw-bold text-primary me-3">$${finalPrice.toFixed(2)}</p>
+                              <p class="text-decoration-line-through m-0 align-self-center">$${price}</p>
+                           </div>
                             <button data-productId=${id}  class="addToCartBtn btn btn-primary"><i
                                     class="fa-solid fa-cart-shopping"></i>Add</button>
                         </div>

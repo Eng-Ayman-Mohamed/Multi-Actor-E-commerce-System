@@ -8,6 +8,10 @@ import {
   featuredProducts,
   initFeaturedProducts,
 } from "../components/user/featuredProducts.js";
+import {
+  promotionProducts,
+  initPromotionProducts,
+} from "../components/user/promotionProducts.js";
 import { seedReady } from "../DataBase/utils/seed.js";
 import { initCard } from "../components/user/card.js";
 
@@ -19,12 +23,14 @@ $(function () {
     .append(shopFeatures)
     .append(categories)
     .append(featuredProducts)
+    .append(promotionProducts)
     .append(CTASection(basePath))
     .append(footer(basePath));
   seedReady.then(() => {
     initCategories();
     initNavBar(basePath);
     initFeaturedProducts(basePath);
+    initPromotionProducts(basePath);
     initFooter(basePath);
     initCard();
   });

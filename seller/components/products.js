@@ -100,7 +100,7 @@ export function productsPage() {
       <!-- ✅ Responsive Table Wrapper -->
       <div class="table-responsive-lg">
         <table class="table align-middle table-nowrap">
-          <thead class="table-light">
+          <thead class="table">
             <tr>
               <th>Description</th>
               <th>Category</th>

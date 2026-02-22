@@ -108,11 +108,20 @@ export function initNavBar(basePath) {
   }
 
   let currentUser = userService.getCurrentUser();
-  if (currentUser) {
+  if (currentUser !== "" && currentUser !== null) {
     $(".Profile").html(`
-      <a href="${basePath}/user/auth/profile.html" class=" w-100 ">
-        <img src="https://placehold.net/avatar.png" style="height:30px; object-fit:contain"/>
+      <div class="position-relative">
+      <a class="btn btn-body rounded"  data-bs-toggle="collapse" data-bs-target="#list">
+        <i style="font-size:1.5rem;" class="fa-regular fa-circle-user " ></i>
       </a>
+      <div id="list" class="collapse mt-2 position-absolute bg-body list-group end-50 " style="width:max-content">
+        <button  class="list-group-item list-group-item-action profile-btn" >
+          Profile
+        </button>
+        <button class="list-group-item list-group-item-action signout-btn">Sign Out</button>
+        
+      </div>
+      </div>
     `);
   } else {
     $(".Profile").html(`
@@ -121,7 +130,15 @@ export function initNavBar(basePath) {
       </a>
     `);
   }
-
+  // $(document).on("click","",)
+  $(".profile-btn").click(function () {
+    window.location.href = `${basePath}/user/auth/profile.html`;
+  });
+  $(".signout-btn").click(function () {
+    userService.deleteCurrentUser();
+    location.reload(true);
+  });
   setupToggle("themeToggle");
   setupToggle("themeToggleMobile");
 }
+// href="${basePath}/user/auth/profile.html"
