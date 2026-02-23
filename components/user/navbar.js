@@ -1,4 +1,5 @@
 import { userService } from "../../DataBase/services/userService.js";
+import { initToast } from "../../utils/toast.js";
 
 export function navbar(basePath) {
   return `
@@ -32,7 +33,7 @@ export function navbar(basePath) {
         <i class="fa-regular fa-moon"></i>
         </button>
         
-        <a href="${basePath}/user/cart/index.html" class="position-relative btn btn-body rounded">
+        <a  class="position-relative btn btn-body rounded cart-btn">
         <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-badge" id="cartCount">0</span>
           </a>
@@ -59,7 +60,7 @@ export function navbar(basePath) {
       Dark Mode
       </button>
       
-      <a href="${basePath}/user/cart/index.html" class="nav-link w-100">
+      <a class="nav-link w-100 cart-btn">
       <i class="fa-solid fa-cart-shopping me-3"></i>
           Cart (<span id="cartCountMobile">0</span>)
           </a>
@@ -108,6 +109,11 @@ export function initNavBar(basePath) {
   }
 
   let currentUser = userService.getCurrentUser();
+  $(document).on("click", ".cart-btn", function () {
+    if (currentUser !== "" && currentUser !== null)
+      window.location.href = `${basePath}/user/cart/index.html`;
+    else initToast("Please login first", "warning");
+  });
   if (currentUser !== "" && currentUser !== null) {
     $(".Profile").html(`
       <div class="position-relative">

@@ -41,3 +41,7 @@ nav {
 .back:hover {
   background-color: red !important;
 }
+
+.action i {
+  cursor: pointer;
+}

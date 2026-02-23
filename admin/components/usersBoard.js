@@ -3,8 +3,9 @@ import { userService } from "../../../DataBase/services/userService.js";
 export function initUsersBoard() {
   displayUsers();
   function displayUsers() {
-    let users = userService.getAll();
-
+    let currentUser = userService.getCurrentUser();
+    let allUsers = userService.getAll();
+    let users = allUsers.filter((u) => u.id !== currentUser?.id);
     $("#usersTableBody").text("");
     // Render Users
     users.forEach((user) => {

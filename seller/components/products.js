@@ -2,8 +2,10 @@ import { productService } from "../../DataBase/services/productService.js";
 import { userService } from "../../DataBase/services/userService.js";
 import Product from "../../DataBase/models/Product.js";
 export function productsPage() {
+  let vendorId = userService.getCurrentUser().id;
   // منع تكرار الايفنتات
   $(document).off("click", ".add-product");
+  $(document).off("click", ".edit-btn");
   $(document).off("click", "#saveProduct");
   $(document).off("click", ".delete-btn");
 
@@ -13,7 +15,38 @@ export function productsPage() {
     modal.show();
   });
 
-  let vendorId = userService.getCurrentUser().id;
+  // edit product
+  $(document).on("click", ".edit-btn", function () {
+    let productId = $(this).attr("data-productId");
+    let product = productService.getById(productId);
+    $(".products-container").prepend(editModal(product));
+    const modal = new bootstrap.Modal(
+      document.getElementById("productEditModal"),
+    );
+
+    modal.show();
+  });
+
+  $(document).on("click", "#saveEditProduct", function () {
+    const form = document.getElementById("ediProductForm");
+    let formData = new FormData(form);
+    let updatedProduct = Object.fromEntries(formData.entries());
+    const { image, ...rest } = updatedProduct;
+
+    let editProduct = {
+      approved: false,
+      ...rest,
+      vendorId,
+      images: image ? [image] : [],
+    };
+    let productId = $(this).attr("data-productId");
+    productService.updateProduct(productId, editProduct);
+    bootstrap.Modal.getInstance(
+      document.getElementById("productEditModal"),
+    ).hide();
+    $("#productForm")[0].reset();
+    renderProducts();
+  });
 
   // on page load
   $(function () {
@@ -25,20 +58,19 @@ export function productsPage() {
     let products = productService.getByVendor(vendorId);
     products.forEach((element) => {
       $("table tbody").append(`
-      <tr>
-        <td class="text-truncate" style="max-width:180px">${element.desc}</td>
-        <td>${element.category}</td>
-        <td>${element.price} $</td>
-        <td>${element.discount} %</td>
-        <td>${element.rating}</td>
-        <td>${element.stock}</td>
-        <td>${element.weight}</td>
-        <td>
+      <tr class="bg-${element.approved ? `success` : `warning`} bg-opacity-25">
+        <td class="text-truncate bg-transparent" style="max-width:180px">${element.desc}</td>
+        <td class="bg-transparent">${element.price} $</td>
+        <td class="bg-transparent">${element.discount} %</td>
+        <td class="bg-transparent">${element.category}</td>
+        <td class="bg-transparent">${element.rating}</td>
+        <td class="bg-transparent">${element.stock}</td>
+        <td class="bg-transparent">${element.weight}</td>
+        <td class="bg-transparent">
           <img src="${element.images[0]}" width="50" class="rounded">
         </td>
-        <td class="text-nowrap">
-          <i class="fas fa-eye text-primary me-2"></i>
-          <i class="fas fa-edit text-success me-2"></i>
+        <td class="bg-transparent text-nowrap action">
+          <i data-productId=${element.id} class="fas fa-edit text-success me-2 edit-btn"></i>
           <i data-productId=${element.id} class="fas fa-trash text-danger delete-btn"></i>
         </td>
       </tr>
@@ -76,17 +108,58 @@ export function productsPage() {
     renderProducts();
   });
 
-  // حذف
+  // delete Product
+  let productId;
+
   $(document).on("click", ".delete-btn", function () {
-    let productId = $(this).attr("data-productId");
-    if (confirm("Are you sure you want to delete this product?")) {
-      productService.remove(productId);
-      renderProducts();
-    }
+    productId = $(this).attr("data-productId");
+    const modalEl = document.getElementById("confirmModal");
+
+    modalEl.innerHTML = `
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+        <div class="modal-header">
+        <h5 class="modal-title">Confirm Action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+        Are you sure you want to delete this item?
+        </div>
+
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+        </button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">
+            Yes, Delete
+        </button>
+        </div>
+
+    </div>
+    </div>
+    `;
+
+    // 3️⃣ Initialize Bootstrap modal instance
+    const modal = new bootstrap.Modal(modalEl);
+
+    modal.show();
+  });
+
+  $(document).on("click", "#confirmDeleteBtn", function () {
+    if (!productId) return;
+
+    productService.remove(productId);
+    renderProducts();
+
+    const modalEl = document.getElementById("confirmModal");
+    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+    modalInstance.hide();
   });
 
   return `
-  <div class="container-fluid">
+  <div class="container-fluid products-container">
 
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
       <h3 class="mb-0">Products</h3>
@@ -188,4 +261,74 @@ export function productsPage() {
 
   </div>
   `;
+}
+
+function editModal(product) {
+  return `   <!-- Modal -->
+    <div class="modal fade" id="productEditModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title">Add Product</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="ediProductForm">
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label>Title*</label>
+                  <input type="text" class="form-control" value = "${product.title}" name="title">
+                </div>
+                
+                <div class="col-md-6">
+                  <label>Category*</label>
+                  <input type="text" class="form-control" value = "${product.category}" name = "category">
+                </div>
+
+                <div class="col-md-4">
+                  <label>Price*</label>
+                  <input type="number" class="form-control" value = ${product.price} name = "price">
+                </div>
+                
+                <div class="col-md-4">
+                <label>Stock*</label>
+                <input type="number" class="form-control" value = ${product.stock} name = "stock">
+                </div>
+                
+                <div class="col-md-4">
+                <label>Discount</label>
+                <input type="number" class="form-control" value = ${product.discount}  name = "discount">
+                </div>
+                
+                <div class="col-md-8">
+                  <label>Description</label>
+                  <textarea type="text" class="form-control" rows = "3" name = "desc">${product.desc}</textarea>
+                </div>
+                
+                <div class="col-md-4">
+                  <label>Weight</label>
+                  <input type="text" class="form-control" value = ${product.weight} name = "weight" >
+                </div>
+
+                <div class="col-md-12">
+                  <label>Image URL</label>
+                  <input type="text" class="form-control" value = "${product.images[0]}"  name = "image">
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button data-productId=${product.id} class="btn btn-primary" id="saveEditProduct">Save</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+`;
 }

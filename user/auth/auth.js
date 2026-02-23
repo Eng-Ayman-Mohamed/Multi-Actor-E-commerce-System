@@ -22,6 +22,12 @@ $(function () {
     initFooter(getBasePath());
     updateCartCount();
   }
+  const currentUser = userService.getCurrentUser();
+
+  if (currentUser.role !== "customer") {
+    userService.deleteCurrentUser();
+    location.reload();
+  }
 });
 
 // ==================== TOGGLE PASSWORD ====================
@@ -341,7 +347,7 @@ function renderProfile(container, user) {
 
     <form id="profileForm" enctype="multipart/form-data">
       <div class="mb-3 text-center">
-        <img src="${user.image || 'default-avatar.png'}" 
+        <img src="${user.image || "default-avatar.png"}" 
              alt="Profile Image" 
              id="profileImagePreview" 
              class="rounded-circle" 

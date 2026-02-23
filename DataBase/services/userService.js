@@ -6,7 +6,7 @@ export const userService = {
   emailExists(email) {
     const users = storage.get("users");
     return users.some(
-      (u) => u.email.toLowerCase() === email.trim().toLowerCase()
+      (u) => u.email.toLowerCase() === email.trim().toLowerCase(),
     );
   },
 
@@ -32,7 +32,7 @@ export const userService = {
     }
   },
 
-  logout() {
+  deleteCurrentUser() {
     localStorage.removeItem("currentUser");
     sessionStorage.removeItem("currentUser");
   },
@@ -71,5 +71,5 @@ export const userService = {
       this.logout();
     }
     return storage.delete("users", id);
-  }
+  },
 };

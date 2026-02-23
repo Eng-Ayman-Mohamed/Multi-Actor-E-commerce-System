@@ -15,7 +15,8 @@ initProductsBoard();
 initOrdersBoard();
 $(document).ready(function () {
   let user = userService.getCurrentUser();
-  if (!user) {
+  if (!user || user.role !== "admin") {
+    userService.deleteCurrentUser();
     window.location.href = "../user/auth/login.html";
   }
   initNavigation();
@@ -28,10 +29,6 @@ $(document).ready(function () {
 
   //logout
   $(document).on("click", "#logOut", function () {
-    userService.deleteCurrentUser();
-    window.location.href = "../../index.html";
-  });
-  window.addEventListener("pagehide", () => {
     userService.deleteCurrentUser();
     window.location.href = "../../index.html";
   });
