@@ -5,7 +5,9 @@ export const userService = {
 
   emailExists(email) {
     const users = storage.get("users");
-    return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
+    return users.some(
+      (u) => u.email.toLowerCase() === email.trim().toLowerCase()
+    );
   },
 
   getCurrentUser() {
@@ -29,7 +31,8 @@ export const userService = {
       localStorage.removeItem("currentUser");
     }
   },
-  deleteCurrentUser() {
+
+  logout() {
     localStorage.removeItem("currentUser");
     sessionStorage.removeItem("currentUser");
   },
@@ -51,10 +54,22 @@ export const userService = {
   },
 
   update(id, data) {
-    return storage.update("users", id, data);
+    const updatedUser = storage.update("users", id, data);
+
+    const currentUser = this.getCurrentUser();
+    if (currentUser && currentUser.id === id) {
+      const isRemembered = localStorage.getItem("currentUser") !== null;
+      this.setCurrentUser(updatedUser, isRemembered);
+    }
+
+    return updatedUser;
   },
 
   delete(id) {
+    const currentUser = this.getCurrentUser();
+    if (currentUser && currentUser.id === id) {
+      this.logout();
+    }
     return storage.delete("users", id);
-  },
+  }
 };
