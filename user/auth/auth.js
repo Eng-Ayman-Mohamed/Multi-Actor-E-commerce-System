@@ -317,3 +317,110 @@ function clearErrors(form) {
     el.style.display = "none";
   });
 }
+
+// ==================== PROFILE PAGE ====================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profileContainer = document.getElementById("profileContainer");
+
+  if (!profileContainer) return;
+
+  const currentUser = userService.getCurrentUser();
+
+  if (!currentUser) {
+    window.location.href = `${getBasePath()}auth/login.html`;
+    return;
+  }
+
+  renderProfile(profileContainer, currentUser);
+});
+
+function renderProfile(container, user) {
+  container.innerHTML = `
+    <h2 class="mb-4">My Profile</h2>
+
+    <form id="profileForm" enctype="multipart/form-data">
+      <div class="mb-3 text-center">
+        <img src="${user.image || 'default-avatar.png'}" 
+             alt="Profile Image" 
+             id="profileImagePreview" 
+             class="rounded-circle" 
+             style="width:120px; height:120px; object-fit:cover; margin-bottom:10px;" />
+        <input type="file" name="image" id="profileImage" accept="image/*" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" value="${user.name}" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" value="${user.email}" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" name="phone" class="form-control" value="${user.phone || ""}" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Update Profile
+      </button>
+    </form>
+  `;
+
+  const imageInput = document.getElementById("profileImage");
+  const imagePreview = document.getElementById("profileImagePreview");
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (file) {
+      imagePreview.src = URL.createObjectURL(file);
+    }
+  });
+
+  document
+    .getElementById("profileForm")
+    .addEventListener("submit", handleProfileUpdate);
+}
+
+function handleProfileUpdate(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const phone = form.phone.value.trim();
+
+  if (name.length < 3) {
+    alert("Name must be at least 3 characters");
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    alert("Enter a valid email address");
+    return;
+  }
+
+  if (phone && !validatePhone(phone)) {
+    alert("Enter a valid Egyptian phone number");
+    return;
+  }
+
+  const imageInput = form.image;
+  let imageUrl = null;
+  if (imageInput && imageInput.files.length > 0) {
+    const file = imageInput.files[0];
+    imageUrl = URL.createObjectURL(file);
+  }
+
+  const currentUser = userService.getCurrentUser();
+  const updatedUser = userService.update(currentUser.id, {
+    name,
+    email,
+    phone,
+    image: imageUrl || currentUser.image,
+  });
+
+  renderProfile(document.getElementById("profileContainer"), updatedUser);
+}
