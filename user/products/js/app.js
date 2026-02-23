@@ -210,6 +210,7 @@ async function renderProducts(products) {
         p.rating,
         p.reviews.length,
         p.price,
+        p.finalPrice,
         p.featured,
         getBasePath(),
       );

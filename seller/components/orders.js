@@ -62,7 +62,7 @@ export function ordersPage() {
 
             <div class="table-responsive">
               <table class="table table-sm align-middle">
-                <thead class="table-light">
+                <thead class="table">
                   <tr>
                     <th>Order ID</th>
                     <th>Product</th>

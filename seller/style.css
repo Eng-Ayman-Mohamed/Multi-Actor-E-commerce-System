@@ -17,25 +17,18 @@ nav {
   cursor: pointer;
   border-radius: 6px;
   margin-bottom: 5px;
-  color: white;
-}
-
-.sidebar-nav li.active {
-  background-color: rgb(21, 155, 199);
 }
 
 .sidebar-nav li:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(173, 173, 173, 0.568);
+}
+.sidebar-nav li.active {
+  background-color: rgb(21, 155, 199);
 }
 
 /* ===== Icons ===== */
 .sidebar-nav i {
   margin-right: 8px;
-}
-
-/* ===== Header ===== */
-header {
-  background-color: #fff;
 }
 
 /* ===== Mobile tweaks ===== */

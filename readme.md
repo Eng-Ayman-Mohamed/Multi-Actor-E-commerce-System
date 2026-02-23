@@ -33,6 +33,13 @@ The platform emphasizes **role-based access control**, **interactive UI/UX**, an
 
 ---
 
+## 🔐 Role-Based Access Strategy
+
+- User role is stored in Local Storage after login.
+- Each dashboard validates the stored role on page load.
+- Unauthorized access triggers automatic redirection to login.
+---
+
 # 🚀 Features Breakdown
 
 ## 1️⃣ User Authentication
@@ -104,7 +111,7 @@ The platform emphasizes **role-based access control**, **interactive UI/UX**, an
 - Full platform control
 - User management
 - Product moderation
-- Account suspension/removal
+- Account removal
 - Customer service handling
 
 ---
@@ -142,7 +149,6 @@ The platform emphasizes **role-based access control**, **interactive UI/UX**, an
 ## 🏪 Seller Functionalities
 
 - Add products
-- Edit listings
 - Delete products
 - Process orders
 - Track sales analytics
@@ -152,9 +158,7 @@ The platform emphasizes **role-based access control**, **interactive UI/UX**, an
 ## 🛠️ Admin Functionalities
 
 - Manage all users
-- Reset passwords
 - Remove accounts
-- Moderate products
 - Handle support issues
 
 ---
@@ -167,21 +171,48 @@ The platform emphasizes **role-based access control**, **interactive UI/UX**, an
 | **CSS3**              | Styling                 |
 | **Bootstrap**         | Responsive UI framework |
 | **JavaScript (ES6+)** | Logic & interactivity   |
+| **JQuery**            | Logic & interactivity   |
 | **Local Storage**     | Data persistence        |
-
+|
 ---
+# Project Structure
 
+MULTI-ACTOR-E-COMMERCE-SYSTEM/
+│
+├── index.html                # Landing page
+├── admin/                    # Admin dashboard & management
+├── seller/                   # Seller dashboard & product control
+├── user/                     # Customer interface
+├── components/               # Shared UI components
+├── assets/                   # Images, styles, static files
+├── DataBase/                 # Database schema & connection files
+├── LICENSE
+└── readme.md
+---
 ## 📊 Optional Visualization Libraries
 
 Used for analytics dashboards:
 
 - Chart.js
-- D3.js
-- Plotly.js
+ 
 
-(Or similar JS visualization tools)
+ 
 
 ---
+# 🏗️ System Architecture
+Application Flow
+
+The system follows a Client-Side Layered Structure:
+
+UI Layer (HTML / Bootstrap)
+        ↓
+Interaction Layer (JavaScript Event Handling)
+        ↓
+State Layer (Local Storage)
+        ↓
+Dynamic Rendering
+ 
+  ---
 
 # ⚙️ Installation & Setup
 
@@ -204,6 +235,17 @@ Right click → Open with Live Server
 No backend or package installation required.
 
 ---
+
+# 🧠 Engineering Decisions
+-Used Local Storage to simulate backend persistence
+
+-Implemented modular JS structure for scalability
+
+-Separated dashboards by role for maintainability
+
+-Used Bootstrap for rapid responsive design
+
+ ---
 
 # 🧭 Usage Guide
 
@@ -265,6 +307,83 @@ Since this is a front-end project:
   - Orders
   - Cart items
 
+ 📘 **Data Model: User**
+
+The User model represents a system account within the e-commerce application.  
+It defines the structure, validation rules, and default values for user data stored in Local Storage.
+
+---
+
+## 🧱 Schema Definition
+
+| Field   | Type          | Required           | Description                       |
+|---------|---------------|------------------|-----------------------------------|
+| id      | string (UUID) | Yes (auto-generated) | Unique identifier                 |
+| name    | string        | Yes               | Full name of the user             |
+| email   | string        | Yes               | User email address                |
+| password| string (Base64)| Yes              | Encoded password                  |
+| role    | string (enum) | Yes               | User role (admin, customer, vendor) |
+| phone   | string        | No                | Contact number                    |
+| address | string        | No                | Street address                    |
+| image   | string        | No                | Profile image URL                 |
+| city    | string        | No                | City name                         |
+| state   | string        | No                | State or region                   |
+| zipcode | string        | No                | Postal code                        |
+| country | string        | No                | Country name                       |
+
+---
+
+## 🔒 Role Enumeration
+
+Allowed values for `role`:
+
+- admin
+- customer
+- vendor
+
+---
+
+## 🧾 Data Model Example (JSON Representation)
+
+ {
+  "id": "string (UUID)",
+  "name": "string",
+  "email": "string",
+  "password": "string (base64 encoded)",
+  "role": "string (admin | customer | seller)",
+  "phone": "string",
+  "address": "string",
+  "image": "string (file path or URL)",
+  "city": "string",
+  "state": "string",
+  "zipcode": "string",
+  "country": "string"
+}
+## ⚙️ Data Rules
+
+id is automatically generated using crypto.randomUUID().
+
+password is encoded using Base64 before storage.
+
+Missing optional fields default to empty strings.
+
+Required fields are validated before object creation.
+
+## 🏗️ Storage Format
+
+Users are stored in Local Storage as an array:
+
+[
+  { "userObject1" },
+  { "userObject2" },
+  { "userObject3" }
+]
+  ---
+
+ # project  live-Demo
+
+ https://eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System/
+  ---
 ### Advantages
 
 - No backend required
