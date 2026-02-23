@@ -22,6 +22,10 @@ export const productService = {
     return storage.delete("products", productId);
   },
 
+  updateProduct(productID, data) {
+    return storage.update("products", productID, data);
+  },
+
   getAll() {
     return storage.get("products");
   },

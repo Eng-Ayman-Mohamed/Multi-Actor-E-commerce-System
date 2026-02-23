@@ -14,9 +14,15 @@ import {
 } from "../components/user/promotionProducts.js";
 import { seedReady } from "../DataBase/utils/seed.js";
 import { initCard } from "../components/user/card.js";
-
+import { userService } from "../DataBase/services/userService.js";
 $(function () {
   const basePath = getBasePath();
+
+  const currentUser = userService.getCurrentUser();
+
+  if (!currentUser || currentUser.role !== "customer") {
+    userService.deleteCurrentUser();
+  }
   $("#mainWrapper")
     .append(navbar(basePath))
     .append(heroSection(basePath))
