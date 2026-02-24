@@ -6,8 +6,6 @@ window.onerror = function (message, source, lineno) {
   const cleanMessage = message.replace(/^Uncaught Error: /i, "");
 
   initToast(cleanMessage, "danger");
-
-  return true;
 };
 
 window.onunhandledrejection = function (event) {
