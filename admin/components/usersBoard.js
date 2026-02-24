@@ -63,7 +63,7 @@ export function initUsersBoard() {
     </div>
     `;
 
-    // 3️⃣ Initialize Bootstrap modal instance
+    //  Initialize Bootstrap modal instance
     const modal = new bootstrap.Modal(modalEl);
 
     modal.show();
