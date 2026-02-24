@@ -54,7 +54,7 @@ export function initOverview() {
     let products = productService.getAll();
     let pendingProducts = products.filter((p) => p.approved === false);
     $("#pendingNumber").text(pendingProducts.length);
-    $("#pending-products-list").text("");
+    $("#pending-products-list").empty();
     pendingProducts.forEach((element) => {
       $("#pending-products-list").append(
         `

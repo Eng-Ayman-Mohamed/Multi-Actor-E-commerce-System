@@ -13,6 +13,12 @@ export function promotionProducts() {
                 </div></a>
             </div>
             <div id="promotionProductsContainer" class="row justify-content-around">
+            <div class="w-100 d-flex justify-content-center align-items-center" style="height: 50vh;">
+              <div class="spinner-border text-body " role="status"
+                style="height: 100px !important; width: 100px !important;">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
             </div>
         </div></div>`;
 }
@@ -44,6 +50,7 @@ export async function initPromotionProducts(basePath) {
 
   const allCardsHtml = await Promise.all(cardPromises);
 
+  $("#promotionProductsContainer").empty();
   $("#promotionProductsContainer").append(allCardsHtml.join(""));
 
   const ratingElements = document.querySelectorAll(

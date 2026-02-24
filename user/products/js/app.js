@@ -196,8 +196,6 @@ function renderPagination() {
 
 // ===== PRODUCTS RENDER =====
 async function renderProducts(products) {
-  $("#products").empty();
-
   // Fetch all images for the current page in parallel
   const cards = await Promise.all(
     products.map(async (p) => {
@@ -218,5 +216,6 @@ async function renderProducts(products) {
     }),
   );
 
+  $("#products").empty();
   $("#products").append(cards.join(""));
 }

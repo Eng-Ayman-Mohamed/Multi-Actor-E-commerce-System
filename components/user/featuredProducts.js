@@ -12,6 +12,12 @@ export function featuredProducts() {
                 </div></a>
             </div>
             <div id="featuredProductsContainer" class="row justify-content-around">
+            <div class="w-100 d-flex justify-content-center align-items-center" style="height: 50vh;">
+              <div class="spinner-border text-body " role="status"
+                style="height: 100px !important; width: 100px !important;">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
             </div>
         </div></div>`;
 }
@@ -44,6 +50,7 @@ export async function initFeaturedProducts(basePath) {
 
   const allCardsHtml = await Promise.all(cardPromises);
 
+  $("#featuredProductsContainer").empty();
   $("#featuredProductsContainer").append(allCardsHtml.join(""));
 
   const ratingElements = document.querySelectorAll(
