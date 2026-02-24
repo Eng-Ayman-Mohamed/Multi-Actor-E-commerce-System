@@ -11,7 +11,7 @@ import { orderService } from "../DataBase/services/orderService.js";
 
 $(document).ready(function () {
   let user = userService.getCurrentUser();
-  if (!user || currentUser.role !== "seller") {
+  if (user && user.role !== "vendor") {
     userService.deleteCurrentUser();
     window.location.href = "../user/auth/login.html";
   }

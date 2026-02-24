@@ -6,7 +6,7 @@ export function initUsersBoard() {
     let currentUser = userService.getCurrentUser();
     let allUsers = userService.getAll();
     let users = allUsers.filter((u) => u.id !== currentUser?.id);
-    $("#usersTableBody").text("");
+    $("#usersTableBody").empty();
     // Render Users
     users.forEach((user) => {
       const userRow = `

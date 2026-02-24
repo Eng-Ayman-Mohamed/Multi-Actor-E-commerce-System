@@ -15,7 +15,7 @@ initProductsBoard();
 initOrdersBoard();
 $(document).ready(function () {
   let user = userService.getCurrentUser();
-  if (!user || user.role !== "admin") {
+  if (user && user.role !== "admin") {
     userService.deleteCurrentUser();
     window.location.href = "../user/auth/login.html";
   }
