@@ -44,23 +44,22 @@ $(document).ready(function () {
     const checkbox = $(`.category-filter[value="${selectedCategory}"]`);
     if (checkbox.length) {
       checkbox.prop("checked", true);
-      applyFilters(); // 🔥 أهم سطر لتطبيق الفلترة مباشرة
     }
   }
-
-  updateView();
+  //initial Call
+  refreshProducts();
 
   // ===== FILTERS =====
   $(document).on("change", ".category-filter", function () {
     currentPage = 1;
-    applyFilters();
+    refreshProducts();
   });
-  $(document).on("input", "#priceRange", applyFilters);
+  $(document).on("input", "#priceRange", refreshProducts);
 
   // ===== SEARCH =====
   $("input[type='search']").on("input", function () {
     currentPage = 1;
-    applyFilters();
+    refreshProducts();
   });
 
   // ===== CLEAR FILTERS =====
@@ -71,36 +70,23 @@ $(document).ready(function () {
 
     filteredProducts = allProducts;
     currentPage = 1;
-    updateView();
+    refreshProducts();
   });
 
   // ===== SORT =====
-  $("#sortSelect").on("change", sortFun);
+  $("#sortSelect").on("change", refreshProducts);
 
-  function sortFun() {
-    const val = $("#sortSelect").val();
-
-    if (val === "featured")
-      filteredProducts.sort((a, b) => b.featured - a.featured);
-    if (val === "low") filteredProducts.sort((a, b) => a.price - b.price);
-    if (val === "high") filteredProducts.sort((a, b) => b.price - a.price);
-    if (val === "rating") filteredProducts.sort((a, b) => b.rating - a.rating);
-
-    updateView();
-  }
-  //initial Call
-  sortFun();
   // ===== PAGINATION =====
   $(document).on("click", ".page-btn", function () {
     currentPage = +$(this).data("page");
     window.scrollTo(0, 0);
-    updateView();
+    refreshProducts();
   });
 
   $(document).on("click", "#prevPage", function () {
     if (currentPage > 1) {
       currentPage--;
-      updateView();
+      refreshProducts();
     }
   });
 
@@ -108,7 +94,7 @@ $(document).ready(function () {
     let totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (currentPage < totalPages) {
       currentPage++;
-      updateView();
+      refreshProducts();
     }
   });
 
@@ -152,7 +138,6 @@ function applyFilters() {
   });
 
   currentPage = 1;
-  updateView();
 }
 
 // ===== VIEW LOGIC =====
@@ -166,6 +151,22 @@ function updateView() {
   $("#productsCount").text(
     `Showing ${start + 1}-${Math.min(end, filteredProducts.length)} of ${filteredProducts.length} products`,
   );
+}
+
+function sortFun() {
+  const val = $("#sortSelect").val();
+
+  if (val === "featured")
+    filteredProducts.sort((a, b) => b.featured - a.featured);
+  if (val === "low") filteredProducts.sort((a, b) => a.price - b.price);
+  if (val === "high") filteredProducts.sort((a, b) => b.price - a.price);
+  if (val === "rating") filteredProducts.sort((a, b) => b.rating - a.rating);
+}
+
+function refreshProducts() {
+  applyFilters(); // filter only (no render)
+  sortFun(); // sort only (no render)
+  updateView(); // render once
 }
 
 // ===== PAGINATION RENDER =====
@@ -195,8 +196,6 @@ function renderPagination() {
 
 // ===== PRODUCTS RENDER =====
 async function renderProducts(products) {
-  $("#products").empty();
-
   // Fetch all images for the current page in parallel
   const cards = await Promise.all(
     products.map(async (p) => {
@@ -217,5 +216,6 @@ async function renderProducts(products) {
     }),
   );
 
+  $("#products").empty();
   $("#products").append(cards.join(""));
 }
