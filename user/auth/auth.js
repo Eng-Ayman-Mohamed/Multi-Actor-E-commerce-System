@@ -144,6 +144,7 @@ async function handleRegisterSubmit(e) {
     phone: phone.value.trim(),
     password: password.value,
     role,
+    address: "",
   });
 
   userService.create(newUser);
@@ -341,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("profileEmail").textContent = currentUser.email;
   document.getElementById("profilePhone").textContent =
     currentUser.phone || "Not Provided";
-  document.getElementById("profileRole").textContent = currentUser.role;
+  document.getElementById("profileAddress").textContent =currentUser.address || "Not Provided";
   document.getElementById("profileJoinDate").textContent =
     currentUser.createdAt
       ? new Date(currentUser.createdAt).toLocaleDateString()
@@ -367,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
   profileForm.name.value = currentUser.name;
   profileForm.email.value = currentUser.email;
   profileForm.phone.value = currentUser.phone || "";
+  profileForm.address.value = currentUser.address || "";
 
   const imageInput = profileForm.image;
   const imagePreview = document.getElementById("imagePreview");
@@ -391,23 +393,27 @@ document.addEventListener("DOMContentLoaded", () => {
       name: profileForm.name.value.trim(),
       email: profileForm.email.value.trim(),
       phone: profileForm.phone.value.trim(),
+      address: profileForm.address.value.trim(),
     };
 
-    if (imageInput.files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        updatedData.image = e.target.result;
-        userService.update(currentUser.id, updatedData);
-        location.reload();
-      };
-      reader.readAsDataURL(imageInput.files[0]);
-    } else {
+    const saveAndRefresh = () => {
       userService.update(currentUser.id, updatedData);
 
       const updatedUser = userService.getById(currentUser.id);
       userService.setCurrentUser(updatedUser, true);
 
       location.reload();
+    };
+
+    if (imageInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updatedData.image = e.target.result;
+        saveAndRefresh();
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      saveAndRefresh();
     }
   });
 
