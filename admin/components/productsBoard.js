@@ -23,7 +23,7 @@ export function initProductsBoard() {
                             </div>
                             <div class="text-end col-lg-2">
                                 <p class="text-danger fw-bold fs-5 mb-1">${product.price}</p>
-                                <span class="badge   border">In Stock: ${product.stock}</span>
+                                <span class="badge text-body  border">In Stock: ${product.stock}</span>
                                 
                             </div>
                         </div>

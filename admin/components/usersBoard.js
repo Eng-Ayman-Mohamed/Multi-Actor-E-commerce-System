@@ -17,7 +17,7 @@ export function initUsersBoard() {
                                 ${user.name}
                             </div>
                         </td>
-                        <td><span class="badge border ">${user.role}</span></td>
+                        <td><span class="badge border text-body" >${user.role}</span></td>
                         <td>${new Date(user.createdAt).toLocaleDateString("en-CA")}</td>
                         <td class="text-end">
                             <button data-id=${user.id}  class="btn btn-sm btn-outline-primary me-1 update-user-role"><i class="fas fa-edit"></i></button>
