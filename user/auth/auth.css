@@ -69,10 +69,6 @@
 
 /* ================= Profile Page Styles (New) ================= */
 
-body {
-  background-color: #f5f6fa;
-}
-
 .profile-card {
   border-radius: 15px;
 }
@@ -91,7 +87,6 @@ body {
 .stat-box {
   padding: 20px;
   border-radius: 12px;
-  background: #fff;
   transition: 0.3s;
   box-shadow: 0 3px 10px rgba(0,0,0,0.05);
   cursor: default;
