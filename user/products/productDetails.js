@@ -20,6 +20,16 @@ $(function () {
 
   $("#productDetails").html(`
     <div class="row g-4">
+     <div class="col-lg-2">
+    <!-- 🔙 Back to Products -->
+    <a href="./index.html" class="text-decoration-none fw-bold">
+      ← Back to Products
+    </a>
+  </div>
+    </div>
+    <br>
+    <div class="row g-4">
+   
 
       <!-- Images -->
       <div class="col-lg-6">
