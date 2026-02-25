@@ -15,6 +15,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./js/app.js"></script>
@@ -27,13 +28,12 @@
             position: fixed;
             top: 0;
             left: 0;
-            border-right: 1px solid #ddd;
-            background: #fff;
             padding: 20px;
         }
 
         .main-content {
             margin-left: 250px;
+            padding-right: 250px;
         }
 
         @media (max-width: 991px) {
@@ -51,33 +51,33 @@
 <body>
 
     <!-- ================= DESKTOP SIDEBAR ================= -->
-    <aside class="desktop-sidebar d-none d-lg-block">
+    <aside class="desktop-sidebar border d-none d-lg-block">
         <h5 class="mb-4">Admin Panel</h5>
 
         <!-- نفس الـ menu -->
         <ul class="nav flex-column" id="sideNav">
             <li>
-                <a class="nav-link active" data-target="overview-page">
+                <a class="nav-link  active" data-target="overview-page">
                     <i class="fas fa-th-large"></i> Overview
                 </a>
             </li>
             <li>
-                <a class="nav-link" data-target="users-page">
+                <a class="nav-link " data-target="users-page">
                     <i class="fas fa-users"></i> Users
                 </a>
             </li>
             <li>
-                <a class="nav-link" data-target="products-page">
+                <a class="nav-link " data-target="products-page">
                     <i class="fas fa-box"></i> Products
                 </a>
             </li>
             <li>
-                <a class="nav-link" data-target="orders-page">
+                <a class="nav-link " data-target="orders-page">
                     <i class="fas fa-shopping-cart"></i> Orders
                 </a>
             </li>
             <li>
-                <a id="logOut" class="nav-link text-danger fw-bold">
+                <a id="logOut" class="nav-link  text-danger fw-bold">
                     <i class="fas fa-sign-out-alt"></i> Back to Store
                 </a>
             </li>
@@ -85,9 +85,7 @@
     </aside>
 
     <!-- ================= MOBILE OFFCANVAS ================= -->
-    <div class="offcanvas offcanvas-start d-lg-none"
-        tabindex="-1"
-        id="offcanvasWithBothOptions">
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasWithBothOptions">
 
         <div class="offcanvas-header">
             <h5>Admin Panel</h5>
@@ -95,20 +93,17 @@
         </div>
 
         <div class="offcanvas-body">
-            <!-- نفس الـ menu بس من غير تكرار -->
             <div id="mobileMenuHolder"></div>
         </div>
     </div>
 
     <!-- ================= MAIN CONTENT ================= -->
-    <div class="main-content col-12 container-lg">
+    <div class="main-content col-12 container-fluid ">
 
         <header class="top-header border-bottom py-2">
             <div class="d-flex justify-content-between align-items-center">
 
-                <button class="btn d-lg-none"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasWithBothOptions">
+                <button class="btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions">
                     <i class="fa-solid fa-bars h3 mb-0"></i>
                 </button>
 
@@ -118,8 +113,68 @@
             </div>
         </header>
 
-        <div class="px-3" id="wrapper">
-            <!-- pages زي ما هي -->
+        <div class="px-3 " id="wrapper">
+            <div id="users-page" class="page-section">
+                <div class="card-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-0">Platform Users List</h5>
+                            <p class="text-muted small mb-0">Manage your system members and their roles.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle" id="usersTable">
+                            <thead class="table">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Joined</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="products-page" class="page-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Product Inventory</h5>
+                </div>
+
+                <div class="row g-3" id="productsList">
+                </div>
+            </div>
+
+            <div id="orders-page" class="page-section">
+                <div class="card-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-0">Manage Orders</h5>
+                            <p class="text-muted small mb-0">Track and manage customer transactions.</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle" id="ordersTable">
+                            <thead class="table">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
