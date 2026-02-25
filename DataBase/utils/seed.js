@@ -36,7 +36,14 @@ async function initSeed() {
     role: "vendor",
   });
 
-  userService.create(sysVendor);
+  const sysUser = new User({
+    name: "Vendra User",
+    email: "user@vendra.com",
+    password: "user1234",
+    role: "user",
+  });
+
+  userService.create(sysUser);
 
   try {
     const response = await fetch("https://dummyjson.com/products?limit=50");
