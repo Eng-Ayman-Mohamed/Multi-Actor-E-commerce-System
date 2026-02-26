@@ -1,4 +1,6 @@
 import { storage } from "../utils/storage.js";
+import { cartService } from "./cartService.js";
+import { productService } from "./productService.js";
 
 export const userService = {
   // ==================== HELPERS ====================
@@ -6,7 +8,7 @@ export const userService = {
   emailExists(email) {
     const users = storage.get("users") || [];
     return users.some(
-      (u) => u.email.toLowerCase() === email.trim().toLowerCase()
+      (u) => u.email.toLowerCase() === email.trim().toLowerCase(),
     );
   },
 
@@ -57,8 +59,7 @@ export const userService = {
 
     const currentUser = this.getCurrentUser();
     if (currentUser && currentUser.id === id) {
-      const isRemembered =
-        localStorage.getItem("currentUser") !== null;
+      const isRemembered = localStorage.getItem("currentUser") !== null;
 
       this.setCurrentUser(updatedUser, isRemembered);
     }
@@ -71,6 +72,13 @@ export const userService = {
 
     if (currentUser && currentUser.id === id) {
       this.deleteCurrentUser();
+      // delete all users products
+      let userProducts = productService.getByVendor(id);
+      userProducts.forEach((element) => {
+        productService.remove(element.id);
+      });
+      //delete user cart
+      cartService.clearCart(id);
     }
 
     return storage.delete("users", id);
