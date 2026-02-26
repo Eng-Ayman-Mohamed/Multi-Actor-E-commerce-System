@@ -40,6 +40,11 @@ async function initSeed() {
   const sysUser = new User({
     name: "Vendra Customer",
     email: "customer@vendra.com",
+    phone: "01555853922",
+    address: "Tanta, Egypt",
+    city: "Tanta",
+    state: "TA",
+    zipcode: 10001,
     password: "customer1234",
     role: "customer",
   });
