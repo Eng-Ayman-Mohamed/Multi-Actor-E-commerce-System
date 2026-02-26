@@ -3,7 +3,7 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { getBasePath } from "../../assets/utils/basePath.js";
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
-import { orderService } from "../../DataBase/services/orderService.js"; 
+import { orderService } from "../../DataBase/services/orderService.js";
 
 import User from "../../DataBase/models/User.js";
 // ==================== LOAD NAVBAR & FOOTER ====================
@@ -342,11 +342,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("profileEmail").textContent = currentUser.email;
   document.getElementById("profilePhone").textContent =
     currentUser.phone || "Not Provided";
-  document.getElementById("profileAddress").textContent =currentUser.address || "Not Provided";
-  document.getElementById("profileJoinDate").textContent =
-    currentUser.createdAt
-      ? new Date(currentUser.createdAt).toLocaleDateString()
-      : "N/A";
+  document.getElementById("profileAddress").textContent =
+    currentUser.address || "Not Provided";
+  document.getElementById("profileJoinDate").textContent = currentUser.createdAt
+    ? new Date(currentUser.createdAt).toLocaleDateString()
+    : "N/A";
 
   if (currentUser.image) {
     document.getElementById("profileAvatar").src = currentUser.image;
@@ -418,8 +418,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===== Logout =====
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    userService.deleteCurrentUser();
+  document.getElementById("deleteBtn").addEventListener("click", () => {
+    let currentUser = userService.getCurrentUser();
+    userService.delete(currentUser.id);
     window.location.href = `${getBasePath()}login.html`;
   });
 });

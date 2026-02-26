@@ -21,13 +21,13 @@ async function initSeed() {
   storage.set("carts", []);
   storage.set("orders", []);
 
-  const admin = new User({
+  const sysAdmin = new User({
     name: "System Admin",
     email: "admin@vendra.com",
     password: "admin1234",
     role: "admin",
   });
-  userService.create(admin);
+  userService.create(sysAdmin);
 
   const sysVendor = new User({
     name: "Vendra",
@@ -35,12 +35,13 @@ async function initSeed() {
     password: "vendor1234",
     role: "vendor",
   });
+  userService.create(sysVendor);
 
   const sysUser = new User({
-    name: "Vendra User",
-    email: "user@vendra.com",
-    password: "user1234",
-    role: "user",
+    name: "Vendra Customer",
+    email: "customer@vendra.com",
+    password: "customer1234",
+    role: "customer",
   });
 
   userService.create(sysUser);
