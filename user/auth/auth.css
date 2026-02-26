@@ -66,3 +66,33 @@
   color: #198754;
   font-size: 0.85rem;
 }
+
+/* ================= Profile Page Styles (New) ================= */
+
+.profile-card {
+  border-radius: 15px;
+}
+
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.stat-box {
+  padding: 20px;
+  border-radius: 12px;
+  transition: 0.3s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  cursor: default;
+}
+
+.stat-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
