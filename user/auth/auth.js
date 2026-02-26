@@ -25,7 +25,7 @@ $(function () {
   }
   const currentUser = userService.getCurrentUser();
 
-  if (currentUser && currentUser.role !== "customer") {
+  if (currentUser && currentUser.role === "admin") {
     userService.deleteCurrentUser();
     location.reload();
   }
