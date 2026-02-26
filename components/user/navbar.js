@@ -117,7 +117,7 @@ export function initNavBar(basePath) {
   if (currentUser !== "" && currentUser !== null) {
     $(".Profile").html(`
       <div class="position-relative">
-      <a class="btn btn-body rounded"  data-bs-toggle="collapse" data-bs-target="#list">
+      <a class="btn btn-body rounded w-100 border"  data-bs-toggle="collapse" data-bs-target="#list">
         <i style="font-size:1.5rem;" class="fa-regular fa-circle-user " ></i>
       </a>
       <div id="list" class="collapse mt-2 position-absolute bg-body list-group end-50 " style="width:max-content">
