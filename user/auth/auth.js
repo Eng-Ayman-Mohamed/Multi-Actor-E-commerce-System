@@ -354,15 +354,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Shopping Summary =====
   const userOrders = orderService.getByUser(currentUser.id) || [];
-  const userCart = cartService.getCart(currentUser.id) || [];
+  const userCartCount = cartService.getCartCount(currentUser.id) || 0;
 
   document.getElementById("ordersCount").textContent = userOrders.length;
-  document.getElementById("cartCount").textContent = userCart.length;
-
-  if (typeof wishlistService !== "undefined") {
-    const wishlist = wishlistService.getByUser(currentUser.id) || [];
-    document.getElementById("wishlistCount").textContent = wishlist.length;
-  }
+  document.getElementById("cart_Count").textContent = userCartCount;
 
   // ===== Fill Modal =====
   profileForm.name.value = currentUser.name;
