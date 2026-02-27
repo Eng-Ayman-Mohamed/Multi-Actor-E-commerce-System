@@ -3,6 +3,7 @@ import { footer, initFooter } from "../../components/user/footer.js";
 import { getBasePath } from "../../assets/utils/basePath.js";
 import { cartService } from "../../DataBase/services/cartService.js";
 import { userService } from "../../DataBase/services/userService.js";
+import { orderService } from "../../DataBase/services/orderService.js";
 
 import User from "../../DataBase/models/User.js";
 // ==================== LOAD NAVBAR & FOOTER ====================
@@ -24,7 +25,7 @@ $(function () {
   }
   const currentUser = userService.getCurrentUser();
 
-  if (currentUser && currentUser.role !== "customer") {
+  if (currentUser && currentUser.role === "admin") {
     userService.deleteCurrentUser();
     location.reload();
   }
@@ -143,6 +144,7 @@ async function handleRegisterSubmit(e) {
     phone: phone.value.trim(),
     password: password.value,
     role,
+    address: "",
   });
 
   userService.create(newUser);
@@ -252,8 +254,7 @@ function generateTempPassword() {
 
 // ==================== LOGOUT ====================
 window.logout = function () {
-  localStorage.removeItem("currentUser");
-  sessionStorage.removeItem("currentUser");
+  userService.deleteCurrentUser();
   window.location.href = `${getBasePath()}auth/login.html`;
 };
 
@@ -325,108 +326,96 @@ function clearErrors(form) {
 }
 
 // ==================== PROFILE PAGE ====================
-
 document.addEventListener("DOMContentLoaded", () => {
-  const profileContainer = document.getElementById("profileContainer");
-
-  if (!profileContainer) return;
+  const profileForm = document.getElementById("profileForm");
+  if (!profileForm) return;
 
   const currentUser = userService.getCurrentUser();
 
   if (!currentUser) {
-    window.location.href = `${getBasePath()}auth/login.html`;
+    window.location.href = `${getBasePath()}login.html`;
     return;
   }
 
-  renderProfile(profileContainer, currentUser);
-});
+  // ===== Fill Profile Info =====
+  document.getElementById("profileName").textContent = currentUser.name;
+  document.getElementById("profileEmail").textContent = currentUser.email;
+  document.getElementById("profilePhone").textContent =
+    currentUser.phone || "Not Provided";
+  document.getElementById("profileAddress").textContent =
+    currentUser.address || "Not Provided";
+  document.getElementById("profileJoinDate").textContent = currentUser.createdAt
+    ? new Date(currentUser.createdAt).toLocaleDateString()
+    : "N/A";
 
-function renderProfile(container, user) {
-  container.innerHTML = `
-    <h2 class="mb-4">My Profile</h2>
+  if (currentUser.image) {
+    document.getElementById("profileAvatar").src = currentUser.image;
+  }
 
-    <form id="profileForm" enctype="multipart/form-data">
-      <div class="mb-3 text-center">
-        <img src="${user.image || "default-avatar.png"}" 
-             alt="Profile Image" 
-             id="profileImagePreview" 
-             class="rounded-circle" 
-             style="width:120px; height:120px; object-fit:cover; margin-bottom:10px;" />
-        <input type="file" name="image" id="profileImage" accept="image/*" class="form-control" />
-      </div>
+  // ===== Shopping Summary =====
+  const userOrders = orderService.getByUser(currentUser.id) || [];
+  const userCartCount = cartService.getCartCount(currentUser.id) || 0;
 
-      <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" name="name" class="form-control" value="${user.name}" />
-      </div>
+  document.getElementById("ordersCount").textContent = userOrders.length;
+  document.getElementById("cart_Count").textContent = userCartCount;
 
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" value="${user.email}" />
-      </div>
+  // ===== Fill Modal =====
+  profileForm.name.value = currentUser.name;
+  profileForm.email.value = currentUser.email;
+  profileForm.phone.value = currentUser.phone || "";
+  profileForm.address.value = currentUser.address || "";
 
-      <div class="mb-3">
-        <label class="form-label">Phone</label>
-        <input type="text" name="phone" class="form-control" value="${user.phone || ""}" />
-      </div>
+  const imageInput = profileForm.image;
+  const imagePreview = document.getElementById("imagePreview");
 
-      <button type="submit" class="btn btn-primary">
-        Update Profile
-      </button>
-    </form>
-  `;
-
-  const imageInput = document.getElementById("profileImage");
-  const imagePreview = document.getElementById("profileImagePreview");
   imageInput.addEventListener("change", () => {
     const file = imageInput.files[0];
-    if (file) {
-      imagePreview.src = URL.createObjectURL(file);
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // ===== Update Profile =====
+  profileForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+      name: profileForm.name.value.trim(),
+      email: profileForm.email.value.trim(),
+      phone: profileForm.phone.value.trim(),
+      address: profileForm.address.value.trim(),
+    };
+
+    const saveAndRefresh = () => {
+      userService.update(currentUser.id, updatedData);
+
+      const updatedUser = userService.getById(currentUser.id);
+      userService.setCurrentUser(updatedUser, true);
+
+      location.reload();
+    };
+
+    if (imageInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updatedData.image = e.target.result;
+        saveAndRefresh();
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      saveAndRefresh();
     }
   });
 
-  document
-    .getElementById("profileForm")
-    .addEventListener("submit", handleProfileUpdate);
-}
-
-function handleProfileUpdate(e) {
-  e.preventDefault();
-
-  const form = e.target;
-  const name = form.name.value.trim();
-  const email = form.email.value.trim();
-  const phone = form.phone.value.trim();
-
-  if (name.length < 3) {
-    alert("Name must be at least 3 characters");
-    return;
-  }
-
-  if (!validateEmail(email)) {
-    alert("Enter a valid email address");
-    return;
-  }
-
-  if (phone && !validatePhone(phone)) {
-    alert("Enter a valid Egyptian phone number");
-    return;
-  }
-
-  const imageInput = form.image;
-  let imageUrl = null;
-  if (imageInput && imageInput.files.length > 0) {
-    const file = imageInput.files[0];
-    imageUrl = URL.createObjectURL(file);
-  }
-
-  const currentUser = userService.getCurrentUser();
-  const updatedUser = userService.update(currentUser.id, {
-    name,
-    email,
-    phone,
-    image: imageUrl || currentUser.image,
+  // ===== Logout =====
+  document.getElementById("deleteBtn").addEventListener("click", () => {
+    let currentUser = userService.getCurrentUser();
+    userService.delete(currentUser.id);
+    window.location.href = `${getBasePath()}login.html`;
   });
-
-  renderProfile(document.getElementById("profileContainer"), updatedUser);
-}
+});

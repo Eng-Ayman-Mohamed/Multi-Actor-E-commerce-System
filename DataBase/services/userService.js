@@ -1,21 +1,21 @@
 import { storage } from "../utils/storage.js";
+import { cartService } from "./cartService.js";
+import { productService } from "./productService.js";
 
 export const userService = {
-  // ==================== HELPER FUNCTIONS ====================
+  // ==================== HELPERS ====================
 
   emailExists(email) {
-    const users = storage.get("users");
+    const users = storage.get("users") || [];
     return users.some(
       (u) => u.email.toLowerCase() === email.trim().toLowerCase(),
     );
   },
 
   getCurrentUser() {
-    // First check localStorage
     const localUser = localStorage.getItem("currentUser");
     if (localUser) return JSON.parse(localUser);
 
-    // Then check sessionStorage
     const sessionUser = sessionStorage.getItem("currentUser");
     if (sessionUser) return JSON.parse(sessionUser);
 
@@ -38,6 +38,7 @@ export const userService = {
   },
 
   // ==================== CRUD ====================
+
   create(user) {
     if (this.emailExists(user.email)) {
       throw new Error("Email already registered");
@@ -46,7 +47,7 @@ export const userService = {
   },
 
   getAll() {
-    return storage.get("users");
+    return storage.get("users") || [];
   },
 
   getById(id) {
@@ -59,6 +60,7 @@ export const userService = {
     const currentUser = this.getCurrentUser();
     if (currentUser && currentUser.id === id) {
       const isRemembered = localStorage.getItem("currentUser") !== null;
+
       this.setCurrentUser(updatedUser, isRemembered);
     }
 
@@ -67,9 +69,18 @@ export const userService = {
 
   delete(id) {
     const currentUser = this.getCurrentUser();
+
     if (currentUser && currentUser.id === id) {
-      this.logout();
+      this.deleteCurrentUser();
+      // delete all users products
+      let userProducts = productService.getByVendor(id);
+      userProducts.forEach((element) => {
+        productService.remove(element.id);
+      });
+      //delete user cart
+      cartService.clearCart(id);
     }
+
     return storage.delete("users", id);
   },
 };

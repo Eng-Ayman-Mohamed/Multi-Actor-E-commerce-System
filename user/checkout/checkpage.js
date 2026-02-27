@@ -7,6 +7,7 @@ import { cartService } from "../../DataBase/services/cartService.js";
 import Order from "../../DataBase/models/Order.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { orderService } from "../../DataBase/services/orderService.js";
+import { userDetails } from "./userDetails.js";
 
 let currentUser = userService.getCurrentUser()?.id;
 $(document).ready(function () {
@@ -21,6 +22,10 @@ $(document).ready(function () {
     $("#cartCountMobile").text(cartService.getCartCount(currentUser));
   }
   updateCartCount();
+
+  //insert user details
+  let user = userService.getCurrentUser();
+  $("#checkoutForm").prepend(userDetails(user));
 
   let userCart = cartService.getCart(currentUser);
   let productsDB = productService.getAll();
