@@ -2,7 +2,7 @@ export function overviewPage(products, orders) {
   return `
     <div class="container-fluid">
 
-      <!-- Row 1 : Cards -->
+      
       <div class="row g-4 mb-4">
 
         <div class="col-md-3">
@@ -39,7 +39,7 @@ export function overviewPage(products, orders) {
 
       </div>
 
-      <!-- Row 2 : Charts -->
+    
       <div class="row g-4 mb-4">
 
         <div class="col-md-6">

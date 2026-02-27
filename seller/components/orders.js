@@ -40,7 +40,7 @@ export function ordersPage() {
     <div class="container-fluid">
 
       <style>
-        /* تحسين الجدول في وضع الموبايل */
+        
         .product-col {
           max-width: 160px;
           white-space: nowrap;

@@ -5,11 +5,11 @@ export function navbar(basePath) {
   return `
   <div id="navbar" class="w-100 sticky-top bg-body border-bottom z-3">
   
-    <!-- ===== Navbar ===== -->
+    <!--Navbar-->
     <nav class="navbar px-3">
       <div class="container-fluid p-0">
       
-        <!-- Logo (LEFT) -->
+        <!--Logo-->
         <a class="navbar-brand d-flex align-items-center gap-2" href="${basePath}/index.html">
         <div class="rounded" >
           <img style="height:2rem;" src="${basePath}/assets/vendra.png"></div>
@@ -17,7 +17,7 @@ export function navbar(basePath) {
           letter-spacing:3px">Vendra</span>
         </a>
 
-        <!-- Hamburger (RIGHT - Mobile only) -->
+        <!-- Hamburger-->
         <button class="btn d-lg-none"
         data-bs-toggle="collapse"
         data-bs-target="#mobileMenu">
@@ -46,12 +46,12 @@ export function navbar(basePath) {
           </div>
           </nav>
           
-          <!-- ===== Mobile Menu ===== -->
+          <!--Mobile Menu-->
           <div id="mobileMenu" class="collapse d-lg-none border-top bg-body">
       <div class="container py-3 text-start">
       
       
-      <!-- Menu items (LEFT aligned) -->
+      <!--Menu items-->
       <a href="${basePath}/index.html" class="nav-link w-100"> <i class="fa-solid fa-house me-3"></i>Home</a>
       <a href="${basePath}/user/products/index.html" class="nav-link w-100"><i class="fa-solid fa-bag-shopping me-3"></i>Products</a>
       
@@ -65,7 +65,7 @@ export function navbar(basePath) {
           Cart (<span id="cartCountMobile">0</span>)
           </a>
           
-          <!-- Sign In (CENTER + FULL WIDTH) -->
+          <!--Sign In-->
           <div class="text-center Profile " >
           </div>
           
@@ -78,7 +78,6 @@ export function navbar(basePath) {
 
 //
 export function initNavBar(basePath) {
-  /* ===== Theme Toggle ===== */
   const html = document.documentElement;
 
   function setupToggle(id) {
@@ -136,7 +135,7 @@ export function initNavBar(basePath) {
       </a>
     `);
   }
-  // $(document).on("click","",)
+  
   $(".profile-btn").click(function () {
     window.location.href = `${basePath}/user/auth/profile.html`;
   });
@@ -147,4 +146,4 @@ export function initNavBar(basePath) {
   setupToggle("themeToggle");
   setupToggle("themeToggleMobile");
 }
-// href="${basePath}/user/auth/profile.html"
+

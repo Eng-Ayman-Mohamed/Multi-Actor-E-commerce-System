@@ -1,11 +1,11 @@
-/* Main Image (صغرناها) */
+
 .main-img {
   border-radius: 12px;
   max-height: 320px;
   object-fit: contain;
 }
 
-/* Thumbnails */
+
 .thumb {
   cursor: pointer;
   transition: 0.3s;

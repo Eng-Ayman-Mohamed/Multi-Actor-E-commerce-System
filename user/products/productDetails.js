@@ -5,13 +5,13 @@ import { productService } from "../../DataBase/services/productService.js";
 
 import { initCard } from "../../components/user/card.js";
 
-// ===== Load Page =====
+
 $(function () {
   $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
   initNavBar(getBasePath());
   initFooter(getBasePath());
 
-  // ===== Get product ID =====
+  
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
   const product = productService.getById(productId);
@@ -21,7 +21,7 @@ $(function () {
   $("#productDetails").html(`
     <div class="row g-4">
      <div class="col-lg-2">
-    <!-- 🔙 Back to Products -->
+
     <a href="./index.html" class="text-decoration-none fw-bold">
       ← Back to Products
     </a>
@@ -31,7 +31,7 @@ $(function () {
     <div class="row g-4">
    
 
-      <!-- Images -->
+      
       <div class="col-lg-6">
         <div class="card border-0 shadow p-3 ">
         ${
@@ -56,7 +56,7 @@ $(function () {
         </div>
       </div>
 
-      <!-- Details -->
+      
       <div class="col-lg-6 ">
         <h4 class="fw-bold">${product.title}</h4>
         <div class="justify-content-center rating mb-2">
@@ -74,7 +74,7 @@ $(function () {
           <i class="bi bi-check-circle"></i> In Stock
         </p>
 
-        <!-- Quantity -->
+        
         <div class="d-flex justify-content-center gap-3 mb-4">
           <span>Quantity</span>
           <div class="input-group" style="width:130px;">
@@ -85,7 +85,7 @@ $(function () {
           <span class="text-muted">Total: $<span id="totalPrice">${product.finalPrice.toFixed(2)}</span></span>
         </div>
 
-        <!-- Buttons -->
+        
         <div class="d-flex gap-2 mb-4">
           <button data-productId=${product.id} class="btn btn-primary flex-grow-1 addToCartBtn">
             <i class="bi bi-cart"></i> Add to Cart
@@ -93,7 +93,7 @@ $(function () {
 
         </div>
 
-        <!-- Shipping -->
+        
         <div class="bg- p-3 rounded">
           <p class="mb-1"><i class="bi bi-truck"></i> Free shipping on orders over $50</p>
           <p class="mb-0"><i class="bi bi-shield-check"></i> 2-year warranty included</p>
@@ -102,7 +102,7 @@ $(function () {
       </div>
     </div>
 
-    <!-- Tabs -->
+    
     <div class="mt-5">
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -135,22 +135,22 @@ $(function () {
     </div>
   `);
 
-  // Quantity logic
+  
   let qty = 1;
   $("#plus").click(() => {
     qty++;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
-    //Dynamic Nav bar Caller
+    
   });
 
   $("#minus").click(() => {
     if (qty > 1) qty--;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
-    //Dynamic Nav bar Caller
+    
   });
-  //Dynamic Nav bar Caller
+  
   initCard();
 
   function renderStars(num) {
@@ -174,7 +174,7 @@ $(function () {
     });
   }
   renderReviews(product.reviews);
-  // Hover change image
+  
   $(".thumb").hover(function () {
     $("#mainImage").attr("src", $(this).attr("src"));
   });

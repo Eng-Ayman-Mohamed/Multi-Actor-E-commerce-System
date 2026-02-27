@@ -16,7 +16,7 @@ function toast(message, type) {
 export function initToast(message, type) {
   $(".toast-container").remove();
 
-  // Append toast to body
+ 
   $("body").append(toast(message, type));
 
   const toastElement = $(".toast").last()[0];

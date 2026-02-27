@@ -3,7 +3,7 @@ import { productsPage } from "./components/products.js";
 import { analyticsPage } from "./components/analytics.js";
 import { ordersPage } from "./components/orders.js";
 
-//API integration
+
 
 import { userService } from "../DataBase/services/userService.js";
 import { productService } from "../DataBase/services/productService.js";
@@ -16,24 +16,22 @@ $(document).ready(function () {
     window.location.href = "../user/auth/login.html";
   }
   $("#sellerName").text(user.name);
-  // ===== Default Page =====
+  
   loadPage("overview");
 
-  // ===== Navigation (Desktop + Mobile) =====
+  
   $(document).on("click", ".sidebar-nav li", function () {
     const page = $(this).data("page");
     handleNavigation(page);
   });
 
-  //change color mode
+  
   const html = document.documentElement;
   const savedTheme = localStorage.getItem("theme") || "light";
   html.setAttribute("data-bs-theme", savedTheme);
 });
 
-/* ===============================
-   Navigation Handler
-================================ */
+
 function handleNavigation(page) {
   switch (page) {
     case "overview":
@@ -58,11 +56,11 @@ function handleNavigation(page) {
       return;
   }
 
-  // ===== Active State (Desktop + Mobile) =====
+  
   $(".sidebar-nav li").removeClass("active");
   $(`.sidebar-nav li[data-page="${page}"]`).addClass("active");
 
-  // ===== Close Offcanvas if Open =====
+  
   const offcanvasEl = document.getElementById("mobileSidebar");
   if (offcanvasEl && offcanvasEl.classList.contains("show")) {
     const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
@@ -70,9 +68,7 @@ function handleNavigation(page) {
   }
 }
 
-/* ===============================
-   Page Loader
-================================ */
+
 function loadPage(page) {
   let currentUser = userService.getCurrentUser().id;
   let userProducts = productService.getByVendor(currentUser);
@@ -102,9 +98,7 @@ function loadPage(page) {
   }
 }
 
-/* ===============================
-   Charts
-================================ */
+
 function loadCharts() {
   const salesCtx = document.getElementById("salesChart");
   const revenueCtx = document.getElementById("revenueChart");

@@ -7,36 +7,36 @@ import { productCard } from "../../../components/user/card.js";
 import { getCachedImage } from "../../../DataBase/utils/cacheHelper.js";
 import { initCard } from "../../../components/user/card.js";
 
-// ===== LAYOUT =====
+
 $("#mainWrapper").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 
 initNavBar(getBasePath());
 initFooter(getBasePath());
 
-// ===== STATE =====
+
 let allProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
 const itemsPerPage = 21;
 
-// ===== API =====
+
 function getProducts() {
   return productService.getAll();
 }
 
-// ===== INIT =====
+
 $(document).ready(function () {
   allProducts = getProducts();
   filteredProducts = allProducts;
 
-  // ===== Max Price & Categories =====
+  
   let prices = allProducts.map((p) => p.price);
   let maxPrice = Math.max(...prices);
 
   let categories = [...new Set(allProducts.map((p) => p.category))];
   renderFilters(categories, maxPrice);
 
-  // ===== Auto filter from Category page =====
+  
   const params = new URLSearchParams(window.location.search);
   const selectedCategory = params.get("category");
 
@@ -46,23 +46,23 @@ $(document).ready(function () {
       checkbox.prop("checked", true);
     }
   }
-  //initial Call
+  
   refreshProducts();
 
-  // ===== FILTERS =====
+  
   $(document).on("change", ".category-filter", function () {
     currentPage = 1;
     refreshProducts();
   });
   $(document).on("input", "#priceRange", refreshProducts);
 
-  // ===== SEARCH =====
+  
   $("input[type='search']").on("input", function () {
     currentPage = 1;
     refreshProducts();
   });
 
-  // ===== CLEAR FILTERS =====
+  
   $(document).on("click", "#clearFilters", function () {
     $(".category-filter").prop("checked", false);
     $("#priceRange").val(maxPrice);
@@ -73,10 +73,10 @@ $(document).ready(function () {
     refreshProducts();
   });
 
-  // ===== SORT =====
+  
   $("#sortSelect").on("change", refreshProducts);
 
-  // ===== PAGINATION =====
+  
   $(document).on("click", ".page-btn", function () {
     currentPage = +$(this).data("page");
     window.scrollTo(0, 0);
@@ -98,14 +98,14 @@ $(document).ready(function () {
     }
   });
 
-  // ===== PRODUCT DETAILS CLICK =====
+  
   $(document).on("click", ".product-card h6", function (e) {
     e.stopPropagation();
     let productId = $(this).closest(".product-card").data("id");
     window.location.href = `product-details.html?id=${productId}`;
   });
 
-  // ===== WISHLIST ICON =====
+  
   $(document).on("click", ".wishlist", function (e) {
     e.stopPropagation();
     $(this).find("i").toggleClass("bi-heart bi-heart-fill");
@@ -115,7 +115,7 @@ $(document).ready(function () {
   initCard();
 });
 
-// ===== FILTER LOGIC =====
+
 function applyFilters() {
   let selectedCategories = $(".category-filter:checked")
     .map(function () {
@@ -140,7 +140,7 @@ function applyFilters() {
   currentPage = 1;
 }
 
-// ===== VIEW LOGIC =====
+
 function updateView() {
   let start = (currentPage - 1) * itemsPerPage;
   let end = start + itemsPerPage;
@@ -164,12 +164,12 @@ function sortFun() {
 }
 
 function refreshProducts() {
-  applyFilters(); // filter only (no render)
-  sortFun(); // sort only (no render)
+  applyFilters(); // filter only 
+  sortFun(); // sort only 
   updateView(); // render once
 }
 
-// ===== PAGINATION RENDER =====
+
 function renderPagination() {
   let totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -194,9 +194,9 @@ function renderPagination() {
   $("#pagination").html(html);
 }
 
-// ===== PRODUCTS RENDER =====
+
 async function renderProducts(products) {
-  // Fetch all images for the current page in parallel
+  
   const cards = await Promise.all(
     products.map(async (p) => {
       const cachedUrl = await getCachedImage(

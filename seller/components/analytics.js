@@ -2,7 +2,7 @@ export function analyticsPage() {
   return `
     <div class="container-fluid">
 
-      <!-- Header -->
+    
       <div class="mb-4">
         <h3>Analytics</h3>
         <p class="text-muted">Track your store performance</p>
@@ -45,7 +45,7 @@ export function analyticsPage() {
 
       </div>
 
-      <!-- Row 2 : Charts -->
+      
       <div class="row g-4 mb-4">
 
         <div class="col-md-8">
@@ -64,7 +64,7 @@ export function analyticsPage() {
 
       </div>
 
-      <!-- Row 3 : Top Products -->
+      
       <div class="row">
         <div class="col-12">
           <div class="card shadow-sm p-3">

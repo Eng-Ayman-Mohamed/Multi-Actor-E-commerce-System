@@ -1,17 +1,17 @@
-/* ===== Sidebar ===== */
+
 nav {
   position: sticky;
   top: 0;
   height: 100vh;
 }
 
-/* ===== Sidebar list ===== */
+
 .sidebar-nav {
   height: calc(100vh - 80px);
   overflow-y: auto;
 }
 
-/* ===== Sidebar items ===== */
+
 .sidebar-nav li {
   padding: 10px;
   cursor: pointer;
@@ -26,12 +26,12 @@ nav {
   background-color: rgb(21, 155, 199);
 }
 
-/* ===== Icons ===== */
+
 .sidebar-nav i {
   margin-right: 8px;
 }
 
-/* ===== Mobile tweaks ===== */
+
 @media (max-width: 767px) {
   header {
     gap: 10px;

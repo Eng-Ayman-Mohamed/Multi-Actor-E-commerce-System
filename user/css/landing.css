@@ -1,4 +1,4 @@
-/* landing.css */
+
 .cart-btn {
   cursor: pointer;
 }
@@ -42,9 +42,7 @@
   transform: scale(1.2);
 }
 
-/* promotion card */
 
-/* Badge styling */
 .promo-badge {
   position: absolute;
   top: 15px;
@@ -59,7 +57,7 @@
   letter-spacing: 0.5px;
   box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
 }
-/* Card Core */
+
 .modern-card {
   transition:
     transform 0.3s ease,
@@ -72,7 +70,7 @@
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Image Hover Zoom */
+
 .image-wrapper {
   overflow: hidden;
 }
@@ -87,7 +85,7 @@
   transform: scale(1.1);
 }
 
-/* Enhanced Badges */
+
 .card-badges {
   position: absolute;
   bottom: 250px;
@@ -113,13 +111,13 @@
   font-size: 0.7rem;
 }
 
-/* Stars Color */
+
 .stars-gold {
   color: #ffbc00;
   font-size: 0.85rem;
 }
 
-/* Button Animation */
+
 .addToCartBtn {
   transition: all 0.2s;
 }
@@ -132,7 +130,7 @@
   transform: scale(0.95);
 }
 .modern-card {
-  border: 2px solid #f0f0f0; /* Very light static border */
+  border: 2px solid #f0f0f0; 
   transition: all 0.4s ease;
 }
 
