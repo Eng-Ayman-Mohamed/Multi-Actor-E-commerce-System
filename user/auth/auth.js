@@ -252,11 +252,6 @@ function generateTempPassword() {
   return password;
 }
 
-// ==================== LOGOUT ====================
-window.logout = function () {
-  userService.deleteCurrentUser();
-  window.location.href = `${getBasePath()}auth/login.html`;
-};
 
 // ==================== VALIDATION HELPERS ====================
 function validateUsername(username) {
@@ -356,7 +351,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const userOrders = orderService.getByUser(currentUser.id) || [];
   const userCartCount = cartService.getCartCount(currentUser.id) || 0;
 
-  document.getElementById("ordersCount").textContent = userOrders.length;
+  // ===== Orders List =====
+  ordersList.innerHTML = userOrders.map(order => {
+    const total = order.items?.reduce((sum, item) => sum + item.price * item.quantity, 0) || 0;
+
+    const itemsHtml = order.items?.map(item => `
+      <div class="d-flex justify-content-between">
+        <span>${item.productName} x ${item.quantity}</span>
+        <span>${item.price * item.quantity} USD</span>
+      </div>
+    `).join('') || "<p class='text-muted'>No products</p>";
+
+    return `
+      <div class="border rounded p-3 mb-3">
+        <div class="d-flex justify-content-between">
+          <strong>Order #${order.id.slice(0,8)}</strong>
+          <span class="badge bg-${getStatusColor(order.status)}">
+            ${order.status}
+          </span>
+        </div>
+
+        <div class="mt-2 mb-2">
+          ${itemsHtml}
+        </div>
+
+        <div class="mt-2">
+          <strong>Total: ${total} USD</strong>
+        </div>
+
+        ${order.status === "Pending" ? `
+          <button class="btn btn-sm btn-danger mt-2 cancel-order" data-id="${order.id}">
+            Cancel Order
+          </button>` : ""}
+      </div>
+    `;
+  }).join("");
+
+  function getStatusColor(status) {
+    switch (status) {
+      case "Pending":
+        return "warning";
+      case "Shipped":
+        return "info";
+      case "Delivered":
+        return "success";
+      case "Cancelled":
+        return "danger";
+      default:
+        return "secondary";
+    }
+  }
+
+  document.querySelectorAll(".cancel-order").forEach(button => {
+    button.addEventListener("click", function () {
+      const orderId = this.dataset.id;
+      orderService.update(orderId, { status: "Cancelled" });
+      location.reload();
+    });
+  });
+
   document.getElementById("cart_Count").textContent = userCartCount;
 
   // ===== Fill Modal =====
@@ -412,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== Logout =====
+  // ===== LOGOUT =====
   document.getElementById("deleteBtn").addEventListener("click", () => {
     let currentUser = userService.getCurrentUser();
     userService.delete(currentUser.id);

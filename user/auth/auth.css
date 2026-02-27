@@ -50,7 +50,7 @@
 /* ================= VALID SUCCESS STYLE ================= */
 
 .form-control.is-valid {
-  border-color: #198754 !important; /* Bootstrap success green */
+  border-color: #198754 !important;
 }
 
 .form-control.is-valid:focus {
@@ -67,7 +67,7 @@
   font-size: 0.85rem;
 }
 
-/* ================= Profile Page Styles (New) ================= */
+/* ================= Profile Page Styles  ================= */
 
 .profile-card {
   border-radius: 15px;
