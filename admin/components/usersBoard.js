@@ -29,8 +29,6 @@ export function initUsersBoard() {
     });
   }
 
-  //user Functions
-  // delete user
   let userId = null;
 
   $(document).on("click", ".delete-user", function () {
@@ -63,7 +61,6 @@ export function initUsersBoard() {
     </div>
     `;
 
-    //  Initialize Bootstrap modal instance
     const modal = new bootstrap.Modal(modalEl);
 
     modal.show();
@@ -80,7 +77,6 @@ export function initUsersBoard() {
     modalInstance.hide();
   });
 
-  // edit user role
 
   $(document).on("click", ".update-user-role", function () {
     userId = $(this).attr("data-id");
@@ -115,7 +111,6 @@ export function initUsersBoard() {
     </div>
     `;
 
-    // 3️⃣ Initialize Bootstrap modal instance
     const modal = new bootstrap.Modal(modalEl);
 
     modal.show();
