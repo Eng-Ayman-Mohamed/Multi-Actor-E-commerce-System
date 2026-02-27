@@ -85,3 +85,26 @@ canvas {
   color: #6b7280;
   margin-left: 5px;
 }
+  .desktop-sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding-right: 250px;
+        }
+
+        @media (max-width: 991px) {
+            .desktop-sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
