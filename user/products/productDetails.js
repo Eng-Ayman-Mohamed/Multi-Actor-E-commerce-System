@@ -34,7 +34,14 @@ $(function () {
       <!-- Images -->
       <div class="col-lg-6">
         <div class="card border-0 shadow p-3 ">
-        ${product.featured ? ` <span class="text-warning z-1 position-absolute end-0 h3 my-3 mx-2 " title="Featured Product" ><i " class="fa-solid fa-bookmark" ></i></span>` : ""}
+        ${
+          product.featured
+            ? `  <div class="featured-badge">
+                    <i class="fa-solid fa-star me-1"></i>
+                    <span>FEATURED</span>
+                 </div>`
+            : ""
+        }
           <img src="${product.images[0]}" class="img-fluid main-img" id="mainImage">
         </div>
 
