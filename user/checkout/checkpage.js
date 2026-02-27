@@ -189,9 +189,7 @@ $(document).ready(function () {
       orderService.create(order);
       console.log("✅ Order Created:", order.id);
 
-      // 🧹 Clear Cart After Checkout
       cartService.clearCart(currentUser);
-      console.log("🧹 Cart Cleared After Checkout");
       window.location.href = "../../index.html";
       alert("Order placed successfully!");
     } else {
