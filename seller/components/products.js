@@ -3,19 +3,17 @@ import { userService } from "../../DataBase/services/userService.js";
 import Product from "../../DataBase/models/Product.js";
 export function productsPage() {
   let vendorId = userService.getCurrentUser().id;
-  // منع تكرار الايفنتات
+   
   $(document).off("click", ".add-product");
   $(document).off("click", ".edit-btn");
   $(document).off("click", "#saveProduct");
   $(document).off("click", ".delete-btn");
-
-  // فتح المودال
   $(document).on("click", ".add-product", function () {
     const modal = new bootstrap.Modal(document.getElementById("productModal"));
     modal.show();
   });
 
-  // edit product
+  
   $(document).on("click", ".edit-btn", function () {
     let productId = $(this).attr("data-productId");
     let product = productService.getById(productId);
@@ -48,7 +46,7 @@ export function productsPage() {
     renderProducts();
   });
 
-  // on page load
+   
   $(function () {
     renderProducts();
   });
@@ -76,8 +74,7 @@ export function productsPage() {
       </tr>
     `);
     });
-  }
-  // حفظ المنتج
+  } 
   $(document).on("click", "#saveProduct", function () {
     let title = $("#title").val();
     let desc = $("#desc").val();
@@ -87,8 +84,7 @@ export function productsPage() {
     let stock = $("#stock").val();
     let weight = $("#weight").val();
     let image = $("#image").val();
-
-    // ➕ Create Product
+ 
     const product = new Product({
       vendorId: vendorId,
       title: title,
@@ -108,7 +104,7 @@ export function productsPage() {
     renderProducts();
   });
 
-  // delete Product
+  
   let productId;
 
   $(document).on("click", ".delete-btn", function () {
@@ -141,7 +137,7 @@ export function productsPage() {
     </div>
     `;
 
-    // 3️⃣ Initialize Bootstrap modal instance
+     
     const modal = new bootstrap.Modal(modalEl);
 
     modal.show();
@@ -170,7 +166,7 @@ export function productsPage() {
 
     <div class="card shadow-sm p-3">
 
-      <!-- ✅ Responsive Table Wrapper -->
+      <!--  Responsive Table Wrapper -->
       <div class="table-responsive-lg">
         <table class="table align-middle table-nowrap">
           <thead class="table">
