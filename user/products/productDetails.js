@@ -5,13 +5,13 @@ import { productService } from "../../DataBase/services/productService.js";
 
 import { initCard } from "../../components/user/card.js";
 
-// ===== Load Page =====
+//  Load Page
 $(function () {
   $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
   initNavBar(getBasePath());
   initFooter(getBasePath());
 
-  // ===== Get product ID =====
+  //  Get product ID
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
   const product = productService.getById(productId);
@@ -141,16 +141,14 @@ $(function () {
     qty++;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
-    //Dynamic Nav bar Caller
   });
 
   $("#minus").click(() => {
     if (qty > 1) qty--;
     $("#qty").val(qty);
     $("#totalPrice").text((qty * product.price).toFixed(2));
-    //Dynamic Nav bar Caller
   });
-  //Dynamic Nav bar Caller
+
   initCard();
 
   function renderStars(num) {
@@ -174,7 +172,6 @@ $(function () {
     });
   }
   renderReviews(product.reviews);
-  // Hover change image
   $(".thumb").hover(function () {
     $("#mainImage").attr("src", $(this).attr("src"));
   });

@@ -56,27 +56,4 @@ export const cartService = {
     });
     return totalCount;
   },
-  // not working
-  getCartTotal(userId) {
-    const cart = this.getCart(userId);
-    const products = storage.get("products") || [];
-    let total = 0;
-    const items = cart.items.map((item) => {
-      const product = products.find((p) => p.id === item.productId);
-
-      const price = product.finalPrice;
-
-      const itemTotal = price * item.quantity;
-      total += itemTotal;
-
-      return {
-        productId: item.productId,
-        quantity: item.quantity,
-        price,
-        total: itemTotal,
-      };
-    });
-
-    return { items, cartTotal: total };
-  },
 };

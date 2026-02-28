@@ -1,7 +1,7 @@
 //CTA Section
 
 export function CTASection(basePath) {
-  return `  <!-- ===== CTA Section ===== -->
+  return `  <!--  CTA Section  -->
   <section class="py-5 text-white text-center"
     style="background: linear-gradient(90deg, #2563eb, #9333ea);">
     <div class="container">
@@ -26,7 +26,7 @@ export function CTASection(basePath) {
 // User footer
 export function footer(basePath) {
   return `
-  <!-- ===== Footer ===== -->
+  <!--  Footer  -->
   <footer class="text-light pt-5 footer-bg w-100">
     <div class="container">
 
@@ -76,7 +76,7 @@ export function footer(basePath) {
 }
 
 export function initFooter(basePath) {
-  /* ===== DATA ===== */
+  /*  DATA  */
   const footerData = {
     brand: {
       name: "Vendra",
@@ -120,18 +120,18 @@ export function initFooter(basePath) {
     ],
   };
 
-  /* ===== CTA ===== */
+  /*  CTA  */
   $("#ctaTitle").text(footerData.cta.title);
   $("#ctaDesc").text(footerData.cta.desc);
   $("#ctaBtn span").text(footerData.cta.text);
   $("#ctaBtn").attr("href", footerData.cta.link);
 
-  /* ===== Brand ===== */
+  /*  Brand  */
   $("#brandName").text(footerData.brand.name);
   $("#brandDesc").text(footerData.brand.desc);
   $("#copyName").text(footerData.brand.name);
 
-  /* ===== Social ===== */
+  /*  Social  */
   footerData.social.forEach((s) => {
     $("#socialLinks").append(`
       <a href="${s.link}" class="text-light">
@@ -140,7 +140,7 @@ export function initFooter(basePath) {
     `);
   });
 
-  /* ===== Quick Links ===== */
+  /*  Quick Links  */
   footerData.quickLinks.forEach((link) => {
     $("#quickLinks").append(`
       <li>
@@ -149,7 +149,7 @@ export function initFooter(basePath) {
     `);
   });
 
-  /* ===== Service Links ===== */
+  /*  Service Links  */
   footerData.serviceLinks.forEach((link) => {
     $("#serviceLinks").append(`
       <li>
@@ -158,7 +158,7 @@ export function initFooter(basePath) {
     `);
   });
 
-  /* ===== Contact ===== */
+  /*  Contact  */
   footerData.contact.forEach((item) => {
     $("#contactInfo").append(`
       <li>
@@ -168,6 +168,6 @@ export function initFooter(basePath) {
     `);
   });
 
-  /* ===== Year ===== */
+  /*  Year  */
   $("#year").text(new Date().getFullYear());
 }

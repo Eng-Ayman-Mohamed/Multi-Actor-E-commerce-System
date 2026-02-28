@@ -3,7 +3,7 @@ import { cartService } from "./cartService.js";
 import { productService } from "./productService.js";
 
 export const userService = {
-  // ==================== HELPERS ====================
+  //  HELPERS
 
   emailExists(email) {
     const users = storage.get("users") || [];
@@ -37,7 +37,7 @@ export const userService = {
     sessionStorage.removeItem("currentUser");
   },
 
-  // ==================== CRUD ====================
+  //  CRUD
 
   create(user) {
     if (this.emailExists(user.email)) {

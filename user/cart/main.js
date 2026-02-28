@@ -7,7 +7,7 @@ import { userService } from "../../DataBase/services/userService.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { initToast } from "../../utils/toast.js";
 
-/* ===== Cart Item Layout (NEW UI  ===== */
+/* Cart Item Layout (NEW UI) */
 function cartItem(product, element) {
   let total = (product.finalPrice * element.quantity).toFixed(2);
   const isDisabled = element.quantity <= 1 ? "disabled" : "";
@@ -45,7 +45,7 @@ function cartItem(product, element) {
 
 let userId = userService.getCurrentUser()?.id;
 
-/* ===== Navbar / Footer ===== */
+/* Navbar / Footer */
 $("body").prepend(navbar(getBasePath())).append(footer(getBasePath()));
 initNavBar(getBasePath());
 initFooter(getBasePath());
@@ -57,7 +57,7 @@ function updateCartCount() {
   $("#cartCountMobile").text(cartService.getCartCount(currentUser.id));
 }
 let cart;
-/* ===== Render Cart ===== */
+/* Render Cart */
 function renderCart() {
   cart = cartService.getCart(userId);
   updateCartCount();
@@ -85,7 +85,7 @@ function renderCart() {
   updateSummary(subtotal);
 }
 
-/* ===== Summary ===== */
+/* Summary */
 function updateSummary(subtotal) {
   let tax = subtotal * 0.08;
   let total = subtotal + tax;
