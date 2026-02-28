@@ -5,7 +5,7 @@ export function navbar(basePath) {
   return `
   <div id="navbar" class="w-100 sticky-top bg-body border-bottom z-3">
   
-    <!-- ===== Navbar ===== -->
+    <!--  Navbar  -->
     <nav class="navbar px-3">
       <div class="container-fluid p-0">
       
@@ -46,7 +46,7 @@ export function navbar(basePath) {
           </div>
           </nav>
           
-          <!-- ===== Mobile Menu ===== -->
+          <!--  Mobile Menu  -->
           <div id="mobileMenu" class="collapse d-lg-none border-top bg-body">
       <div class="container py-3 text-start">
       
@@ -78,7 +78,7 @@ export function navbar(basePath) {
 
 //
 export function initNavBar(basePath) {
-  /* ===== Theme Toggle ===== */
+  /*  Theme Toggle  */
   const html = document.documentElement;
 
   function setupToggle(id) {
@@ -136,7 +136,6 @@ export function initNavBar(basePath) {
       </a>
     `);
   }
-  // $(document).on("click","",)
   $(".profile-btn").click(function () {
     window.location.href = `${basePath}/user/auth/profile.html`;
   });
@@ -147,4 +146,3 @@ export function initNavBar(basePath) {
   setupToggle("themeToggle");
   setupToggle("themeToggleMobile");
 }
-// href="${basePath}/user/auth/profile.html"

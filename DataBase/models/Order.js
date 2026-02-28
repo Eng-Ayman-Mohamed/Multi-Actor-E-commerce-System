@@ -5,8 +5,11 @@ export default class Order {
     this.items = cartItems.map((item) => {
       const product = productsDB.find((p) => p.id === item.productId);
       if (!product) throw new Error(`Product ${item.productId} not found`);
+
       return {
         productId: item.productId,
+        productTitle: product.title,
+        productImage: product.images[0],
         vendorId: product.vendorId,
         price: product.finalPrice,
         quantity: item.quantity,
