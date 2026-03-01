@@ -10,7 +10,7 @@ import {
 // ===== Initialize Layout =====
 initLayout();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     initRoleButtons(".login-btn");
 
@@ -35,14 +35,14 @@ function handleLoginSubmit(event) {
     const passwordField = form.password;
     const rememberCheckbox = form.remember;
 
-    let remember = false;
+    var remember = false;
     if (rememberCheckbox && rememberCheckbox.checked) {
         remember = true;
     }
 
     // ===== Determine Role =====
-    let role = "customer";
-    const activeRoleButton = form.querySelector(".login-btn.active");
+    var role = "customer";
+    var activeRoleButton = form.querySelector(".login-btn.active");
     if (activeRoleButton) {
         role = activeRoleButton.dataset.role.toLowerCase();
     }
@@ -50,7 +50,7 @@ function handleLoginSubmit(event) {
     clearErrors(form);
 
     // ===== Validation =====
-    let isValid = true;
+    var isValid = true;
 
     if (!validateEmail(emailField.value)) {
         setError(emailField, "Enter a valid email address");
@@ -71,11 +71,11 @@ function handleLoginSubmit(event) {
     }
 
     // ===== Check User Credentials =====
-    const users = userService.getAll();
+    var users = userService.getAll();
 
-    let matchedUser = null;
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i];
+    var matchedUser = null;
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i];
         if (
             user.email.toLowerCase() === emailField.value.trim().toLowerCase() &&
             atob(user.password).trim() === passwordField.value.trim()
@@ -92,8 +92,8 @@ function handleLoginSubmit(event) {
     }
 
     if (matchedUser.role.toLowerCase() !== role) {
-        setError(emailField, `Role does not match. You registered as "${matchedUser.role}"`);
-        setError(passwordField, `Role does not match. You registered as "${matchedUser.role}"`);
+        setError(emailField, 'Role does not match. You registered as "' + matchedUser.role + '"');
+        setError(passwordField, 'Role does not match. You registered as "' + matchedUser.role + '"');
         return;
     }
 

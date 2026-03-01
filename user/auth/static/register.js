@@ -16,15 +16,14 @@ import {
     clearErrors
 } from "./validation.js";
 
-
 // ===== Layout Initialization =====
 initLayout();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     initRoleButtons(".role-btn");
 
-    const form = document.getElementById("registerForm");
+    var form = document.getElementById("registerForm");
 
     if (!form) {
         return;
@@ -34,26 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
 // ===== Form Submission =====
 function handleRegisterSubmit(event) {
 
     event.preventDefault();
 
-    const form = event.target;
+    var form = event.target;
 
     // ===== Extract Fields =====
-    const usernameField = form.username;
-    const emailField = form.email;
-    const phoneField = form.phone;
-    const passwordField = form.password;
-    const confirmPasswordField = form.confirm_password;
+    var usernameField = form.username;
+    var emailField = form.email;
+    var phoneField = form.phone;
+    var passwordField = form.password;
+    var confirmPasswordField = form.confirm_password;
 
-    const termsCheckbox = form.querySelector('input[type="checkbox"]');
+    var termsCheckbox = form.querySelector('input[type="checkbox"]');
 
     // ===== Determine Role =====
-    let role;
-    const activeRoleButton = form.querySelector(".role-btn.active");
+    var role;
+    var activeRoleButton = form.querySelector(".role-btn.active");
     if (activeRoleButton) {
         role = activeRoleButton.dataset.role;
     } else {
@@ -63,7 +61,7 @@ function handleRegisterSubmit(event) {
     clearErrors(form);
 
     // ===== Validation =====
-    let isValid = true;
+    var isValid = true;
 
     // Username
     if (!validateUsername(usernameField.value)) {
@@ -122,7 +120,7 @@ function handleRegisterSubmit(event) {
     }
 
     // ===== Create User =====
-    const newUser = new User({
+    var newUser = new User({
         name: usernameField.value,
         email: emailField.value,
         phone: phoneField.value,
