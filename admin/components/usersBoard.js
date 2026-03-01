@@ -1,4 +1,4 @@
-import { userService } from "../../../DataBase/services/userService.js";
+import { userService } from "../../DataBase/services/userService.js";
 
 export function initUsersBoard() {
   displayUsers();
@@ -76,7 +76,6 @@ export function initUsersBoard() {
     displayUsers();
     modalInstance.hide();
   });
-
 
   $(document).on("click", ".update-user-role", function () {
     userId = $(this).attr("data-id");
