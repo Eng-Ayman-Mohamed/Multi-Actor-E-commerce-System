@@ -21,6 +21,7 @@ export function setError(input, message) {
     input.closest(".input-group, .form-check") || input.parentElement;
 
   let feedback = parent.querySelector(".invalid-feedback");
+
   if (!feedback) {
     feedback = document.createElement("div");
     feedback.className = "invalid-feedback";
@@ -29,6 +30,7 @@ export function setError(input, message) {
 
   feedback.textContent = message;
   feedback.style.display = "block";
+
   input.classList.add("is-invalid");
   input.classList.remove("is-valid");
 }
@@ -38,6 +40,7 @@ export function setSuccess(input) {
     input.closest(".input-group, .form-check") || input.parentElement;
 
   let feedback = parent.querySelector(".valid-feedback");
+
   if (!feedback) {
     feedback = document.createElement("div");
     feedback.className = "valid-feedback";
@@ -45,7 +48,8 @@ export function setSuccess(input) {
   }
 
   feedback.textContent = "";
-  feedback.style.display = "block";
+  feedback.style.display = "none";
+
   input.classList.add("is-valid");
   input.classList.remove("is-invalid");
 }

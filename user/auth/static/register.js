@@ -102,7 +102,10 @@ function handleRegisterSubmit(event) {
     }
 
     // Confirm Password
-    if (confirmPasswordField.value !== passwordField.value) {
+    if (
+        confirmPasswordField.value !== passwordField.value ||
+        !validatePassword(passwordField.value)
+    ) {
         setError(confirmPasswordField, "Passwords do not match");
         isValid = false;
     } else {
