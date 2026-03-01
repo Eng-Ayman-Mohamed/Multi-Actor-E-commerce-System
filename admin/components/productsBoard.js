@@ -1,5 +1,5 @@
-import { userService } from "../../../DataBase/services/userService.js";
-import { productService } from "../../../DataBase/services/productService.js";
+import { userService } from "../../DataBase/services/userService.js";
+import { productService } from "../../DataBase/services/productService.js";
 
 export function initProductsBoard() {
   let products = productService.getAll();

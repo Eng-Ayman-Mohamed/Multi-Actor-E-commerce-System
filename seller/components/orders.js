@@ -1,4 +1,4 @@
-   import { orderService } from "../../DataBase/services/orderService.js";
+import { orderService } from "../../DataBase/services/orderService.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { userService } from "../../DataBase/services/userService.js";
 
@@ -32,13 +32,19 @@ export function ordersPage() {
     ${item.status}
   </span>
 
-  <select class="form-select form-select-sm status-select d-inline w-auto"
+    ${
+      item.status === "pending"
+        ? `  <select class="form-select form-select-sm status-select d-inline w-auto"
           data-id="${item.orderId}">
-    
+          
+    <option value="cancelled" ${item.status === "cancelled" ? "selected" : ""}>Cancelled</option>
     <option value="Shipped" ${item.status === "Shipped" ? "selected" : ""}>Shipped</option>
     
-    <option value="cancelled" ${item.status === "cancelled" ? "selected" : ""}>Cancelled</option>
-  </select>
+  </select>`
+        : ""
+    }
+
+
 </td>
           <td class="text-nowrap">
             ${new Date(item.date).toISOString().split("T")[0]}
@@ -47,19 +53,19 @@ export function ordersPage() {
       `);
     });
 
-     $(document).on("change", ".status-select", function () {
-  const orderId = $(this).data("id");
-  const newStatus = $(this).val();
+    $(document).on("change", ".status-select", function () {
+      const orderId = $(this).data("id");
+      const newStatus = $(this).val();
 
-  orderService.updateStatus(orderId, newStatus);
+      orderService.updateStatus(orderId, newStatus);
 
-  const badge = $(this).closest("td").find(".status-badge");
+      const badge = $(this).closest("td").find(".status-badge");
 
-  badge
-    .removeClass("bg-warning bg-info bg-success bg-danger")
-    .addClass(`bg-${statusThemes[newStatus]}`)
-    .text(newStatus);
-});
+      badge
+        .removeClass("bg-warning bg-info bg-success bg-danger")
+        .addClass(`bg-${statusThemes[newStatus]}`)
+        .text(newStatus);
+    });
   });
 
   return `

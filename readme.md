@@ -1,484 +1,392 @@
-# 🛒 Multi-Actor E-commerce System
+<div align="center">
 
-A comprehensive, role-based e-commerce platform built with modern front-end technologies, designed to simulate real-world online marketplace operations.
-The system supports **Customers, Sellers, and Admins** through dedicated dashboards, secure authentication, and fully responsive interfaces.
+<img src="https://img.shields.io/badge/Vendra-Multi--Actor%20E--Commerce-1e5aa0?style=for-the-badge&logoColor=white" alt="Vendra Banner"/>
 
-> Developed collaboratively by a team of five contributors as part of a structured software engineering project.
+<h1>🛒 Vendra</h1>
+<h3>Multi-Actor E-Commerce System</h3>
 
----
+<p>
+  A fully client-side, role-based online marketplace simulation built with
+  <strong>HTML5</strong>, <strong>CSS3</strong>, <strong>Bootstrap 5</strong>,
+  and <strong>JavaScript ES6+</strong> — supporting Customers, Sellers, and Admins
+  through dedicated dashboards and role-based access control.
+</p>
 
-# 📌 Project Description
+<br/>
 
-The **Multi-Actor E-commerce System** is a full front-end web application that replicates the core workflows of modern online shopping platforms.
+[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-GitHub%20Pages-2ea44f?style=for-the-badge)](https://eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System/)
+[![License](https://img.shields.io/badge/License-MIT-1e5aa0?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-It enables:
+<br/>
 
-- Customers to browse and purchase products
-- Sellers to manage inventories and orders
-- Admins to supervise and control the entire ecosystem
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)
 
-The platform emphasizes **role-based access control**, **interactive UI/UX**, and **modular dashboard design**, making it suitable for portfolio demonstration and academic or training evaluation.
-
----
-
-# 🎯 Objectives
-
-- Build a scalable multi-role e-commerce architecture
-- Implement secure authentication & authorization flows
-- Simulate real marketplace operations
-- Practice collaborative GitHub development
-- Deliver responsive, production-style UI
-- Apply JavaScript for dynamic state management
-- Manage application data via Local Storage
+</div>
 
 ---
 
-## 🔐 Role-Based Access Strategy
+## 📑 Table of Contents
 
-- User role is stored in Local Storage after login.
-- Each dashboard validates the stored role on page load.
-- Unauthorized access triggers automatic redirection to login.
+- [Overview](#-overview)
+- [Features](#-features)
+- [User Roles](#-user-roles)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Usage](#-usage)
+- [Screenshots](#-screenshots)
+- [Architecture](#-architecture)
+- [Data & Storage](#-data--storage)
+- [Roadmap](#-roadmap)
+- [Team](#-team)
+- [License](#-license)
+
 ---
 
-# 🚀 Features Breakdown
+## 🔍 Overview
 
-## 1️⃣ User Authentication
+**Vendra** is a front-end web application that simulates a fully functional,
+multi-role e-commerce marketplace. It demonstrates client-side architecture,
+role-based access control, and dynamic state management — all without a backend
+server or database.
 
-- Role-based login & registration
-- Actor selection (Customer / Seller / Admin)
-- Dashboard redirection per role
-- Access restriction for protected pages
+All data is persisted using **Browser Local Storage**, managed through a
+structured layer of Models, Services, and a centralised Storage utility —
+simulating a backend ORM-like pattern entirely on the client side.
+
+> 🚀 **Try it live:**
+> [eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System](https://eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System/)
 
 ---
 
-## 2️⃣ Home Page
+## ✨ Features
+
+### 🔐 Authentication & Access Control
+
+- Role-based login and registration (Customer, Seller, Admin)
+- Actor role selection at sign-up
+- Automatic dashboard redirection based on authenticated role
+- Route protection with automatic redirect to login on unauthorised access
+
+### 🏠 Home Page
 
 - Featured products showcase
-- Promotions & highlights
-- Category previews
-- Responsive Bootstrap layout
+- Promotions and category previews
+- Fully responsive Bootstrap layout
 
----
+### 🛍️ Product Catalogue
 
-## 3️⃣ Product Catalog
+- Grid and list view modes
+- Product cards with images, names, prices, and ratings
+- Keyword search and category filtering
+- Add-to-Cart directly from catalogue
 
-- Grid/list product display
-- Product image, name, price
-- Add to Cart functionality
-- Search & filtering capability
+### 📦 Product Details
 
----
+- Full product descriptions and image gallery
+- Pricing and available options
+- Seamless navigation back to the catalogue
 
-## 4️⃣ Product Details Page
+### 🛒 Shopping Cart
 
-- Detailed descriptions
-- Product image gallery
-- Pricing & options
-- Navigation back to catalog
+- Add, remove, and adjust product quantities
+- Real-time subtotal and grand total calculation
+- Order summary preview before checkout
 
----
-
-## 5️⃣ Shopping Cart
-
-- Add / Remove products
-- Quantity adjustments
-- Auto price calculation
-- Order summary preview
-
----
-
-## 6️⃣ Checkout Process
+### 💳 Checkout
 
 - Shipping information form
 - Payment details input
-- Final order review
-- Purchase confirmation flow
+- Final order review and purchase confirmation
+
+### 📊 Seller Dashboard
+
+- Add, edit, and delete product listings
+- Manage and track incoming customer orders
+- Sales performance analytics
+
+### 🛡️ Admin Panel
+
+- Full platform administration access
+- User account management (view, edit, remove, change roles)
+- Product moderation (approve or remove listings)
+- Customer support and complaint handling
+
+### 🎨 UI / UX Enhancements
+
+- **Light / Dark Mode** toggle with persisted preference
+- **Toast Notifications** for real-time action feedback
+- **Image Caching** for improved product image performance
+- **Seeded Data** for immediate demonstration without manual setup
+- Fully **responsive** across mobile, tablet, and desktop
 
 ---
 
-## 7️⃣ Seller Dashboard
+## 👥 User Roles
 
-- Add new products
-- Edit product listings
-- Delete inventory items
-- Manage incoming orders
-- Sales performance insights
+Vendra supports three distinct actors, each with a dedicated dashboard and
+controlled permissions:
 
----
-
-## 8️⃣ Admin Panel
-
-- Full platform control
-- User management
-- Product moderation
-- Account removal
-- Customer service handling
+| Role         | Access Level | Key Capabilities                                                             |
+| ------------ | ------------ | ---------------------------------------------------------------------------- |
+| **Customer** | Limited      | Browse catalogue, add to cart, checkout, view order history, manage profile  |
+| **Seller**   | Moderate     | Manage own products, process orders, view sales analytics                    |
+| **Admin**    | Full         | Manage all users, moderate products, handle support, oversee system activity |
 
 ---
 
-## 9️⃣ Responsive Design
+## 🛠️ Tech Stack
 
-- Mobile-first layout
-- Tablet compatibility
-- Desktop optimization
-- Bootstrap grid & utilities
-
----
-
-# 👥 System Actors & Roles
-
-| Actor         | Permissions | Key Capabilities        |
-| ------------- | ----------- | ----------------------- |
-| **Customers** | Limited     | Shop & manage orders    |
-| **Sellers**   | Moderate    | Manage products & sales |
-| **Admins**    | Full        | Control entire system   |
+| Category                  | Technology            |
+| ------------------------- | --------------------- |
+| **Markup**                | HTML5                 |
+| **Styling**               | CSS3, Bootstrap 5     |
+| **Logic & Interactivity** | JavaScript (ES6+)     |
+| **Data Persistence**      | Browser Local Storage |
+| **UI/UX Prototyping**     | Figma                 |
+| **Version Control**       | Git & GitHub          |
+| **Deployment**            | GitHub Pages          |
+| **Project Management**    | Jira (Scrum)          |
 
 ---
 
-## 🧑‍💻 Customer Functionalities
+## 📁 Project Structure
 
-- Browse products
-- Search catalog
-- Add to cart
-- Complete purchases
-- View order history
-- Manage profile data
-
----
-
-## 🏪 Seller Functionalities
-
-- Add products
-- Delete products
-- Process orders
-- Track sales analytics
-
----
-
-## 🛠️ Admin Functionalities
-
-- Manage all users
-- Remove accounts
-- Handle support issues
-
----
-
-# 🧱 Technical Stack
-
-| Technology            | Purpose                 |
-| --------------------- | ----------------------- |
-| **HTML5**             | Page structure          |
-| **CSS3**              | Styling                 |
-| **Bootstrap**         | Responsive UI framework |
-| **JavaScript (ES6+)** | Logic & interactivity   |
-| **JQuery**            | Logic & interactivity   |
-| **Local Storage**     | Data persistence        |
-|
----
-# Project Structure
-
+```
 MULTI-ACTOR-E-COMMERCE-SYSTEM/
 │
-├── index.html                # Landing page
-├── admin/                    # Admin dashboard & management
-├── seller/                   # Seller dashboard & product control
-├── user/                     # Customer interface
-├── components/               # Shared UI components
-├── assets/                   # Images, styles, static files
-├── DataBase/                 # Database schema & connection files
+├── index.html                  # Landing page & role selection entry point
+│
+├── admin/                      # Admin dashboard (HTML, JS, CSS)
+├── seller/                     # Seller dashboard (HTML, JS, CSS)
+├── user/                       # Customer-facing pages (HTML, JS, CSS)
+│
+├── components/
+│   ├── common/                 # Shared components (navbar, footer, cards, modals)
+│   ├── user/                   # Customer-specific components
+│
+├── assets/                     # Static assets (images, icons, stylesheets)
+│
+├── DataBase/                   # Models, services, and seed data
+│   ├── models/                 # User, Product, Cart, Order models
+│   ├── services/               # userService, productService, cartService, orderService
+│   └── seed/                   # Preloaded demo data
+│
+├── utils/                      # Utility scripts
+│   ├── storage.js              # Centralised Local Storage CRUD utility
+│   └── helpers.js              # General helper functions & validators
+│
 ├── LICENSE
-└── readme.md
----
-## 📊 Optional Visualization Libraries
-
-Used for analytics dashboards:
-
-- Chart.js
- 
-
- 
-
----
-# 🏗️ System Architecture
-Application Flow
-
-The system follows a Client-Side Layered Structure:
-
-UI Layer (HTML / Bootstrap)
-        ↓
-Interaction Layer (JavaScript Event Handling)
-        ↓
-State Layer (Local Storage)
-        ↓
-Dynamic Rendering
- 
-  ---
-
-# ⚙️ Installation & Setup
-
-Follow these steps to run the project locally:
-
-```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/your-username/multi-actor-ecommerce.git
-
-# 2️⃣ Navigate to project folder
-cd multi-actor-ecommerce
-
-# 3️⃣ Open in VS Code (optional)
-code .
-
-# 4️⃣ Run using Live Server
-Right click → Open with Live Server
-```
-
-No backend or package installation required.
-
----
-
-# 🧠 Engineering Decisions
--Used Local Storage to simulate backend persistence
-
--Implemented modular JS structure for scalability
-
--Separated dashboards by role for maintainability
-
--Used Bootstrap for rapid responsive design
-
- ---
-
-# 🧭 Usage Guide
-
-### 1️⃣ Register / Login
-
-- Select role أثناء التسجيل
-- Login redirects to role dashboard
-
-### 2️⃣ Customers
-
-- Browse catalog
-- Add items to cart
-- Checkout & confirm orders
-
-### 3️⃣ Sellers
-
-- Access seller dashboard
-- Manage inventory
-- Track orders
-
-### 4️⃣ Admins
-
-- Access admin panel
-- Manage users & listings
-- Oversee system activity
-
----
-
-# 🖥️ Dashboards Overview
-
-## Customer Dashboard
-
-- Profile management
-- Order history
-- Saved cart items
-
-## Seller Dashboard
-
-- Product CRUD operations
-- Order processing
-- Revenue insights
-
-## Admin Dashboard
-
-- User management table
-- Product moderation tools
-- System analytics
-
----
-
-# 💾 Data Storage Approach
-
-Since this is a front-end project:
-
-- Data stored in **Browser Local Storage**
-- Includes:
-  - Users
-  - Products
-  - Orders
-  - Cart items
-
- 📘 **Data Model: User**
-
-The User model represents a system account within the e-commerce application.  
-It defines the structure, validation rules, and default values for user data stored in Local Storage.
-
----
-
-## 🧱 Schema Definition
-
-| Field   | Type          | Required           | Description                       |
-|---------|---------------|------------------|-----------------------------------|
-| id      | string (UUID) | Yes (auto-generated) | Unique identifier                 |
-| name    | string        | Yes               | Full name of the user             |
-| email   | string        | Yes               | User email address                |
-| password| string (Base64)| Yes              | Encoded password                  |
-| role    | string (enum) | Yes               | User role (admin, customer, vendor) |
-| phone   | string        | No                | Contact number                    |
-| address | string        | No                | Street address                    |
-| image   | string        | No                | Profile image URL                 |
-| city    | string        | No                | City name                         |
-| state   | string        | No                | State or region                   |
-| zipcode | string        | No                | Postal code                        |
-| country | string        | No                | Country name                       |
-
----
-
-## 🔒 Role Enumeration
-
-Allowed values for `role`:
-
-- admin
-- customer
-- vendor
-
----
-
-## 🧾 Data Model Example (JSON Representation)
-
- {
-  "id": "string (UUID)",
-  "name": "string",
-  "email": "string",
-  "password": "string (base64 encoded)",
-  "role": "string (admin | customer | seller)",
-  "phone": "string",
-  "address": "string",
-  "image": "string (file path or URL)",
-  "city": "string",
-  "state": "string",
-  "zipcode": "string",
-  "country": "string"
-}
-## ⚙️ Data Rules
-
-id is automatically generated using crypto.randomUUID().
-
-password is encoded using Base64 before storage.
-
-Missing optional fields default to empty strings.
-
-Required fields are validated before object creation.
-
-## 🏗️ Storage Format
-
-Users are stored in Local Storage as an array:
-
-[
-  { "userObject1" },
-  { "userObject2" },
-  { "userObject3" }
-]
-  ---
-
- # project  live-Demo
-
- https://eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System/
-  ---
-### Advantages
-
-- No backend required
-- Fast prototyping
-- Easy testing
-
-### Limitations
-
-- Not production-secure
-- Browser-dependent persistence
-
----
-
-# 🤝 Team Collaboration
-
-- Developed by **5 contributors**
-- Managed via GitHub remote repository
-- Workflow included:
-  - Feature branching
-  - Pull requests
-  - Code reviews
-  - Merge conflict resolution
-
----
-
-# 🗓️ Project Timeline
-
-| Phase                 | Duration        |
-| --------------------- | --------------- |
-| Planning & Design     | 13 Feb 2026     |
-| Development Sprint    | Feb 14 → Feb 26 |
-| Integration & Testing | Feb 27 → Feb 29 |
-| Final Delivery        | 1 Mar 2026      |
-
-**Total Duration:**
-📅 13 / 2 / 2026 → 1 / 3 / 2026
-
----
-
-# 🔮 Future Improvements
-
-- Backend integration (Node.js / Django / Laravel)
-- Database support (MongoDB / MySQL)
-- Payment gateway integration
-- JWT authentication
-- Email notifications
-- Product reviews & ratings
-- Wishlist system
-- Advanced filtering & AI recommendations
-- Deployment to cloud hosting
-
----
-
-# 👨‍👩‍👧‍👦 Contributors
-
-| Name                        | Role                |
-| --------------------------- | ------------------- |
-| Ahmed Yhya Younes Ramadan   | Project Coordinator |
-| omar wael kamal eldeen ali  | UI/UX Designer      |
-| Mostafa Abd Elqawy Ahmed    | Project Coordinator |
-| Mohamed Tarek Abdelmonsef   | Dashboard Architect |
-| Ayman Mohamed Abotaha Kasim | Project Coordinator |
-
-> Replace placeholders with actual GitHub profiles.
-
----
-
-# 📜 License
-
-This project is licensed under the **MIT License**.
-
-```text
-MIT License
-
-Copyright (c) 2026
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files...
+└── README.md
 ```
 
 ---
 
-# ⭐ Portfolio Note
+## 🚀 Getting Started
 
-This project demonstrates:
+### Prerequisites
 
-- Multi-actor system design
-- Role-based authorization
-- Dashboard architecture
-- State management via Local Storage
-- Collaborative Git workflow
-- Responsive UI engineering
+- A modern web browser (Chrome, Firefox, Edge, or equivalent)
+- [VS Code](https://code.visualstudio.com/) _(optional but recommended)_
+- [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+  extension for VS Code _(or any local HTTP server)_
 
-Suitable for:
+### Installation
 
-- Frontend Developer portfolios
-- Training program submissions
-- Freelance client showcases
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Eng-Ayman-Mohamed/Multi-Actor-E-commerce-System.git
+   ```
+
+2. **Navigate into the project folder**
+
+   ```bash
+   cd Multi-Actor-E-commerce-System
+   ```
+
+3. **Open in VS Code** _(optional)_
+
+   ```bash
+   code .
+   ```
+
+4. **Launch with Live Server**
+   - Right-click `index.html` in the VS Code Explorer
+   - Select **Open with Live Server**
+   - The application opens automatically in your default browser
+
+### No Installation Alternative
+
+Access the fully deployed live demo directly — no setup required:
+
+🌐 [eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System](https://eng-ayman-mohamed.github.io/Multi-Actor-E-commerce-System/)
+
+---
+
+## 📖 Usage
+
+### Registering an Account
+
+1. Open the application and select your role on the landing page
+   (**Customer**, **Seller**, or **Admin**)
+2. Click **Register** and fill in your details
+3. Log in with your registered credentials
+4. You will be automatically redirected to your role-specific dashboard
+
+### Default Seeded Accounts
+
+The system initialises with preloaded seed data for immediate testing.
+Check the `DataBase/seed/` directory for default credentials.
+
+> ⚠️ **Note:** All data is stored in your browser's Local Storage.
+> Clearing your browser data will reset the application state entirely.
+
+---
+
+## 📸 Screenshots
+
+> _Add your screenshots here by replacing the placeholder paths below._
+
+| Page                  | Preview                                        |
+| --------------------- | ---------------------------------------------- |
+| **Landing Page**      | ![Landing](assets/screenshots/landing.png)     |
+| **Product Details**   | ![Customer](assets/screenshots/details.png)    |
+| **Seller Dashboard**  | ![Seller](assets/screenshots/seller.png)       |
+| **Admin Panel**       | ![Admin](assets/screenshots/admin.png)         |
+| **Product Catalogue** | ![Catalogue](assets/screenshots/catalogue.png) |
+| **Shopping Cart**     | ![Cart](assets/screenshots/cart.png)           |
+
+---
+
+## 🏗️ Architecture
+
+Vendra follows a **client-side layered architecture** — all logic, state
+management, and data persistence occur entirely within the browser:
+
+```
+┌─────────────────────────────────────────┐
+│              UI Layer                   │
+│     HTML5 · Bootstrap 5 · CSS3          │
+│   Role-specific dashboards & components │
+├─────────────────────────────────────────┤
+│           Interaction Layer             │
+│        JavaScript (ES6+) Events         │
+│   Form handling · Navigation · Toasts   │
+├─────────────────────────────────────────┤
+│         State Management Layer          │
+│     Models · Services · storage.js      │
+│  User · Product · Cart · Order entities │
+├─────────────────────────────────────────┤
+│          Dynamic Rendering Layer        │
+│    DOM updates · Image caching ·        │
+│    State-driven UI without page reload  │
+└─────────────────────────────────────────┘
+              ↕ Local Storage ↕
+```
+
+### Application Flow
+
+```
+User visits index.html
+       │
+       ▼
+  Select Role & Login / Register
+       │
+       ▼
+  Role stored in Local Storage
+       │
+       ▼
+  Redirect to Role Dashboard
+  ┌────┴────────────────┐
+  │                     │
+Customer            Seller / Admin
+Dashboard           Dashboard
+  │                     │
+  ▼                     ▼
+Browse · Cart      Manage Products
+Checkout · Orders  Orders · Users
+```
+
+---
+
+## 💾 Data & Storage
+
+All data is persisted as JSON in **Browser Local Storage** via a centralised
+`storage.js` utility. The system simulates a backend data layer using:
+
+- **Models** — define entity structure, validation, and computed fields
+- **Services** — wrap storage with entity-specific CRUD logic and business rules
+- **Storage Utility** — provides generic `get`, `set`, `add`, `update`,
+  `delete`, and `find` operations
+
+### Data Schemas
+
+```json
+// Users
+[{ "id": "uuid", "name": "...", "email": "...", "role": "customer | vendor | admin",
+   "password": "BASE64...", "createdAt": "..." }]
+
+// Products
+[{ "id": "uuid", "title": "...", "vendorId": "uuid", "price": 0.00,
+   "category": "...", "stock": 0, "finalPrice": 0.00, "approvalStatus": "approved" }]
+
+// Carts
+[{ "userId": "uuid", "items": [{ "productId": "uuid", "quantity": 1 }],
+   "createdAt": "..." }]
+
+// Orders
+[{ "id": "uuid", "userId": "uuid", "items": [...],
+   "totalPrice": 0.00, "status": "pending", "createdAt": "..." }]
+```
+
+---
+
+## 🗺️ Roadmap
+
+The following enhancements are planned for future iterations:
+
+- [ ] **Backend Integration** — RESTful API with server-side data persistence
+- [ ] **Database** — Replace Local Storage with PostgreSQL or MongoDB
+- [ ] **Payment Gateway** — Stripe / PayPal integration for real transactions
+- [ ] **Secure Authentication** — JWT / OAuth2, bcrypt password hashing, and MFA
+- [ ] **Product Reviews & Ratings** — Verified customer reviews with moderation
+- [ ] **Wishlist** — Save and manage favourite products
+- [ ] **Advanced Analytics** — Interactive sales charts and exportable reports
+- [ ] **Notifications** — Email alerts and in-app notification centre
+- [ ] **Customer Support Chat** — Live chat module for support requests
+- [ ] **Enhanced Filtering** — Advanced product sorting and multi-filter options
+
+---
+
+## 👨‍💻 Team
+
+| Name                  | GitHub                                                             |
+| --------------------- | ------------------------------------------------------------------ |
+| **Ayman Mohamed**     | [@Eng-Ayman-Mohamed](https://github.com/Eng-Ayman-Mohamed)         |
+| **Mostafa Abdalkawy** | [@MostafaAbdall](https://github.com/MostafaAbdall)                 |
+| **Omar Wael**         | [@omarwael78](https://github.com/omarwael78)                       |
+| **Ahmed Yonis**       | [@Fiow00](https://github.com/Fiow00)                               |
+| **Mohamed Nasef**     | [@mohammednasef97-stack](https://github.com/mohammednasef97-stack) |
+
+## 📄 License
+
+This project is released under the **MIT License** — you are free to use,
+modify, and distribute this project with proper attribution.
+
+See [`LICENSE`](./LICENSE) for the full license text,
+or visit [opensource.org/licenses/MIT](https://opensource.org/licenses/MIT).
+
+---
+
+<div align="center">
+
+Made with ❤️ by the Vendra Team · February 2026
+
+⭐ **If you find this project useful, please consider giving it a star!** ⭐
+
+</div>
