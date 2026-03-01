@@ -1,4 +1,4 @@
-import { productService } from "../../../DataBase/services/productService.js";
+import { productService } from "../../DataBase/services/productService.js";
 
 export function overview() {
   return `
