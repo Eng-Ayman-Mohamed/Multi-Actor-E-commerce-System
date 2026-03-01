@@ -30,6 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     form.addEventListener("submit", handleRegisterSubmit);
+    document.querySelectorAll(".toggle-password").forEach((btn) => {
+        const targetId = btn.dataset.target;
+        btn.addEventListener("click", () => {
+            togglePassword(targetId, btn);
+        });
+    });
 
 });
 
