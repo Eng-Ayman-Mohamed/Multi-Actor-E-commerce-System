@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener("submit", handleLoginSubmit);
 
+    document.querySelectorAll(".toggle-password").forEach((btn) => {
+        const targetId = btn.dataset.target;
+        btn.addEventListener("click", () => {
+            togglePassword(targetId, btn);
+        });
+    });
 });
 
 // ===== Handle Login =====
