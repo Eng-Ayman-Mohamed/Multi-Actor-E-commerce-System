@@ -1,8 +1,8 @@
 //app.js
 import { initNavigation } from "./navigation.js";
 import { initCharts } from "./charts.js";
-import { overview, initOverview } from "../components/overview.js";
 
+import { overview, initOverview } from "../components/overview.js";
 import { initUsersBoard } from "../components/usersBoard.js";
 import { initProductsBoard } from "../components/productsBoard.js";
 import { initOrdersBoard } from "../components/ordersBoard.js";
