@@ -15,7 +15,7 @@ export function initOrdersBoard() {
                         <td class="fw-bold">${order.id}</td>
                         <td>${userService.getById(order.userId).name}</td>
                         <td><span class="badge bg-${statusThemes[order.status]}-subtle text-${statusThemes[order.status]} border border-$${statusThemes[order.status]}">${order.status}</span></td>
-                        <td class="fw-bold">${order.totalPrice} $</td>
+                        <td class="fw-bold">${order.totalPrice.toFixed(2)} $</td>
                         <td class="text-muted small">${order.createdAt}</td>
                        
                     </tr>
