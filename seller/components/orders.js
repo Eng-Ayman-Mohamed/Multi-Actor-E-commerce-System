@@ -34,7 +34,7 @@ export function ordersPage() {
 
   <select class="form-select form-select-sm status-select d-inline w-auto"
           data-id="${item.orderId}">
-    <option value="pending" ${item.status === "pending" ? "selected" : ""}>Pending</option>
+    
     <option value="Shipped" ${item.status === "Shipped" ? "selected" : ""}>Shipped</option>
     
     <option value="cancelled" ${item.status === "cancelled" ? "selected" : ""}>Cancelled</option>
