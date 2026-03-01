@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const ordersCountEl = document.getElementById("ordersCount");
 
     function getStatusColor(status) {
+        status = status.toLowerCase();
+
         if (status === "pending") return "warning";
         else if (status === "shipped") return "info";
         else if (status === "delivered") return "success";
@@ -102,20 +104,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 cancelBtn.textContent = "Cancel Order";
                 cancelBtn.addEventListener("click", () => {
                     orderService.updateStatus(order.id, "cancelled");
-                    order.status = "cancelled"; // update local state
+                    order.status = "cancelled";
 
-                    // Update badge
                     const badge = orderHtml.querySelector(".badge");
                     badge.textContent = "cancelled";
                     badge.className = "badge bg-danger";
 
-                    // Remove cancel button
                     cancelBtn.remove();
 
-                    // Update orders count
                     ordersCountEl.textContent = userOrders.filter(o => o.status !== "cancelled").length;
                 });
                 orderHtml.appendChild(cancelBtn);
+            }
+
+            if (order.status.toLowerCase() === "shipped") {
+                const deliveredBtn = document.createElement("button");
+                deliveredBtn.className = "btn btn-sm btn-success mt-2";
+                deliveredBtn.textContent = "Delivered";
+
+                deliveredBtn.addEventListener("click", () => {
+                    orderService.updateStatus(order.id, "delivered");
+                    order.status = "delivered";
+
+                    const badge = orderHtml.querySelector(".badge");
+                    badge.textContent = "delivered";
+                    badge.className = "badge bg-success";
+
+                    deliveredBtn.remove();
+                });
+
+                orderHtml.appendChild(deliveredBtn);
             }
 
             ordersList.appendChild(orderHtml);
