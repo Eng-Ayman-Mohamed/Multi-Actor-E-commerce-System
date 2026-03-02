@@ -112,7 +112,7 @@ export function productsPage() {
     const modalEl = document.getElementById("confirmModal");
 
     modalEl.innerHTML = `
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
 
         <div class="modal-header">
