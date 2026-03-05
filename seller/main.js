@@ -156,7 +156,7 @@
      new Chart(statusCtx, {
      type: "doughnut",
      data: {
-       labels: ["Delivered", "Processing", "Cancelled"],
+       labels: ["Delivered", "shipped", "Pending", "Cancelled"],
        datasets: [
          {
            data: [65, 25, 10],
