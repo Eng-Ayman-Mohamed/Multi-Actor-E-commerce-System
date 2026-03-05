@@ -71,7 +71,7 @@ $(function () {
         </div>
 
         <p class="text-success fw-semibold">
-          <i class="bi bi-check-circle"></i> In Stock
+          <i class="fa-solid fa-circle-check"></i> In Stock
         </p>
 
         <!-- Quantity -->

@@ -47,12 +47,12 @@ export const orderService = {
     const products = order.items;
     products.forEach((element) => {
       let product = productService.getById(element.productId);
-      console.log(product);
       const newStock = product.stock - element.quantity;
       if (newStock < 0) return false;
-      productService.updateProductStock(element.productId, newStock);
-      console.log(productService.getById(element.productId));
-      return true;
+      else {
+        productService.updateProductStock(element.productId, newStock);
+        return true;
+      }
     });
   },
 };

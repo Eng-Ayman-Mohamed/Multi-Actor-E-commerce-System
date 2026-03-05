@@ -8,6 +8,7 @@ import Order from "../../DataBase/models/Order.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { orderService } from "../../DataBase/services/orderService.js";
 import { userDetails } from "./userDetails.js";
+import { initToast } from "../../utils/toast.js";
 
 let currentUser = userService.getCurrentUser()?.id;
 $(document).ready(function () {
@@ -183,15 +184,18 @@ $(document).ready(function () {
         order: order,
         timestamp: new Date().toISOString(),
       };
-      orderService.updateStock(order);
-      console.log("SUCCESS:", finalData);
+      if (orderService.updateStock(order)) {
+        console.log("SUCCESS:", finalData);
 
-      orderService.create(order);
-      console.log("✅ Order Created:", order.id);
+        orderService.create(order);
+        console.log("✅ Order Created:", order.id);
 
-      cartService.clearCart(currentUser);
-      window.location.href = "../../index.html";
-      alert("Order placed successfully!");
+        cartService.clearCart(currentUser);
+        window.location.href = "../../index.html";
+        alert("Order placed successfully!");
+      } else {
+        initToast(`This items is out of stock for this quantity  `, "warning");
+      }
     } else {
       $("html, body").animate(
         {

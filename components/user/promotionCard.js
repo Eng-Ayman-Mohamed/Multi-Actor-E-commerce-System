@@ -22,12 +22,12 @@ export function promotionCard(
                 <span class="promo-badge badge-discount">-${discount}%</span>
             </div>
 
-            <div class="image-wrapper position-relative">
+            <a href="${basePath}/user/products/product-details.html?id=${id}" class="image-wrapper position-relative">
                 <img src="${image}" class="card-img-top object-fit-cover" alt="${productTitle}">
                 <span class="promo-badge badge-hot z-1">
                     <i class="fa-solid fa-fire"></i> HOT DEAL
                 </span>
-            </div>
+            </a>
 
             <div class="card-body d-flex flex-column p-3">
                 <div class="rating-row mb-1">
