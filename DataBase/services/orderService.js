@@ -1,4 +1,5 @@
 import { storage } from "../utils/storage.js";
+import { productService } from "./productService.js";
 
 export const orderService = {
   create(order) {
@@ -34,6 +35,22 @@ export const orderService = {
   updateStatus(orderId, status) {
     return storage.update("orders", orderId, {
       status,
+    });
+  },
+
+  getById(orderId) {
+    const orders = this.getAll();
+    return orders.filter((o) => o.id === orderId)[0];
+  },
+
+  updateStock(orderId) {
+    const products = this.getById(orderId).items;
+    products.forEach((element) => {
+      let product = productService.getById(element.productId);
+      const newStock = product.stock - element.quantity;
+      if (newStock < 0)
+        throw new Error("can't provide this quantity for this product");
+      productService.updateProductStock(element.productId, newStock);
     });
   },
 };

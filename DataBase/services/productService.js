@@ -26,6 +26,10 @@ export const productService = {
     return storage.update("products", productID, data);
   },
 
+  updateProductStock(productID, stock) {
+    return storage.update("products", productID, { stock });
+  },
+
   getAll() {
     return storage.get("products");
   },
