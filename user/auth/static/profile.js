@@ -7,7 +7,7 @@ import { orderService } from "../../../DataBase/services/orderService.js";
 // ===== Initialize Layout =====
 initLayout();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
 
     const profileForm = document.getElementById("profileForm");
     if (!profileForm) return;
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ===== Redirect if not logged in =====
     if (!currentUser) {
-        window.location.href = `${getBasePath()}login.html`;
+        window.location.href = getBasePath() + "login.html";
         return;
     }
 
@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ordersCountEl = document.getElementById("ordersCount");
 
     function getStatusColor(status) {
+        status = status.toLowerCase();
         if (status === "pending") return "warning";
         else if (status === "shipped") return "info";
         else if (status === "delivered") return "success";
@@ -64,21 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        ordersCountEl.textContent = userOrders.filter(o => o.status !== "cancelled").length;
+        ordersCountEl.textContent = userOrders.filter(function(o) { return o.status !== "cancelled"; }).length;
 
-        userOrders.forEach(order => {
+        userOrders.forEach(function(order) {
             const total = order.items
-                ? order.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+                ? order.items.reduce(function(sum, item) { return sum + item.price * item.quantity; }, 0)
                 : 0;
 
             let itemsHtml = "";
             if (order.items && order.items.length > 0) {
-                itemsHtml = order.items.map(item => `
+                itemsHtml = order.items.map(function(item) {
+                    return `
                     <div class="d-flex justify-content-between">
                         <span>${item.productTitle} x ${item.quantity}</span>
                         <span>${(item.price * item.quantity).toFixed(2)} USD</span>
                     </div>
-                `).join("");
+                    `;
+                }).join("");
             } else {
                 itemsHtml = "<p class='text-muted'>No products</p>";
             }
@@ -100,22 +103,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 const cancelBtn = document.createElement("button");
                 cancelBtn.className = "btn btn-sm btn-danger mt-2";
                 cancelBtn.textContent = "Cancel Order";
-                cancelBtn.addEventListener("click", () => {
+                cancelBtn.addEventListener("click", function() {
                     orderService.updateStatus(order.id, "cancelled");
-                    order.status = "cancelled"; // update local state
+                    order.status = "cancelled";
 
-                    // Update badge
                     const badge = orderHtml.querySelector(".badge");
                     badge.textContent = "cancelled";
                     badge.className = "badge bg-danger";
 
-                    // Remove cancel button
                     cancelBtn.remove();
-
-                    // Update orders count
-                    ordersCountEl.textContent = userOrders.filter(o => o.status !== "cancelled").length;
+                    ordersCountEl.textContent = userOrders.filter(function(o) { return o.status !== "cancelled"; }).length;
                 });
                 orderHtml.appendChild(cancelBtn);
+            }
+
+            if (order.status.toLowerCase() === "shipped") {
+                const deliveredBtn = document.createElement("button");
+                deliveredBtn.className = "btn btn-sm btn-success mt-2";
+                deliveredBtn.textContent = "Delivered";
+
+                deliveredBtn.addEventListener("click", function() {
+                    orderService.updateStatus(order.id, "delivered");
+                    order.status = "delivered";
+
+                    const badge = orderHtml.querySelector(".badge");
+                    badge.textContent = "delivered";
+                    badge.className = "badge bg-success";
+
+                    deliveredBtn.remove();
+                    ordersCountEl.textContent = userOrders.filter(function(o) { return o.status !== "cancelled"; }).length;
+                });
+
+                orderHtml.appendChild(deliveredBtn);
             }
 
             ordersList.appendChild(orderHtml);
@@ -133,12 +152,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageInput = profileForm.image;
     const imagePreview = document.getElementById("imagePreview");
 
-    imageInput.addEventListener("change", () => {
+    imageInput.addEventListener("change", function() {
         const file = imageInput.files[0];
         if (!file) return;
 
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = function(e) {
             imagePreview.src = e.target.result;
             imagePreview.style.display = "block";
         };
@@ -146,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ===== SAVE PROFILE CHANGES =====
-    profileForm.addEventListener("submit", (e) => {
+    profileForm.addEventListener("submit", function(e) {
         e.preventDefault();
 
         const updatedData = {
@@ -156,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             address: profileForm.address.value.trim(),
         };
 
-        const saveProfile = () => {
+        function saveProfile() {
             userService.update(currentUser.id, updatedData);
             currentUser = userService.getById(currentUser.id);
             userService.setCurrentUser(currentUser, true);
@@ -167,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("editProfileModal")
             );
             modal.hide();
-        };
+        }
 
         if (imageInput.files.length > 0) {
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = function(e) {
                 updatedData.image = e.target.result;
                 saveProfile();
             };
@@ -188,13 +207,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("confirmDeleteModal")
     );
 
-    deleteBtn.addEventListener("click", () => {
+    deleteBtn.addEventListener("click", function() {
         confirmModal.show();
     });
 
-    confirmDeleteBtn.addEventListener("click", () => {
+    confirmDeleteBtn.addEventListener("click", function() {
         userService.delete(currentUser.id);
-        window.location.href = `${getBasePath()}login.html`;
+        window.location.href = getBasePath() + "login.html";
     });
 
 });
