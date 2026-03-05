@@ -27,6 +27,7 @@ export async function initPromotionProducts(basePath) {
   const allProducts = productService.getAll();
 
   const featuredList = allProducts
+    .filter((product) => product.stock > 0)
     .sort((a, b) => b.discount - a.discount)
     .slice(0, 4);
 

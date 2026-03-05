@@ -183,7 +183,7 @@ $(document).ready(function () {
         order: order,
         timestamp: new Date().toISOString(),
       };
-
+      orderService.updateStock(order);
       console.log("SUCCESS:", finalData);
 
       orderService.create(order);
