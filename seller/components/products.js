@@ -1,72 +1,72 @@
- 
-        import { productService } from "../../DataBase/services/productService.js";
-        import { userService } from "../../DataBase/services/userService.js";
-        import Product from "../../DataBase/models/Product.js";
-        export function productsPage() {
-          let vendorId = userService.getCurrentUser().id;
-           let editingProductId = null;
-          $(document).off("click", ".add-product");
-          $(document).off("click", ".edit-btn");
-          $(document).off("click", "#saveProduct");
-          $(document).off("click", ".delete-btn");
-          $(document).on("click", ".add-product", function () {
-            const modal = new bootstrap.Modal(document.getElementById("productModal"));
-            modal.show();
-          });
-        
-          
-          $(document).on("click", ".edit-btn", function () {
-             editingProductId =($(this).attr("data-productId"));
-            let product = productService.getById(editingProductId);
-            $("#productEditModal").remove();
-            $(".products-container").prepend(editModal(product));
-            const modal = new bootstrap.Modal(
-              document.getElementById("productEditModal"),
-            );
-        
-            modal.show();
-          });
-         $(document).on("click", "#saveEditProduct", function () {
+import { productService } from "../../DataBase/services/productService.js";
+import { userService } from "../../DataBase/services/userService.js";
+import Product from "../../DataBase/models/Product.js";
+import { initToast } from "../../utils/toast.js";
 
-  const form = document.getElementById("ediProductForm");
+//example
+initToast("imposable", "danger");
 
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
+export function productsPage() {
+  let vendorId = userService.getCurrentUser().id;
+  let editingProductId = null;
+  $(document).off("click", ".add-product");
+  $(document).off("click", ".edit-btn");
+  $(document).off("click", "#saveProduct");
+  $(document).off("click", ".delete-btn");
+  $(document).on("click", ".add-product", function () {
+    const modal = new bootstrap.Modal(document.getElementById("productModal"));
+    modal.show();
+  });
 
-  let formData = new FormData(form);
-  let updatedProduct = Object.fromEntries(formData.entries());
-  const { image, ...rest } = updatedProduct;
+  $(document).on("click", ".edit-btn", function () {
+    editingProductId = $(this).attr("data-productId");
+    let product = productService.getById(editingProductId);
+    $("#productEditModal").remove();
+    $(".products-container").prepend(editModal(product));
+    const modal = new bootstrap.Modal(
+      document.getElementById("productEditModal"),
+    );
 
-  let editProduct = {
-    approved: false,
-    ...rest,
-    vendorId,
-    images: image ? [image] : [],
-  };
+    modal.show();
+  });
+  $(document).on("click", "#saveEditProduct", function () {
+    const form = document.getElementById("ediProductForm");
 
- productService.updateProduct(editingProductId, editProduct);
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
+    let formData = new FormData(form);
+    let updatedProduct = Object.fromEntries(formData.entries());
+    const { image, ...rest } = updatedProduct;
 
+    let editProduct = {
+      approved: false,
+      ...rest,
+      vendorId,
+      images: image ? [image] : [],
+    };
 
-  bootstrap.Modal.getInstance(
-    document.getElementById("productEditModal")
-  ).hide();
+    productService.updateProduct(editingProductId, editProduct);
 
-  form.reset();
-  renderProducts();
-});
+    bootstrap.Modal.getInstance(
+      document.getElementById("productEditModal"),
+    ).hide();
 
-$(function () {
-  renderProducts();
-});
-        
-          function renderProducts() {
-            $("table tbody").text("");
-            let products = productService.getByVendor(vendorId);
-            products.forEach((element) => {
-              $("table tbody").append(`
+    form.reset();
+    renderProducts();
+  });
+
+  $(function () {
+    renderProducts();
+  });
+
+  function renderProducts() {
+    $("table tbody").text("");
+    let products = productService.getByVendor(vendorId);
+    products.forEach((element) => {
+      $("table tbody").append(`
               <tr class="bg-${element.approved ? `success` : `warning`} bg-opacity-25">
                 <td class="text-truncate bg-transparent" style="max-width:180px">${element.desc}</td>
                  
@@ -85,57 +85,45 @@ $(function () {
                 </td>
               </tr>
             `);
-            });
-          } 
-            
-      
-        
-      
-      
-      
-      
-      
-      
-      
-          $(document).on("click", "#saveProduct", function () {   
-     
-      
-            let title = $("#title").val();
-            let desc = $("#desc").val();
-            let category = $("#category").val();
-            let price = $("#price").val();
-            let discount = $("#discount").val();
-            let stock = $("#stock").val();
-            let weight = $("#weight").val();
-            let image = $("#image").val();
-         
-            const product = new Product({
-              vendorId: vendorId,
-              title: title,
-              desc: desc,
-              category: category,
-              price: price,
-              discount: discount,
-              stock: stock,
-              images: image ? [image] : [],
-              weight: weight,
-            });
-        
-            productService.create(product);
-        
-            bootstrap.Modal.getInstance(document.getElementById("productModal")).hide();
-            $("#productForm")[0].reset();
-            renderProducts();
-          });
-        
-          
-          let productId;
-        
-          $(document).on("click", ".delete-btn", function () {
-            productId = $(this).attr("data-productId");
-            const modalEl = document.getElementById("confirmModal");
-        
-            modalEl.innerHTML = `
+    });
+  }
+
+  $(document).on("click", "#saveProduct", function () {
+    let title = $("#title").val();
+    let desc = $("#desc").val();
+    let category = $("#category").val();
+    let price = $("#price").val();
+    let discount = $("#discount").val();
+    let stock = $("#stock").val();
+    let weight = $("#weight").val();
+    let image = $("#image").val();
+
+    const product = new Product({
+      vendorId: vendorId,
+      title: title,
+      desc: desc,
+      category: category,
+      price: price,
+      discount: discount,
+      stock: stock,
+      images: image ? [image] : [],
+      weight: weight,
+    });
+
+    productService.create(product);
+
+    bootstrap.Modal.getInstance(document.getElementById("productModal")).hide();
+    $("#productForm")[0].reset();
+    renderProducts();
+  });
+
+  let productId;
+
+  $(document).on("click", ".delete-btn", function () {
+    productId = $(this).attr("data-productId");
+    const modalEl = document.getElementById("confirmModal");
+
+    modalEl.innerHTML = `
             <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
         
@@ -160,25 +148,24 @@ $(function () {
             </div>
             </div>
             `;
-        
-             
-            const modal = new bootstrap.Modal(modalEl);
-        
-            modal.show();
-          });
-        
-          $(document).on("click", "#confirmDeleteBtn", function () {
-            if (!productId) return;
-        
-            productService.remove(productId);
-            renderProducts();
-        
-            const modalEl = document.getElementById("confirmModal");
-            const modalInstance = bootstrap.Modal.getInstance(modalEl);
-            modalInstance.hide();
-          });
-        
-          return `
+
+    const modal = new bootstrap.Modal(modalEl);
+
+    modal.show();
+  });
+
+  $(document).on("click", "#confirmDeleteBtn", function () {
+    if (!productId) return;
+
+    productService.remove(productId);
+    renderProducts();
+
+    const modalEl = document.getElementById("confirmModal");
+    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+    modalInstance.hide();
+  });
+
+  return `
           <div class="container-fluid products-container">
         
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
@@ -281,10 +268,10 @@ $(function () {
         
           </div>
           `;
-        }
-        
-        function editModal(product) {
-          return `   <!-- Modal -->
+}
+
+function editModal(product) {
+  return `   <!-- Modal -->
             <div class="modal fade" id="productEditModal" tabindex="-1">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -351,5 +338,4 @@ $(function () {
               </div>
             </div>
         `;
-        }
-        
+}

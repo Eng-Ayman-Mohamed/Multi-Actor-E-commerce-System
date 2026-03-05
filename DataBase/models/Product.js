@@ -29,10 +29,10 @@ export default class Product {
     this.vendorId = vendorId;
     this.title = title;
     this.category = category;
-    this.stock = Number(stock) || 1;
+    this.stock = Number(stock);
+    this.price = Number(price);
 
     this.desc = desc || "";
-    this.price = Number(price);
     this.discount = Number(discount) || 0;
     this.rating = Number(rating) || 0;
     this.reviews = reviews || [];
