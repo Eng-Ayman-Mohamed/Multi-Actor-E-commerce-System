@@ -27,6 +27,7 @@ export async function initFeaturedProducts(basePath) {
 
   const featuredList = allProducts
     .filter((product) => product.featured === true)
+    .filter((product) => product.stock > 0)
     .slice(0, 12);
 
   const cardPromises = featuredList.map(async (product) => {

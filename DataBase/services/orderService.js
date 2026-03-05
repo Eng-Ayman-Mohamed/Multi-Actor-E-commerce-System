@@ -43,14 +43,16 @@ export const orderService = {
     return orders.filter((o) => o.id === orderId)[0];
   },
 
-  updateStock(orderId) {
-    const products = this.getById(orderId).items;
+  updateStock(order) {
+    const products = order.items;
     products.forEach((element) => {
       let product = productService.getById(element.productId);
       const newStock = product.stock - element.quantity;
-      if (newStock < 0)
-        throw new Error("can't provide this quantity for this product");
-      productService.updateProductStock(element.productId, newStock);
+      if (newStock < 0) return false;
+      else {
+        productService.updateProductStock(element.productId, newStock);
+        return true;
+      }
     });
   },
 };

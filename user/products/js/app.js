@@ -18,14 +18,9 @@ let filteredProducts = [];
 let currentPage = 1;
 const itemsPerPage = 21;
 
-//  API
-function getProducts() {
-  return productService.getAll();
-}
-
 //  INIT
 $(document).ready(function () {
-  allProducts = getProducts();
+  allProducts = productService.getAll().filter((product) => product.stock > 0);
   filteredProducts = allProducts;
 
   //  Max Price & Categories

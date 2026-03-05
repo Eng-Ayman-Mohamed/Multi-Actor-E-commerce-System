@@ -26,7 +26,7 @@ export function productCard(
                             `
                             : ""
                         }
-                            <div class="overflow-hidden h-100"><img src=${image} class="card-img-top  h-100 object-fit-cover"></div>
+                            <a  href="${basePath}/user/products/product-details.html?id=${id}" class="overflow-hidden h-100"><img src=${image} class="card-img-top  h-100 object-fit-cover"></a>
                     <div class="card-body">
                     <div class="rating">
                            ${renderStars(`${Math.round(stars)}`)}
@@ -82,7 +82,9 @@ export function initCard() {
   function updateCartCount() {
     const currentUser = userService.getCurrentUser();
     const count = currentUser ? cartService.getCartCount(currentUser.id) : 0;
-
+    // $(".cardContainer").click(function(){
+    //   window.location.href ;
+    // });
     $("#cartCount").text(count);
     $("#cartCountMobile").text(count);
   }
