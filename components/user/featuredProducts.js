@@ -1,6 +1,7 @@
 import { productCard } from "./card.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { getCachedImage } from "../../DataBase/utils/cacheHelper.js";
+import { getBasePath } from "../../assets/utils/basePath.js";
 export function featuredProducts() {
   return `<div class=" bg-body-tertiary "><div id="featuredProducts" class=" container-lg py-5  px-4 ">
             <div class="d-flex justify-content-between">
@@ -8,7 +9,7 @@ export function featuredProducts() {
                     <p class="h2 fw-bold">Featured Products</p>
                     <p>HandPicked deals just for you</p>
                 </div>
-                <a href="./user/products/index.html"><div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
+                <a href="${getBasePath()}/user/products/index.html"><div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
                 </div></a>
             </div>
             <div id="featuredProductsContainer" class="row justify-content-around">
