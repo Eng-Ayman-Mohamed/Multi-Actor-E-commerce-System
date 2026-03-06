@@ -3,8 +3,7 @@ import { userService } from "../../DataBase/services/userService.js";
 import Product from "../../DataBase/models/Product.js";
 import { initToast } from "../../utils/toast.js";
 
-//example
-initToast("imposable", "danger");
+ 
 
 export function productsPage() {
   let vendorId = userService.getCurrentUser().id;
@@ -34,6 +33,7 @@ export function productsPage() {
 
     if (!form.checkValidity()) {
       form.reportValidity();
+      initToast("Please fill all required fields correctly.", "danger");
       return;
     }
 
@@ -89,6 +89,12 @@ export function productsPage() {
   }
 
   $(document).on("click", "#saveProduct", function () {
+if (!$("#productForm")[0].checkValidity()) {
+  initToast("Please fill all required fields correctly.", "danger");
+      $("#productForm")[0].reportValidity();
+      return;
+    } 
+
     let title = $("#title").val();
     let desc = $("#desc").val();
     let category = $("#category").val();
@@ -225,17 +231,17 @@ export function productsPage() {
         
                         <div class="col-md-4">
                           <label>Price*</label>
-                          <input type="number" class="form-control" id="price" required min="0">
+                          <input type="number" class="form-control" id="price" required min="0" step="0.01">
                         </div>
                         
                         <div class="col-md-4">
                         <label>Stock*</label>
-                        <input type="number" class="form-control" id="stock" required min="0">
+                        <input type="number" class="form-control" id="stock" required min="0" step="1">
                         </div>
                         
                         <div class="col-md-4">
                         <label>Discount</label>
-                        <input type="number" class="form-control" id="discount" min="0" max="100">
+                        <input type="number" class="form-control" id="discount" min="0" max="100" step="0.01" required>
                         </div>
                         
                         <div class="col-md-8">
@@ -245,7 +251,7 @@ export function productsPage() {
                         
                         <div class="col-md-4">
                           <label>Weight</label>
-                          <input type="text" class="form-control" id="weight" required min="0">
+                          <input type="number" class="form-control" id="weight" required min="0" step="0.01">
                         </div>
         
                         <div class="col-md-12">
@@ -258,7 +264,7 @@ export function productsPage() {
                   </div>
         
                   <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-primary" id="saveProduct">Save</button>
                   </div>
         
@@ -297,17 +303,17 @@ function editModal(product) {
         
                         <div class="col-md-4">
                           <label>Price*</label>
-                          <input type="number" class="form-control" value = ${product.price} name = "price" required min="0">
+                          <input type="number" class="form-control" value = ${product.price} name = "price" step="0.01" required min="0">
                         </div>
                         
                         <div class="col-md-4">
                         <label>Stock*</label>
-                        <input type="number" class="form-control" value = ${product.stock} name = "stock" required min="0">
+                        <input type="number" class="form-control" value = ${product.stock} name = "stock" required min="0" step="1">
                         </div>
                         
                         <div class="col-md-4">
                         <label>Discount</label>
-                        <input type="number" class="form-control" value = ${product.discount}  name = "discount" required min="0" max="100">
+                        <input type="number" class="form-control" value = ${product.discount}  name = "discount" step="0.01" required min="0" max="100">
                         </div>
                         
                         <div class="col-md-8">
@@ -317,7 +323,7 @@ function editModal(product) {
                         
                         <div class="col-md-4">
                           <label>Weight</label>
-                          <input type="number" class="form-control" value = ${product.weight} name = "weight" required min="0">
+                          <input type="number" class="form-control" value = ${product.weight} name = "weight" required min="0" step="0.01">
                         </div>
         
                         <div class="col-md-12">
