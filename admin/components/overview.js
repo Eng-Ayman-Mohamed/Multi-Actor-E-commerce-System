@@ -128,9 +128,8 @@ export function overview() {
 }
 
 export function initOverview() {
-  // Store the product ID to be deleted
   let productToDelete = null;
-
+ // load the pending products 
   function approveProducts() {
     let products = productService.getAll();
     let pendingProducts = products.filter((p) => p.approved === false);
@@ -156,22 +155,18 @@ export function initOverview() {
   
   approveProducts();
   
-  // Approve button click
   $(document).on("click", ".approve-btn", function () {
     const productId = $(this).data("id");
     productService.approve(productId);
     approveProducts();
   });
 
-  // Delete button click - Show confirmation modal
   $(document).on("click", ".delete-btn", function () {
     productToDelete = $(this).data("id");
     const productName = $(this).data("name");
     
-    // Update modal with product name
     $("#delete-product-name").text(productName);
     
-    // Show the modal
     const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
     deleteModal.show();
   });
@@ -182,11 +177,8 @@ export function initOverview() {
       productService.remove(productToDelete);
       productToDelete = null;
       
-      // Hide the modal
       const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
       deleteModal.hide();
-      
-      // Refresh the list
       approveProducts();
     }
   });
