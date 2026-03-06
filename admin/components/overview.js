@@ -65,7 +65,7 @@ export function initOverview() {
                     <td>${new Date(element.createdAt).toISOString().split("T")[0]}</td>
                     <td class="text-center">
                         <button data-id=${element.id}  class="approve-btn btn btn-action border-success bg-body text-success"><i class="fas fa-check"></i></button>
-                        <button class="btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
+                        <button data-id="${element.id}" class="reject-btn btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
                     </td>
                 </tr>                `,
       );
@@ -79,3 +79,10 @@ export function initOverview() {
     approveProducts();
   });
 }
+$(document).on("click", ".reject-btn", function () {
+    const productId = $(this).data("id");
+    
+    productService.remove(productId); 
+    
+    approveProducts(); 
+  });
