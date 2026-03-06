@@ -22,7 +22,7 @@ $(function () {
     <div class="row g-4">
      <div class="col-lg-2">
     <!-- 🔙 Back to Products -->
-    <a href="./index.html" class="text-decoration-none fw-bold">
+    <a href="${getBasePath}/index.html" class="text-decoration-none fw-bold">
       ← Back to Products
     </a>
   </div>

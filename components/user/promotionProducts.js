@@ -1,6 +1,7 @@
 import { promotionCard } from "./promotionCard.js";
 import { productService } from "../../DataBase/services/productService.js";
 import { getCachedImage } from "../../DataBase/utils/cacheHelper.js";
+import { getBasePath } from "../../assets/utils/basePath.js";
 
 export function promotionProducts() {
   return `<div class=" bg-body-tertiary "><div id="featuredProducts" class=" container-lg py-5  px-4 ">
@@ -9,7 +10,7 @@ export function promotionProducts() {
                     <p class="h2 fw-bold">Promotion Products</p>
                     <p>Best discounts</p>
                 </div>
-                <a href="./user/products/index.html"><div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
+                <a href="${getBasePath()}/user/products/index.html"><div class="view-all text-primary align-self-center fw-bold">View All <i class="fa-solid fa-arrow-right"></i>
                 </div></a>
             </div>
             <div id="promotionProductsContainer" class="row justify-content-around">
