@@ -24,8 +24,13 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderProfile(user) {
         document.getElementById("profileName").textContent = user.name;
         document.getElementById("profileEmail").textContent = user.email;
-        document.getElementById("profilePhone").textContent = user.phone || "Not Provided";
-        document.getElementById("profileAddress").textContent = user.address || "Not Provided";
+        document.getElementById("profilePhone").textContent = user.phone || "No phone";
+        document.getElementById("profileAddress").textContent = user.address || "No address";
+
+        document.getElementById("profileCity").textContent = user.city || "No city";
+        document.getElementById("profileState").textContent = user.state || "No state";
+        document.getElementById("profileZipcode").textContent = user.zipcode || "No zipcode";
+
         document.getElementById("profileJoinDate").textContent = user.createdAt
             ? new Date(user.createdAt).toLocaleDateString()
             : "N/A";
@@ -148,6 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
     profileForm.email.value = currentUser.email;
     profileForm.phone.value = currentUser.phone || "";
     profileForm.address.value = currentUser.address || "";
+    profileForm.city.value = currentUser.city || "";
+    profileForm.state.value = currentUser.state || "";
+    profileForm.zipcode.value = currentUser.zipcode || "";
 
     const imageInput = profileForm.image;
     const imagePreview = document.getElementById("imagePreview");
@@ -173,6 +181,9 @@ document.addEventListener("DOMContentLoaded", function() {
             email: profileForm.email.value.trim(),
             phone: profileForm.phone.value.trim(),
             address: profileForm.address.value.trim(),
+            city: profileForm.city.value.trim(),
+            state: profileForm.state.value.trim(),
+            zipcode: profileForm.zipcode.value.trim(),
         };
 
         function saveProfile() {
