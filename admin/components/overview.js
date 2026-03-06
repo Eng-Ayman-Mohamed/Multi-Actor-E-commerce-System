@@ -1,53 +1,108 @@
 import { productService } from "../../DataBase/services/productService.js";
 
+const overviewData = {
+  stats: [
+    {
+      id: 'total-users',
+      label: 'Total Users',
+      value: '12,845',
+      change: '15.3%',
+      changeType: 'positive',
+      icon: 'fas fa-user-friends',
+      iconBgClass: 'bg-primary bg-opacity-10',
+      iconTextClass: 'text-primary'
+    },
+    {
+      id: 'active-sellers',
+      label: 'Active Sellers',
+      value: '1632',
+      change: '+ 10% this month',
+      changeType: 'positive',
+      icon: 'fa-solid fa-bag-shopping',
+      iconBgClass: 'bg-success bg-opacity-10',
+      iconTextClass: 'text-success'
+    },
+    {
+      id: 'revenue',
+      label: 'Revenue',
+      value: '$363.2K',
+      change: '22.4%',
+      changeType: 'positive',
+      icon: 'fas fa-dollar-sign',
+      iconBgClass: 'bg-success bg-opacity-10',
+      iconTextClass: 'text-success'
+    }
+  ],
+  pendingCount: 0,
+  pendingProducts: [] 
+};
+
 export function overview() {
+  const { stats, pendingCount } = overviewData;
+
   return `
     <div id="overview-page" class="page-section active-section">
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <div class="stat-card shadow-lg d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Total Users</p><h4 class="fw-bold mb-1">12,845</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> 15.3%</small></div>
-                            <div class="stat-icon bg-primary bg-opacity-10 text-primary"><i class="fas fa-user-friends"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card shadow-lg d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Active Sellers</p><h4 class="fw-bold mb-1">1632</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> + 10% this month</small></div>
-                            <div class="stat-icon bg-success bg-opacity-10 text-success"><i class="fa-solid fa-bag-shopping"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card shadow-lg d-flex justify-content-between align-items-start">
-                            <div><p class="text-muted small mb-1">Revenue</p><h4 class="fw-bold mb-1">$363.2K</h4><small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> 22.4%</small></div>
-                            <div class="stat-icon bg-success bg-opacity-10 text-success"><i class="fas fa-dollar-sign"></i></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mb-4">
-                    <div class="col-lg-6 shadow-lg "><div class="card-container"><h6 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2 text-muted"></i>Platform Revenue (Monthly)</h6><canvas id="revenueBarChart"></canvas></div></div>
-                    <div class="col-lg-6 shadow-lg"><div class="card-container"><h6 class="fw-bold mb-3"><i class="fas fa-chart-pie me-2 text-muted"></i>Sales by Category</h6><canvas id="categoryChart"></canvas></div></div>
-                </div>
-
-                <div class="card-container ">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="fw-bold mb-0">Pending Product Approvals</h6>
-                        <span id="pending-count" class="badge bg-danger rounded-pill"><span id="pendingNumber"></span> Pending</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0" style="font-size:0.7rem">
-                            <thead class="table">
-                                <tr><th>Name</th><th>Category</th><th>Price</th><th>Date</th><th class="text-center">Actions</th></tr>
-                            </thead>
-                            <tbody id="pending-products-list">
-                               
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+      <div class="row g-3 mb-4">
+        ${stats.map(stat => `
+          <div class="col-md-4">
+            <div class="stat-card shadow-lg d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-muted small mb-1">${stat.label}</p>
+                <h4 class="fw-bold mb-1">${stat.value}</h4>
+                <small class="text-success fw-bold"><i class="fas fa-arrow-up"></i> ${stat.change}</small>
+              </div>
+              <div class="stat-icon ${stat.iconBgClass} ${stat.iconTextClass}">
+                <i class="${stat.icon}"></i>
+              </div>
             </div>
-    `;
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-lg-6 shadow-lg">
+          <div class="card-container">
+            <h6 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2 text-muted"></i>Platform Revenue (Monthly)</h6>
+            <canvas id="revenueBarChart"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-6 shadow-lg">
+          <div class="card-container">
+            <h6 class="fw-bold mb-3"><i class="fas fa-chart-pie me-2 text-muted"></i>Sales by Category</h6>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-bold mb-0">Pending Product Approvals</h6>
+          <span id="pending-count" class="badge bg-danger rounded-pill"><span id="pendingNumber">${pendingCount}</span> Pending</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0" style="font-size:0.7rem">
+            <thead class="table">
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pending-products-list">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
 }
+
+
+
+
+
 
 export function initOverview() {
   function approveProducts() {
