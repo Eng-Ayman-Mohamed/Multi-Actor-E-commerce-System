@@ -184,7 +184,8 @@ $(document).ready(function () {
         order: order,
         timestamp: new Date().toISOString(),
       };
-      if (orderService.updateStock(order)) {
+      const availableQuantity = orderService.updateStock(order);
+      if (availableQuantity) {
         console.log("SUCCESS:", finalData);
 
         orderService.create(order);
