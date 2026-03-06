@@ -129,7 +129,6 @@ export function overview() {
 
 export function initOverview() {
   let productToDelete = null;
- // load the pending products 
   function approveProducts() {
     let products = productService.getAll();
     let pendingProducts = products.filter((p) => p.approved === false);
@@ -171,7 +170,6 @@ export function initOverview() {
     deleteModal.show();
   });
 
-  // Confirm delete button click
   $(document).on("click", "#confirmDeleteBtn", function () {
     if (productToDelete) {
       productService.remove(productToDelete);
