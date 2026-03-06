@@ -140,13 +140,13 @@ $(function () {
   $("#plus").click(() => {
     qty++;
     $("#qty").val(qty);
-    $("#totalPrice").text((qty * product.price).toFixed(2));
+    $("#totalPrice").text((qty * product.finalPrice).toFixed(2));
   });
 
   $("#minus").click(() => {
     if (qty > 1) qty--;
     $("#qty").val(qty);
-    $("#totalPrice").text((qty * product.price).toFixed(2));
+    $("#totalPrice").text((qty * product.finalPrice).toFixed(2));
   });
 
   initCard();
