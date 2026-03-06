@@ -131,7 +131,7 @@ function applyFilters() {
     return catOK && priceOK && searchOK;
   });
 
-  currentPage = 1;
+  
 }
 
 //  VIEW LOGIC
