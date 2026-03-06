@@ -64,18 +64,24 @@ export function initOverview() {
                     <td>${element.price} $</td>
                     <td>${new Date(element.createdAt).toISOString().split("T")[0]}</td>
                     <td class="text-center">
-                        <button data-id=${element.id}  class="approve-btn btn btn-action border-success bg-body text-success"><i class="fas fa-check"></i></button>
-                        <button class="btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
+                        <button data-id=${element.id} class="approve-btn btn btn-action border-success bg-body text-success"><i class="fas fa-check"></i></button>
+                        <button data-id=${element.id} class="delete-btn btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
                     </td>
                 </tr>                `,
       );
     });
   }
   approveProducts();
+  
   $(document).on("click", ".approve-btn", function () {
     const productId = $(this).data("id");
-
     productService.approve(productId);
+    approveProducts();
+  });
+
+  $(document).on("click", ".delete-btn", function () {
+    const productId = $(this).data("id");
+    productService.remove(productId);
     approveProducts();
   });
 }
