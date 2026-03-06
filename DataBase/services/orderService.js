@@ -45,14 +45,21 @@ export const orderService = {
 
   updateStock(order) {
     const products = order.items;
-    products.forEach((element) => {
-      let product = productService.getById(element.productId);
+
+    const hasInsufficientStock = products.some((element) => {
+      const product = productService.getById(element.productId);
       const newStock = product.stock - element.quantity;
-      if (newStock < 0) return false;
-      else {
-        productService.updateProductStock(element.productId, newStock);
-        return true;
-      }
+      return newStock < 0;
     });
+
+    if (hasInsufficientStock) return false;
+
+    products.forEach((element) => {
+      const product = productService.getById(element.productId);
+      const newStock = product.stock - element.quantity;
+      productService.updateProductStock(element.productId, newStock);
+    });
+
+    return true;
   },
 };

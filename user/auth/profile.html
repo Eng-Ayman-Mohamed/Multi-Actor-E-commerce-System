@@ -54,7 +54,10 @@
             <div class="card-header fw-bold">Account Information</div>
             <div class="card-body">
               <p><span class="info-label">Phone:</span> <span id="profilePhone"></span></p>
-              <p><span class="info-label">Address:</span> <span id="profileAddress"></span></p>
+              <p>
+                <span class="info-label">Location:</span>
+                <span id="profileLocation"></span>
+              </p>
               <p><span class="info-label">Joined:</span> <span id="profileJoinDate"></span></p>
             </div>
           </div>
@@ -73,7 +76,7 @@
 
                 <div class="col-md-6">
                   <div class="stat-box">
-                    <h4 id="cart_Count">0</h4>
+                    <h4 id="cartCount">0</h4>
                     <small class="text-muted">Cart Items</small>
                   </div>
                 </div>
@@ -123,7 +126,22 @@
 
               <div class="mb-3">
                 <label class="form-label">Address</label>
-                <input type="text" name="address" class="form-control">
+                <input type="text" name="address" placeholder="Enter your address" class="form-control">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">City</label>
+                <input type="text" name="city" placeholder="Enter your city" class="form-control">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">State</label>
+                <input type="text" name="state" placeholder="Enter you state" class="form-control">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Zip Code</label>
+                <input type="text" name="zipcode" placeholder="Enter you zipcode" class="form-control">
               </div>
 
               <div class="mb-3">
