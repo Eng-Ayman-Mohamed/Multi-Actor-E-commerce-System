@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let userOrders = orderService.getByUser(currentUser.id) || [];
     const userCartCount = cartService.getCartCount(currentUser.id) || 0;
 
-    document.getElementById("cart_Count").textContent = userCartCount;
+    document.getElementById("cartCount").textContent = userCartCount;
 
     // ===== RENDER ORDERS LIST =====
     const ordersList = document.getElementById("ordersList");
@@ -149,13 +149,18 @@ document.addEventListener("DOMContentLoaded", function() {
     renderOrders();
 
     // ===== PREFILL EDIT PROFILE FORM =====
-    profileForm.name.value = currentUser.name;
-    profileForm.email.value = currentUser.email;
+    profileForm.name.value = currentUser.name || "";
+    profileForm.email.value = currentUser.email || "";
     profileForm.phone.value = currentUser.phone || "";
     profileForm.address.value = currentUser.address || "";
     profileForm.city.value = currentUser.city || "";
     profileForm.state.value = currentUser.state || "";
     profileForm.zipcode.value = currentUser.zipcode || "";
+
+    if (currentUser.image) {
+        imagePreview.src = currentUser.image;
+        imagePreview.style.display = "block";
+    }
 
     const imageInput = profileForm.image;
     const imagePreview = document.getElementById("imagePreview");
@@ -189,7 +194,8 @@ document.addEventListener("DOMContentLoaded", function() {
         function saveProfile() {
             userService.update(currentUser.id, updatedData);
             currentUser = userService.getById(currentUser.id);
-            userService.setCurrentUser(currentUser, true);
+            const isRemembered = localStorage.getItem("currentUser") !== null;
+            userService.setCurrentUser(currentUser, isRemembered);
 
             renderProfile(currentUser);
 
