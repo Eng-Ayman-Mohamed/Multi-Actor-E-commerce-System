@@ -24,15 +24,22 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderProfile(user) {
         document.getElementById("profileName").textContent = user.name;
         document.getElementById("profileEmail").textContent = user.email;
-        document.getElementById("profilePhone").textContent = user.phone || "Not Provided";
-        document.getElementById("profileAddress").textContent = user.address || "Not Provided";
+        document.getElementById("profilePhone").textContent = user.phone || "No phone";
+
+        const locationParts = [
+            user.address,
+            user.city,
+            user.state,
+            user.zipcode
+        ].filter(Boolean);
+
+        document.getElementById("profileLocation").textContent = locationParts.length ? locationParts.join(", ") : "No location set";
+
         document.getElementById("profileJoinDate").textContent = user.createdAt
             ? new Date(user.createdAt).toLocaleDateString()
             : "N/A";
 
-        if (user.image) {
-            document.getElementById("profileAvatar").src = user.image;
-        }
+        document.getElementById("profileAvatar").src = user.image || "../../assets/images/no_image.png";
     }
 
     renderProfile(currentUser);
@@ -41,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let userOrders = orderService.getByUser(currentUser.id) || [];
     const userCartCount = cartService.getCartCount(currentUser.id) || 0;
 
-    document.getElementById("cart_Count").textContent = userCartCount;
+    document.getElementById("cartCount").textContent = userCartCount;
 
     // ===== RENDER ORDERS LIST =====
     const ordersList = document.getElementById("ordersList");
@@ -144,13 +151,22 @@ document.addEventListener("DOMContentLoaded", function() {
     renderOrders();
 
     // ===== PREFILL EDIT PROFILE FORM =====
-    profileForm.name.value = currentUser.name;
-    profileForm.email.value = currentUser.email;
+    profileForm.name.value = currentUser.name || "";
+    profileForm.email.value = currentUser.email || "";
     profileForm.phone.value = currentUser.phone || "";
     profileForm.address.value = currentUser.address || "";
+    profileForm.city.value = currentUser.city || "";
+    profileForm.state.value = currentUser.state || "";
+    profileForm.zipcode.value = currentUser.zipcode || "";
 
     const imageInput = profileForm.image;
     const imagePreview = document.getElementById("imagePreview");
+
+    if (currentUser.image) {
+        imagePreview.src = currentUser.image;
+        imagePreview.style.display = "block";
+    }
+
 
     imageInput.addEventListener("change", function() {
         const file = imageInput.files[0];
@@ -173,12 +189,16 @@ document.addEventListener("DOMContentLoaded", function() {
             email: profileForm.email.value.trim(),
             phone: profileForm.phone.value.trim(),
             address: profileForm.address.value.trim(),
+            city: profileForm.city.value.trim(),
+            state: profileForm.state.value.trim(),
+            zipcode: profileForm.zipcode.value.trim(),
         };
 
         function saveProfile() {
             userService.update(currentUser.id, updatedData);
             currentUser = userService.getById(currentUser.id);
-            userService.setCurrentUser(currentUser, true);
+            const isRemembered = localStorage.getItem("currentUser") !== null;
+            userService.setCurrentUser(currentUser, isRemembered);
 
             renderProfile(currentUser);
 
