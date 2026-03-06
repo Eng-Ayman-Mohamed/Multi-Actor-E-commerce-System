@@ -42,6 +42,34 @@ export function overview() {
 
   return `
     <div id="overview-page" class="page-section active-section">
+      <!-- Delete Confirmation Modal -->
+      <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="deleteConfirmModalLabel">
+                <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+              <i class="fas fa-trash-alt fa-3x text-danger mb-3"></i>
+              <h5>Are you sure you want to delete this product?</h5>
+              <p class="text-muted mb-0">Product: <strong id="delete-product-name"></strong></p>
+              <small class="text-danger">This action cannot be undone!</small>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-1"></i>Cancel
+              </button>
+              <button type="button" id="confirmDeleteBtn" class="btn btn-danger">
+                <i class="fas fa-trash me-1"></i>Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row g-3 mb-4">
         ${stats.map(stat => `
           <div class="col-md-4">
@@ -99,12 +127,8 @@ export function overview() {
   `;
 }
 
-
-
-
-
-
 export function initOverview() {
+  let productToDelete = null;
   function approveProducts() {
     let products = productService.getAll();
     let pendingProducts = products.filter((p) => p.approved === false);
@@ -113,19 +137,21 @@ export function initOverview() {
     pendingProducts.forEach((element) => {
       $("#pending-products-list").append(
         `
-                <tr>
-                    <td>${element.title}</td>
-                    <td>${element.category}</td>
-                    <td>${element.price} $</td>
-                    <td>${new Date(element.createdAt).toISOString().split("T")[0]}</td>
-                    <td class="text-center">
-                        <button data-id=${element.id} class="approve-btn btn btn-action border-success bg-body text-success"><i class="fas fa-check"></i></button>
-                        <button data-id=${element.id} class="delete-btn btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
-                    </td>
-                </tr>                `,
+          <tr>
+            <td>${element.title}</td>
+            <td>${element.category}</td>
+            <td>${element.price} $</td>
+            <td>${new Date(element.createdAt).toISOString().split("T")[0]}</td>
+            <td class="text-center">
+              <button data-id="${element.id}" data-name="${element.title}" class="approve-btn btn btn-action border-success bg-body text-success"><i class="fas fa-check"></i></button>
+              <button data-id="${element.id}" data-name="${element.title}" class="delete-btn btn-action btn bg-body border-danger text-danger"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+        `,
       );
     });
   }
+  
   approveProducts();
   
   $(document).on("click", ".approve-btn", function () {
@@ -135,8 +161,23 @@ export function initOverview() {
   });
 
   $(document).on("click", ".delete-btn", function () {
-    const productId = $(this).data("id");
-    productService.remove(productId);
-    approveProducts();
+    productToDelete = $(this).data("id");
+    const productName = $(this).data("name");
+    
+    $("#delete-product-name").text(productName);
+    
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    deleteModal.show();
+  });
+
+  $(document).on("click", "#confirmDeleteBtn", function () {
+    if (productToDelete) {
+      productService.remove(productToDelete);
+      productToDelete = null;
+      
+      const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+      deleteModal.hide();
+      approveProducts();
+    }
   });
 }
