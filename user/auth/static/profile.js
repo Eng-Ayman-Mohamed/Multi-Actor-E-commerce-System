@@ -25,19 +25,21 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("profileName").textContent = user.name;
         document.getElementById("profileEmail").textContent = user.email;
         document.getElementById("profilePhone").textContent = user.phone || "No phone";
-        document.getElementById("profileAddress").textContent = user.address || "No address";
 
-        document.getElementById("profileCity").textContent = user.city || "No city";
-        document.getElementById("profileState").textContent = user.state || "No state";
-        document.getElementById("profileZipcode").textContent = user.zipcode || "No zipcode";
+        const locationParts = [
+            user.address,
+            user.city,
+            user.state,
+            user.zipcode
+        ].filter(Boolean);
+
+        document.getElementById("profileLocation").textContent = locationParts.length ? locationParts.join(", ") : "No location set";
 
         document.getElementById("profileJoinDate").textContent = user.createdAt
             ? new Date(user.createdAt).toLocaleDateString()
             : "N/A";
 
-        if (user.image) {
-            document.getElementById("profileAvatar").src = user.image;
-        }
+        document.getElementById("profileAvatar").src = user.image || "../../assets/images/no_image.png";
     }
 
     renderProfile(currentUser);
@@ -157,13 +159,14 @@ document.addEventListener("DOMContentLoaded", function() {
     profileForm.state.value = currentUser.state || "";
     profileForm.zipcode.value = currentUser.zipcode || "";
 
+    const imageInput = profileForm.image;
+    const imagePreview = document.getElementById("imagePreview");
+
     if (currentUser.image) {
         imagePreview.src = currentUser.image;
         imagePreview.style.display = "block";
     }
 
-    const imageInput = profileForm.image;
-    const imagePreview = document.getElementById("imagePreview");
 
     imageInput.addEventListener("change", function() {
         const file = imageInput.files[0];
