@@ -18,7 +18,7 @@ export function promotionCard(
   return `
     <div class="cardContainer col-12 col-lg-6 col-xl-3 my-3">
         <div class="card  modern-card h-100 border-0 shadow-sm overflow-hidden">
-            <div class="card-badges">
+            <div class="card-badges z-1">
                 <span class="promo-badge badge-discount">-${discount}%</span>
             </div>
 
