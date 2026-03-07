@@ -22,7 +22,7 @@ $(function () {
     <div class="row g-4">
      <div class="col-lg-2">
     <!-- 🔙 Back to Products -->
-    <a href="${getBasePath}/index.html" class="text-decoration-none fw-bold">
+    <a href="../products/index.html" class="text-decoration-none fw-bold">
       ← Back to Products
     </a>
   </div>
@@ -36,7 +36,7 @@ $(function () {
         <div class="card border-0 shadow p-3 ">
         ${
           product.featured
-            ? `  <div class="featured-badge">
+            ? `  <div class="featured-badge z-1">
                     <i class="fa-solid fa-star me-1"></i>
                     <span>FEATURED</span>
                  </div>`
@@ -140,13 +140,13 @@ $(function () {
   $("#plus").click(() => {
     qty++;
     $("#qty").val(qty);
-    $("#totalPrice").text((qty * product.price).toFixed(2));
+    $("#totalPrice").text((qty * product.finalPrice).toFixed(2));
   });
 
   $("#minus").click(() => {
     if (qty > 1) qty--;
     $("#qty").val(qty);
-    $("#totalPrice").text((qty * product.price).toFixed(2));
+    $("#totalPrice").text((qty * product.finalPrice).toFixed(2));
   });
 
   initCard();
