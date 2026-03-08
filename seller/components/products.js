@@ -3,8 +3,6 @@ import { userService } from "../../DataBase/services/userService.js";
 import Product from "../../DataBase/models/Product.js";
 import { initToast } from "../../utils/toast.js";
 
- 
-
 export function productsPage() {
   let vendorId = userService.getCurrentUser().id;
   let editingProductId = null;
@@ -47,7 +45,6 @@ initToast("Product updated successfully.", "success");
       vendorId,
       images: image ? [image] : [],
     };
-
     productService.updateProduct(editingProductId, editProduct);
 
     bootstrap.Modal.getInstance(
@@ -89,11 +86,11 @@ initToast("Product updated successfully.", "success");
   }
 
   $(document).on("click", "#saveProduct", function () {
-if (!$("#productForm")[0].checkValidity()) {
-  initToast("Please fill all required fields correctly.", "danger");
+    if (!$("#productForm")[0].checkValidity()) {
+      initToast("Please fill all required fields correctly.", "danger");
       $("#productForm")[0].reportValidity();
       return;
-    } 
+    }
 
     let title = $("#title").val();
     let desc = $("#desc").val();

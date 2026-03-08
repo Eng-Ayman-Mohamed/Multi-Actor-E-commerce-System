@@ -19,7 +19,7 @@ export function productCard(
                         ${
                           featured
                             ? `
-                                <div class="featured-badge">
+                                <div class="featured-badge z-1">
                                     <i class="fa-solid fa-star me-1"></i>
                                     <span>FEATURED</span>
                                 </div>
