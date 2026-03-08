@@ -36,7 +36,7 @@ export function productsPage() {
       initToast("Please fill all required fields correctly.", "danger");
       return;
     }
-
+initToast("Product updated successfully.", "success");
     let formData = new FormData(form);
     let updatedProduct = Object.fromEntries(formData.entries());
     const { image, ...rest } = updatedProduct;
@@ -103,7 +103,7 @@ if (!$("#productForm")[0].checkValidity()) {
     let stock = $("#stock").val();
     let weight = $("#weight").val();
     let image = $("#image").val();
-
+    initToast("Product added successfully.", "success");
     const product = new Product({
       vendorId: vendorId,
       title: title,

@@ -151,7 +151,7 @@ function loadAnalyticsCharts() {
       labels: ["Delivered", "shipped", "Pending", "Cancelled"],
       datasets: [
         {
-          data: [65, 25, 10],
+          data: [65, 25, 10,60],
           borderWidth: 1,
         },
       ],
