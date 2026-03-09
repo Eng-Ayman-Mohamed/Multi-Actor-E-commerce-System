@@ -329,22 +329,10 @@ async function initSeed() {
         { productId: allProducts[25].id, quantity: 1 },
         { productId: allProducts[30].id, quantity: 1 },
       ],
-      "shipped",
+      "Shipped",
       5,
     );
     storage.add("orders", order2);
-
-    // Order 3 - Processing (2 days ago) - Home products
-    const order3 = createOrder(
-      customer1.id,
-      [
-        { productId: allProducts[70].id, quantity: 3 },
-        { productId: allProducts[75].id, quantity: 1 },
-      ],
-      "processing",
-      2,
-    );
-    storage.add("orders", order3);
   }
 
   // Orders for Customer 2
@@ -402,7 +390,7 @@ async function initSeed() {
     const order8 = createOrder(
       customer3.id,
       [{ productId: allProducts[15].id, quantity: 1 }],
-      "shipped",
+      "Shipped",
       3,
     );
     storage.add("orders", order8);
