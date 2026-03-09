@@ -43,14 +43,14 @@ export function overview() {
   return `
     <div id="overview-page" class="page-section active-section">
       <!-- Delete Confirmation Modal -->
-      <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+      <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header bg-danger text-white">
               <h5 class="modal-title" id="deleteConfirmModalLabel">
                 <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
               </h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" ></button>
             </div>
             <div class="modal-body text-center py-4">
               <i class="fas fa-trash-alt fa-3x text-danger mb-3"></i>
