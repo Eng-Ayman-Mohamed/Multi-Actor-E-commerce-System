@@ -244,6 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   confirmDeleteBtn.addEventListener("click", function () {
     userService.delete(currentUser.id);
-    window.location.href = getBasePath() + "login.html";
+    window.location.href = "./login.html";
   });
 });

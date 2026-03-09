@@ -1,5 +1,5 @@
 import { userService } from "../../DataBase/services/userService.js";
-
+import { validatePassword } from "../../user/auth/static/validation.js";
 export function initUsersBoard() {
   displayUsers();
   function displayUsers() {
@@ -89,17 +89,33 @@ export function initUsersBoard() {
         <h5 class="modal-title">Change User Role</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
+        
         <div class="modal-body">
-        <select class="form-select" id="selectedRole">
-            <option value="admin">Admin</option>
-            <option value="vendor">Vendor</option>
-            <option value="customer">Customer</option>
-        </select>
+            <div class="mb-3">
+                <label for="selectedRole" class="form-label">User Role</label>
+                <select class="form-select" id="selectedRole">
+                    <option value="admin">Admin</option>
+                    <option value="vendor">Vendor</option>
+                    <option value="customer">Customer</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="userPassword" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="userPassword" placeholder="Enter new password">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                       <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div id="passwordError" class="invalid-feedback  "></div>
+                <small class="text-muted">Leave blank to keep current password</small>
+            </div>
         </div>
 
         <div class="modal-footer">
         <button type="button" id="confirmChangeRole" class="btn btn-primary">
-        Change role
+        Save Changes
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancel
@@ -110,18 +126,59 @@ export function initUsersBoard() {
     </div>
     `;
 
-    const modal = new bootstrap.Modal(modalEl);
+    // Add password toggle functionality
+    setTimeout(() => {
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("userPassword");
 
+      if (togglePassword && passwordInput) {
+        togglePassword.addEventListener("click", function () {
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordInput.setAttribute("type", type);
+          this.innerHTML =
+            type === "password"
+              ? ' <i class="fa-solid fa-eye"></i>'
+              : '<i class="fa-solid fa-eye-slash"></i>';
+        });
+      }
+    }, 100);
+
+    const modal = new bootstrap.Modal(modalEl);
     modal.show();
   });
 
   $(document).on("click", "#confirmChangeRole", function () {
     if (!userId) return;
+
+    let userPassword = $("#userPassword").val();
+    const errorDiv = document.getElementById("passwordError");
+    const passwordInput = document.getElementById("userPassword");
+
+    // Validate password if not empty
+    if (userPassword !== "") {
+      if (!validatePassword(userPassword)) {
+        // Show error message
+        errorDiv.classList.add("d-inline-block");
+        errorDiv.textContent =
+          "Password must be at least 8 characters and contain both letters and numbers";
+        passwordInput.classList.add("is-invalid");
+        return; // Stop if password validation fails
+      }
+    }
+
+    // Clear any previous error states
+    errorDiv.classList.add("d-none");
+    passwordInput.classList.remove("is-invalid");
+
     let targetUser = userService.getById(userId);
     let newRole = $("#selectedRole").val();
-    if (targetUser.role === newRole) return;
-    targetUser.role = newRole;
-    //  userService.delete(userId);
+
+    if (!(targetUser.role === newRole)) targetUser.role = newRole;
+    if (!(userPassword == "")) targetUser.password = btoa(userPassword);
+
     userService.update(userId, targetUser);
     const modalEl = document.getElementById("confirmModal");
     const modalInstance = bootstrap.Modal.getInstance(modalEl);

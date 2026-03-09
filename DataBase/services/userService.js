@@ -68,17 +68,16 @@ export const userService = {
   },
 
   delete(id) {
-    const currentUser = this.getCurrentUser();
+    let userProducts = productService.getByVendor(id);
+    userProducts.forEach((element) => {
+      productService.remove(element.id);
+    });
+    cartService.clearCart(id);
 
+    // Only clear session if user deleting self
+    const currentUser = this.getCurrentUser();
     if (currentUser && currentUser.id === id) {
       this.deleteCurrentUser();
-      // delete all users products
-      let userProducts = productService.getByVendor(id);
-      userProducts.forEach((element) => {
-        productService.remove(element.id);
-      });
-      //delete user cart
-      cartService.clearCart(id);
     }
 
     return storage.delete("users", id);

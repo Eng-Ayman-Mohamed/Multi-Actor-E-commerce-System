@@ -30,6 +30,6 @@ $(document).ready(function () {
   //logout
   $(document).on("click", "#logOut", function () {
     userService.deleteCurrentUser();
-    window.location.href = "../../index.html";
+    window.location.href = "../index.html";
   });
 });
