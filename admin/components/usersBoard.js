@@ -1,5 +1,5 @@
 import { userService } from "../../DataBase/services/userService.js";
-
+import { validatePassword } from "../../user/auth/static/validation.js";
 export function initUsersBoard() {
   displayUsers();
   function displayUsers() {
@@ -108,6 +108,7 @@ export function initUsersBoard() {
                        <i class="fa-solid fa-eye"></i>
                     </button>
                 </div>
+                <div id="passwordError" class="invalid-feedback  "></div>
                 <small class="text-muted">Leave blank to keep current password</small>
             </div>
         </div>
@@ -151,11 +152,33 @@ export function initUsersBoard() {
 
   $(document).on("click", "#confirmChangeRole", function () {
     if (!userId) return;
+
+    let userPassword = $("#userPassword").val();
+    const errorDiv = document.getElementById("passwordError");
+    const passwordInput = document.getElementById("userPassword");
+
+    // Validate password if not empty
+    if (userPassword !== "") {
+      if (!validatePassword(userPassword)) {
+        // Show error message
+        errorDiv.classList.add("d-inline-block");
+        errorDiv.textContent =
+          "Password must be at least 8 characters and contain both letters and numbers";
+        passwordInput.classList.add("is-invalid");
+        return; // Stop if password validation fails
+      }
+    }
+
+    // Clear any previous error states
+    errorDiv.classList.add("d-none");
+    passwordInput.classList.remove("is-invalid");
+
     let targetUser = userService.getById(userId);
     let newRole = $("#selectedRole").val();
-    let userPassword = $("#userPassword").val();
+
     if (!(targetUser.role === newRole)) targetUser.role = newRole;
     if (!(userPassword == "")) targetUser.password = btoa(userPassword);
+
     userService.update(userId, targetUser);
     const modalEl = document.getElementById("confirmModal");
     const modalInstance = bootstrap.Modal.getInstance(modalEl);
